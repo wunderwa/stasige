@@ -7,6 +7,6 @@ const core = await Core({
 })
 
 core.cleanDist()
-// core.renderStyle()
+core.renderStyle()
 await core.renderScript()
-// await core.renderHtml()
+await core.renderHtml()

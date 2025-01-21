@@ -1,4 +1,5 @@
-export const tsConfig = (outDir: string) => ({
+export const tsConfig = (outDir: string, srcDir: string) => ({
+  tsconfig: './tsconfig.browser.json',
   compilerOptions: {
     target: "ESNext",
     useDefineForClassFields: true,
@@ -9,15 +10,14 @@ export const tsConfig = (outDir: string) => ({
     allowSyntheticDefaultImports: true,
     strict: true,
     forceConsistentCasingInFileNames: true,
-    // module: "CommonJS",
-    // moduleResolution: "bundler",
     "module": "ESNext",
     "moduleResolution": "Node",
     resolveJsonModule: true,
     isolatedModules: true,
     noEmit: true,
     jsx: "react-jsx",
-    // baseUrl: "./src",
+    // baseUrl: "./src" dirname,
+    baseUrl: srcDir,
     outDir,
   },
 })

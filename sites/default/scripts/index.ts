@@ -1,9 +1,9 @@
 import { Dropdown } from 'bootstrap'
-import { fr } from './n.ts'
+import { fr } from './utils.js'
 
 const  selectors = '.dropdown'
 
-function sor(s){
+function sor(s: string) {
   return 'dropdown' + s + fr()
 }
 

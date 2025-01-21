@@ -34,7 +34,7 @@ export const Core = async ({
     scriptPath,
     pagesPath,
     pathInPages,
-    distPath,
+    distDir,
     pathInDist,
     pathInView,
     layoutByName,
@@ -46,7 +46,7 @@ export const Core = async ({
     const pages = (await readDir(pagesPath))
       .filter((page) => page.match(pageRe))
       .map((page) => {
-        const lang = page.match(pageRe)[1]
+        const lang = page.match(pageRe)?.[1]
         const isMainLang = lang === buildConfig.langs[0]
         const dirBase = path.dirname(`/${page}`)
         const dir = `${isMainLang ? '' : '/' + lang}${dirBase}`
@@ -61,17 +61,11 @@ export const Core = async ({
       })
 
     pages.forEach((page) => {
-      const compilContentFunc = pug.compileFile(
-        layoutByName(page.layout),
-        null,
-      )
+      const compilContentFunc = pug.compileFile(layoutByName(page.layout))
       const { body, ...pageConfig } = page
       const bodyContent = compilContentFunc({ content: body })
 
-      const compilePageFunc = pug.compileFile(
-        pathInView('index.pug'),
-        null,
-      )
+      const compilePageFunc = pug.compileFile(pathInView('index.pug'))
       const pageContent = compilePageFunc({
         timekey,
         lang: pageConfig.lang,
@@ -81,7 +75,7 @@ export const Core = async ({
         dir: pageConfig.dir,
         pageLangs: getPageLangs(
           buildConfig.langs,
-          pageConfig.lang,
+          pageConfig.lang ?? '',
           pageConfig.dirBase,
         ),
         langs: buildConfig.langs,
@@ -95,13 +89,13 @@ export const Core = async ({
   }
 
   return {
-    cleanDist: () => cleanDir(distPath),
+    cleanDist: () => cleanDir(distDir),
     renderHtml,
     renderStyle: () => {
-      taskStyle({ timekey, stylePath, distPath })
+      taskStyle({ timekey, stylePath, distDir })
     },
     renderScript: async () => {
-      await taskScript({ timekey, scriptPath, distPath })
+      await taskScript({ timekey, scriptPath, distDir })
     },
   }
 }

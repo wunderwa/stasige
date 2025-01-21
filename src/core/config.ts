@@ -23,7 +23,7 @@ type GetConfig = ({ root, siteName }: { root?: string; siteName: string }) => {
   stylePath: string
   scriptPath: string
   pagesPath: string
-  distPath: string
+  distDir: string
   pathInPages: (page?: string) => string
   pathInView: (page: string) => string
   layoutByName: (page: string) => string
@@ -34,16 +34,18 @@ export const getConfig: GetConfig = ({ root, siteName }) => {
   siteDir = siteName ?? defaults.siteName
   rootPath = root ?? defaults.rootPath
 
+  const siteRoot = currentSite()
+
   return {
     timekey: Date.now().toString(36),
-    buildConfigPath: `${currentSite()}/build.json`,
-    stylePath: `${currentSite()}/styles/index.scss`,
-    scriptPath: `${currentSite()}/scripts/index.ts`,
-    pagesPath: `${currentSite()}/pages`,
-    distPath: pathInDist(),
-    pathInPages: (page = '') => `${currentSite()}/pages/${page}`,
-    pathInView: (page) => `${currentSite()}/views/${page}`,
-    layoutByName: (name) => `${currentSite()}/views/layouts/${name}.${PUG}`,
+    buildConfigPath: `${siteRoot}/build.json`,
+    stylePath: `${siteRoot}/styles/index.scss`,
+    scriptPath: `${siteRoot}/scripts/index.ts`,
+    pagesPath: `${siteRoot}/pages`,
+    distDir: pathInDist(),
+    pathInPages: (page = '') => `${siteRoot}/pages/${page}`,
+    pathInView: (page) => `${siteRoot}/views/${page}`,
+    layoutByName: (name) => `${siteRoot}/views/layouts/${name}.${PUG}`,
     pathInDist,
   }
 }

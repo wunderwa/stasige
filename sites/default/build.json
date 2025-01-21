@@ -1,4 +1,7 @@
 {
+  "compile": {
+    "sourceMap": false
+  },
   "remote": {
     "ssh": "memd",
     "path": "/var/www/memd.space/dl/"

@@ -6,10 +6,10 @@ import rename from 'gulp-rename'
 type StylesProps = {
   timekey: string
   stylePath: string
-  distPath: string
+  distDir: string
 }
 
-export const taskStyle = ({ timekey, stylePath, distPath }: StylesProps) => {
+export const taskStyle = ({ timekey, stylePath, distDir }: StylesProps) => {
   gulp
     .src(stylePath)
     .pipe(
@@ -20,5 +20,5 @@ export const taskStyle = ({ timekey, stylePath, distPath }: StylesProps) => {
     )
     .pipe(autoprefixer())
     .pipe(rename(`index.${timekey}.css`))
-    .pipe(gulp.dest(distPath))
+    .pipe(gulp.dest(distDir))
 }
