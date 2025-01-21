@@ -1,0 +1,23 @@
+export const tsConfig = (outDir: string) => ({
+  compilerOptions: {
+    target: "ESNext",
+    useDefineForClassFields: true,
+    lib: ["DOM", "DOM.Iterable", "ESNext"],
+    allowJs: false,
+    skipLibCheck: true,
+    esModuleInterop: false,
+    allowSyntheticDefaultImports: true,
+    strict: true,
+    forceConsistentCasingInFileNames: true,
+    // module: "CommonJS",
+    // moduleResolution: "bundler",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    resolveJsonModule: true,
+    isolatedModules: true,
+    noEmit: true,
+    jsx: "react-jsx",
+    // baseUrl: "./src",
+    outDir,
+  },
+})

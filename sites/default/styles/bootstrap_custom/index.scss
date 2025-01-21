@@ -1,0 +1,25 @@
+// uncomment and look inside to add new modules
+@import "bootstrap/scss/bootstrap";
+
+// order: functions, bootstrap-overrides, variables-dark, variables, maps, mixins, utilities
+@import "bootstrap/scss/functions";
+@import "bootstrap-overrides";
+// @import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/variables";
+@import 'bootstrap/scss/maps';
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// 4. Include any optional Bootstrap components as you like
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/button-group";
+
+
+@import "bootstrap/scss/navbar";
+

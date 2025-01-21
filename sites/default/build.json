@@ -1,0 +1,29 @@
+{
+  "remote": {
+    "ssh": "memd",
+    "path": "/var/www/memd.space/dl/"
+  },
+  "langs": ["ru", "en"],
+  "meta" : {
+    "title": {
+      "ru": "Stamdic",
+      "en": "Stamdic"
+    },
+    "description": {
+      "ru": "Stamdic - Static site generator from markdown files by node js",
+      "en": "Stamdic - Генератор статического сайта из файлов markdown с помощью node js"
+    }
+  },
+  "links": {
+    "app": {
+      "url": "https://app.memd.space/",
+      "ru": "Web приложение",
+      "en": "Web app"
+    },
+    "download": {
+      "url": "https://dl.memd.space/",
+      "ru": "",
+      "en": ""
+    }
+  }
+}
