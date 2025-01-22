@@ -1,5 +1,5 @@
 layout: default
-menu: About
+menuName: About
 title: About Stamdic
 <!--config-->
 Stamdic - simple site generator MD -&gt; html

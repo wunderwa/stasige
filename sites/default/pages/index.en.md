@@ -1,8 +1,7 @@
 layout: default
-menu: Home
+menuName: Home
 title: Home page
 <!--config-->
-
 
 Content of home page
 - list element

@@ -1,5 +1,5 @@
 layout: default
-menu: О Stamdic
+menuName: О Stamdic
 title: О Stamdic
 <!--config-->
 Stamdic - простой генератор сайтов MD -&gt; html

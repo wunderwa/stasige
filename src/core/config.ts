@@ -1,3 +1,5 @@
+import { CoreConfig, PageLang } from './types.js'
+
 export const separator = '<!--config-->'
 
 export const defaults = {
@@ -17,20 +19,9 @@ const currentSite = (): string => `${rootPath}/sites/${siteDir}`
 const pathInDist = (path = '') =>
   `${rootPath}/${defaults.dist}/${siteDir}${path}`
 
-type GetConfig = ({ root, siteName }: { root?: string; siteName: string }) => {
-  timekey: string
-  buildConfigPath: string
-  stylePath: string
-  scriptPath: string
-  pagesPath: string
-  distDir: string
-  pathInPages: (page?: string) => string
-  pathInView: (page: string) => string
-  layoutByName: (page: string) => string
-  pathInDist: (page?: string) => string
-}
+type Params = { root?: string; siteName: string }
 
-export const getConfig: GetConfig = ({ root, siteName }) => {
+export const getConfig = ({ root, siteName }: Params): CoreConfig => {
   siteDir = siteName ?? defaults.siteName
   rootPath = root ?? defaults.rootPath
 
@@ -54,7 +45,7 @@ export const getPageLangs = (
   langs: string[],
   lang: string,
   dirBase: string,
-) => {
+): PageLang[] => {
   const mainLang = langs[0]
   return langs.map((lng) => ({
     url: `${mainLang === lng ? '' : '/' + lng}${dirBase}`,

@@ -1,4 +1,4 @@
-import {dirname} from 'node:path'
+import { dirname } from 'node:path'
 import { rollup, RollupBuild } from 'rollup'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
@@ -17,7 +17,6 @@ export const taskScript = async ({
   scriptPath,
   distDir,
 }: TaskScriptProps) => {
-
   const bundle: RollupBuild = await rollup({
     input: scriptPath,
     output: {
@@ -29,16 +28,16 @@ export const taskScript = async ({
       nodeResolve(),
       typescript(tsConfig(distDir, dirname(scriptPath))),
       commonjs({
-        include: ["node_modules/**"],
-        extensions: ['.js', '.ts']
-      }), // need or no?
+        include: ['node_modules/**'],
+        extensions: ['.js', '.ts'],
+      }),
       terser(),
     ],
   })
-  return bundle.write({
+  await bundle.write({
     file: `${distDir}/index.${timekey}.js/`,
     format: 'umd',
     name: 'library',
-    sourcemap: true,
+    sourcemap: false,
   })
 }

@@ -33,7 +33,7 @@ md file has yaml section in top with separator `<!--config-->`
 File.md format
 ```
 layout: default
-menu: Menu title
+menuName: Menu title
 title: Head title or its part
 <!--config-->
 Content of page as markdown
@@ -42,7 +42,7 @@ Content of page as markdown
 ### Config
 ```
 layout: see /templates/layout/*.pug
-menu: Menu title
+menuName: Menu title
 title: Head title or its part
 ```
 

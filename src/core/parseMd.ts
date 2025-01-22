@@ -12,11 +12,11 @@ const md = markdownit({
 type ParseMd = (path: string) => {
   title: string
   layout: string
-  menu: string
+  menuName: string
   body: string
 }
 
-const parseMd: ParseMd = (path: string) => {
+export const parseMd: ParseMd = (path: string) => {
   const content = readFile(path)
   const parts = content.split(separator)
   return {
@@ -24,5 +24,3 @@ const parseMd: ParseMd = (path: string) => {
     body: md.render(parts[1]),
   }
 }
-
-export { md, parseMd }
