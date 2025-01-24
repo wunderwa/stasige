@@ -29,7 +29,6 @@ type Links = {
 }
 
 export type BuildConfig = {
-  ssh: string
   langs: Langs[]
   meta: Meta
   links: Links
@@ -53,10 +52,44 @@ export type PageConfig = {
   dirBase: string
 }
 
+export type MenuItem = {
+  lang: string
+  dir: string
+  dirBase: string
+  menuName: string
+  title: string
+}
+
+export type MenuByLang = {
+  [lang: string]: {
+    [dirBase: string]: MenuItem
+  }
+}
+
+export type MenuByDir = {
+  [dirBase: string]: {
+    [lang: string]: MenuItem
+  }
+}
+
+export type MenuMainItem = MenuItem & {
+  children: MenuMainItem[]
+}
+export type MenuMain = {
+  [lang: string]: MenuMainItem[]
+}
+
+export type Menu = {
+  byLang: MenuByLang
+  byDir: MenuByDir
+  main?: MenuMain
+}
+
 export type PugLayoutLocals = PageConfig & {
   langs: string[]
   links: Links
   meta: Meta
+  menu: Menu
 }
 
 export type PugViewLocals = PugLayoutLocals & {

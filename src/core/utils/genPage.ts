@@ -2,23 +2,26 @@ import pug from 'pug'
 import {
   BuildConfig,
   CoreConfig,
+  Menu,
   PageConfig,
   PugLayoutLocals,
   PugViewLocals,
 } from './types.js'
-import { getPageLangs } from './config.js'
 import { joinPath, writeFile } from './filesys.js'
+import { getPageLangs } from './langs.js'
 
 type GenPage = {
   buildConfig: BuildConfig
   coreConfig: CoreConfig
   pageConfig: PageConfig
+  menu: Menu
 }
 
 export const genPage = async ({
   buildConfig,
   coreConfig,
   pageConfig,
+  menu,
 }: GenPage) => {
   const { timekey, layoutByName, pathInView, pathInDist } = coreConfig
   const compileLayoutFunc = pug.compileFile(layoutByName(pageConfig.layout))
@@ -30,13 +33,14 @@ export const genPage = async ({
     langs,
     meta,
     links,
+    menu,
   }
 
   const viewLocals: PugViewLocals = {
     ...layoutLocals,
     timekey,
     content: compileLayoutFunc(layoutLocals),
-    pageLangs: getPageLangs(langs, lang, dirBase),
+    pageLangs: getPageLangs(langs, lang, menu.byDir[dirBase]),
   }
 
   const compileViewFunc = pug.compileFile(pathInView('index.pug'))

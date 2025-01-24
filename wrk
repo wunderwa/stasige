@@ -1,0 +1,62 @@
+#!/bin/bash
+
+function usage() {
+  echo "usage: wrk.sh -bd <site>"
+  echo " -b - build site with ./sites/<site> template in ./www/<site>"
+  echo " -d - deploy site from ./www/<site>/*"
+  echo " -h - help description"
+  exit 1
+}
+
+COPTS=""
+
+while getopts "cbdhCSJH" flag; do
+  case "${flag}" in
+  c) COPY=1 ;;
+    b) BUILD=1 ;;
+    d) DEPLOY=1 ;;
+    h) HELP=1 ;;
+  C) COPTS="${COPTS}C" ;;
+    S) COPTS="${COPTS}S" ;;
+    J) COPTS="${COPTS}J" ;;
+    H) COPTS="${COPTS}H" ;;
+  esac
+done
+shift $((OPTIND - 1))
+TMP_NAME=$1 # template name
+TMP_DIR="sites/${TMP_NAME}"
+DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
+BUILD_DIR="www/$TMP_NAME"
+
+if [ "$HELP" = "1" ]; then
+    usage
+fi
+
+if [ "$COPY" = "1" ]; then
+  if [ -d "$TMP_DIR" ]; then
+    echo "Directory  '$TMP_NAME'   does exist."
+  else
+    cp -R sites/default $TMP_DIR
+  fi
+fi
+
+if [ -e $DEPLOY_CONFIG ]; then
+  SSH_SERVER=$(jq -r '.remote.ssh' $DEPLOY_CONFIG)
+  SSH_PATH=$(jq -r '.remote.path' $DEPLOY_CONFIG)
+else
+    echo "No template build config file"
+    exit 1
+fi
+
+echo "copy: $COPY  build: $BUILD  deploy: $DEPLOY"
+echo "ssh: $SSH_SERVER path: $SSH_PATH "
+
+if [ "$BUILD" = "1" ]; then
+  node --import=tsx ./src/build.ts $TMP_NAME $COPTS
+fi
+
+if [ "$DEPLOY" = "1" ]; then
+  echo "rm -r ${SSH_PATH}*"
+  ssh memd -t "rm -r ${SSH_PATH}*"
+  scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
+fi

@@ -1,12 +1,8 @@
 {
-  "remote": {
-    "ssh": "stamdic",
-    "path": "/var/www/memd.space/stamdic/"
-  },
   "langs": ["ru", "en"],
   "meta" : {
     "title": {
-      "ru": "Stamdic",
+      "ru": "Стамдик",
       "en": "Stamdic"
     },
     "description": {
@@ -15,15 +11,21 @@
     }
   },
   "links": {
-    "app": {
-      "url": "https://app.memd.space/",
-      "ru": "Web приложение Memd",
-      "en": "Web app Memd"
+    "git": {
+      "url": "git@github.com:wunderwa/stamdic.git",
+      "ru": "Репозиторий Stamdic",
+      "en": "Stamdic repo"
     },
-    "download": {
-      "url": "https://dl.memd.space/",
-      "ru": "Скачать Memd",
-      "en": "Download Memd"
+    "github": {
+      "url": "https://github.com/wunderwa/stamdic",
+      "ru": "Репозиторий проекта",
+      "en": "Project repository"
+    },
+    "issues": {
+      "url": "https://github.com/wunderwa/stamdic/issues",
+      "ru": "Проблемы проекта",
+      "en": "Project issues"
     }
+
   }
 }

@@ -5,6 +5,7 @@ Default lang set as first element of array in `build.json` in "langs" key
 sites:
   default: # default site 
     build.json: 'config file for building of site'
+    deploy.json: 'config file for building of site'
     pages: # site content directory; page structure of site  
       index.en.md: 'Root page content and page options in yaml on top of file'
       index.ru.md: 'Root page on other lang'
@@ -30,10 +31,10 @@ sites:
 ```
 
 Current site structure for site.com, default lang is 'en'
-- https://site.com/ 
-- https://site.com/ru/ 
+- https://site.com/
+- https://site.com/ru/
 - https://site.com/about
-- https://site.com/ru/about 
+- https://site.com/ru/about
 
 
 

@@ -1,0 +1,6 @@
+{
+  "remote" : {
+    "ssh": "stamdic",
+    "path": "/var/www/memd.space/stamdic/"
+  }
+}

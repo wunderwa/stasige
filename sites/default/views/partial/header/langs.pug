@@ -1,0 +1,6 @@
+.btn-group.d-flex
+  each pgu in pageLangs
+    if (pgu.disabled)
+      a.btn.btn-outline-info.btn-sm.disabled(href=`${pgu.url}`) #{pgu.title}
+    else
+      a.btn.btn-outline-info.btn-sm(href=`${pgu.url}`) #{pgu.title}

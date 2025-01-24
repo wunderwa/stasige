@@ -1,5 +1,6 @@
 ## stamdic
-### free names
+
+[stamdic.memd.space](https://stamdic.memd.space/)
 
 ### Install
 ```shell
@@ -57,21 +58,27 @@ brew install jq openssh
 
 ## Usage
 
+Copy default site template to new one
+```shell
+ ./wrk -c mysite
+```
+
 Build `default` site
 ```shell
- ./worker -b default
+ ./wrk -b default
 ```
 Deploy `default` site
 ```shell
- ./worker -b default
+ ./wrk -b default
 ```
 
 Build & deploy `default` site
 ```shell
- ./worker -bd default
+ ./wrk -bd default
 ```
 
 
+- [Structure](docs/STRUCTURE.md)
 
 ### Idea
 make deploy in node script 

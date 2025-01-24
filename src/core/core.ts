@@ -1,8 +1,7 @@
-import { getConfig } from './config.js'
-import { cleanDir, readConfig } from './filesys.js'
+import { getConfig, cleanDir, readConfig } from './utils/_.js'
+import { CoreConfig } from './utils/types.js'
 import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
-import { CoreConfig } from './types.js'
 import { taskHtml } from './task-html.js'
 
 type CoreProps = {

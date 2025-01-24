@@ -1,4 +1,4 @@
-import { CoreConfig, PageLang } from './types.js'
+import { CoreConfig } from './types.js'
 
 export const separator = '<!--config-->'
 
@@ -8,7 +8,7 @@ export const defaults = {
   rootPath: process.cwd(),
 }
 
-export const pageRe = /index\.([a-z]{2})\.md/
+export const pageRegExp = /index\.([a-z]{2})\.md/
 
 const PUG = 'pug'
 
@@ -39,18 +39,4 @@ export const getConfig = ({ root, siteName }: Params): CoreConfig => {
     layoutByName: (name) => `${siteRoot}/views/layouts/${name}.${PUG}`,
     pathInDist,
   }
-}
-
-export const getPageLangs = (
-  langs: string[],
-  lang: string,
-  dirBase: string,
-): PageLang[] => {
-  const mainLang = langs[0]
-  return langs.map((lng) => ({
-    url: `${mainLang === lng ? '' : '/' + lng}${dirBase}`,
-    title: lng,
-    lang: lng,
-    disabled: lng === lang,
-  }))
 }

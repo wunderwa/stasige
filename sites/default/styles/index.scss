@@ -1,1 +1,22 @@
 @import "bootstrap_custom";
+
+
+
+code {
+  border: $card-border-width solid $card-border-color;
+  background-clip: border-box;
+  @include border-radius(3px);
+  padding: 0 2px;
+}
+
+pre > code {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  @include border-radius($card-border-radius);
+  @include box-shadow($card-box-shadow);
+  padding: 10px;
+  font-weight: 600;
+}
