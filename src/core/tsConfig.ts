@@ -16,7 +16,6 @@ export const tsConfig = (outDir: string, srcDir: string) => ({
     isolatedModules: true,
     noEmit: true,
     jsx: 'react-jsx',
-    // baseUrl: "./src" dirname,
     baseUrl: srcDir,
     outDir,
   },

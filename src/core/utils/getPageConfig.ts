@@ -14,9 +14,9 @@ export const getPageConfig = ({
   src,
   mainLang,
 }: GetPageConfig): PageConfig => {
-  const lang = page.match(pageRegExp)?.[1]
+  const lang: string = page.match(pageRegExp)?.[1] as string
   const isMainLang = lang === mainLang
-  const dirBase = path.dirname(`/${page}`)
+  const dirBase: string = path.dirname(`/${page}`) as string
   const dir = `${isMainLang ? '' : '/' + lang}${dirBase}`
   return {
     lang,

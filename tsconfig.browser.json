@@ -15,10 +15,5 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    // "baseUrl": "./src",
-    // "types": ["vite/client","jest" ]
   },
-  // "exclude": ["**/tests/*.test.ts"],
-  // "include": ["src"],
-  // "references": [{ "path": "./tsconfig.node.json" }]
 }

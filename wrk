@@ -8,18 +8,20 @@ function usage() {
   exit 1
 }
 
-COPTS=""
+BUILD_OPTS=""
 
-while getopts "cbdhCSJH" flag; do
+while getopts "bcdhkCJHS" flag; do
   case "${flag}" in
-  c) COPY=1 ;;
+    c) COPY=1 ;;
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
     h) HELP=1 ;;
-  C) COPTS="${COPTS}C" ;;
-    S) COPTS="${COPTS}S" ;;
-    J) COPTS="${COPTS}J" ;;
-    H) COPTS="${COPTS}H" ;;
+    k) CLEAR_CONSOLE=1 ;;
+    # build helpers
+    C) BUILD_OPTS="${BUILD_OPTS}C" ;;
+    S) BUILD_OPTS="${BUILD_OPTS}S" ;;
+    J) BUILD_OPTS="${BUILD_OPTS}J" ;;
+    H) BUILD_OPTS="${BUILD_OPTS}H" ;;
   esac
 done
 shift $((OPTIND - 1))
@@ -28,10 +30,15 @@ TMP_DIR="sites/${TMP_NAME}"
 DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
 BUILD_DIR="www/$TMP_NAME"
 
+# -k ----
+if [ "$CLEAR_CONSOLE" = "1" ]; then
+    clear
+fi
+# -h ----
 if [ "$HELP" = "1" ]; then
     usage
 fi
-
+# -c ----
 if [ "$COPY" = "1" ]; then
   if [ -d "$TMP_DIR" ]; then
     echo "Directory  '$TMP_NAME'   does exist."
@@ -51,10 +58,12 @@ fi
 echo "copy: $COPY  build: $BUILD  deploy: $DEPLOY"
 echo "ssh: $SSH_SERVER path: $SSH_PATH "
 
+# -b ---- build
 if [ "$BUILD" = "1" ]; then
-  node --import=tsx ./src/build.ts $TMP_NAME $COPTS
+  node --import=tsx ./src/build.ts $TMP_NAME $BUILD_OPTS
 fi
 
+# -- deploy
 if [ "$DEPLOY" = "1" ]; then
   echo "rm -r ${SSH_PATH}*"
   ssh memd -t "rm -r ${SSH_PATH}*"

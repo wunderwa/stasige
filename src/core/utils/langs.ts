@@ -17,6 +17,7 @@ export const getPageLangs = (
   dirs: Dirs,
 ): PageLang[] =>
   langs.reduce(
-    (acc, _lang) => (dirs[_lang] ? [...acc, getItem(dirs[_lang], lang)] : acc),
+    (acc: PageLang[], _lang: string) =>
+      dirs[_lang] ? [...acc, getItem(dirs[_lang], lang)] : acc,
     [],
   )

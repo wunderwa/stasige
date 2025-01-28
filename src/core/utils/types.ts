@@ -82,7 +82,7 @@ export type MenuMain = {
 export type Menu = {
   byLang: MenuByLang
   byDir: MenuByDir
-  main?: MenuMain
+  main: MenuMain
 }
 
 export type PugLayoutLocals = PageConfig & {
