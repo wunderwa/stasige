@@ -30,6 +30,8 @@ export const taskHtml = async ({
 
   const menu = getMenu(pageConfigs, buildConfig.langs)
 
+  menu.main.ru[0].children
+
   pageConfigs.forEach((pageConfig) => {
     genPage({
       buildConfig,

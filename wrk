@@ -2,26 +2,43 @@
 
 function usage() {
   echo "usage: wrk.sh -bd <site>"
+  echo " -h - help description"
   echo " -b - build site with ./sites/<site> template in ./www/<site>"
   echo " -d - deploy site from ./www/<site>/*"
-  echo " -h - help description"
+  echo " -c - copy default site template in new location ./sites/default =>  ./sites/<site>"
+  echo " -k - clear console with 'clear'"
+  echo " -----------------"
+  echo " -D - dev mode"
+  echo " -C - clear build dir: dev ? 'rm -r dirPath/*'  : 'rm -r dirPath'"
+  echo " -S - build styles (SCSS files)"
+  echo " -J - build js (TS files)"
+  echo " -H - build html (PUG files)"
+  echo " -----------------"
+  echo "'./wrk -b <site>' === './wrk -bCSJH <site>'"
+  echo "'./wrk -bd <site>' === './wrk -bdCSJH <site>'"
+  echo "'./wrk -bD <site>' === './wrk -bDCSJH <site>'"
+  echo "'./wrk -bdD <site>' === './wrk -bdDCSJH <site>'"
+  echo "'./wrk -bDS <site>' rebuild styles only"
+  echo "'./wrk -bDH <site>' rebuild html only"
+  echo "'./wrk -bDJ <site>' rebuild js only"
   exit 1
 }
 
 BUILD_OPTS=""
 
-while getopts "bcdhkCJHS" flag; do
+while getopts "hbdcDCSJHk" flag; do
   case "${flag}" in
-    c) COPY=1 ;;
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
+    c) COPY=1 ;;
     h) HELP=1 ;;
-    k) CLEAR_CONSOLE=1 ;;
     # build helpers
-    C) BUILD_OPTS="${BUILD_OPTS}C" ;;
-    S) BUILD_OPTS="${BUILD_OPTS}S" ;;
-    J) BUILD_OPTS="${BUILD_OPTS}J" ;;
-    H) BUILD_OPTS="${BUILD_OPTS}H" ;;
+    D) BUILD_OPTS="${BUILD_OPTS}D" ;; # dev mode
+    C) BUILD_OPTS="${BUILD_OPTS}C" ;; # clear build dir: dev ? 'rm -r dirPath/*'  : 'rm -r dirPath'
+    S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS files)
+    J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS files)
+    H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG files)
+    k) CLEAR_CONSOLE=1 ;;
   esac
 done
 shift $((OPTIND - 1))

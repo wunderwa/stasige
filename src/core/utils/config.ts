@@ -19,16 +19,20 @@ const currentSite = (): string => `${rootPath}/sites/${siteDir}`
 const pathInDist = (path = '') =>
   `${rootPath}/${defaults.dist}/${siteDir}${path}`
 
-type Params = { root?: string; siteName: string }
+type Params = {
+  root?: string
+  siteName: string
+  devMode: boolean
+}
 
-export const getConfig = ({ root, siteName }: Params): CoreConfig => {
+export const getConfig = ({ root, siteName, devMode }: Params): CoreConfig => {
   siteDir = siteName ?? defaults.siteName
   rootPath = root ?? defaults.rootPath
 
   const siteRoot = currentSite()
 
   return {
-    timekey: Date.now().toString(36),
+    timekey: devMode ? 'dev' : Date.now().toString(36),
     buildConfigPath: `${siteRoot}/build.json`,
     stylePath: `${siteRoot}/styles/index.scss`,
     scriptPath: `${siteRoot}/scripts/index.ts`,

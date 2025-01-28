@@ -83,7 +83,7 @@ export const getMenu = (pages: PageConfig[], langs: string[]): Menu => {
   const byDir: MenuByDir = gropeByDir(pages, langs)
   const main = groupChildrenByLang(byLang)
 
-  // console.log(JSON.stringify(main, null, 2))
+  console.log(JSON.stringify(main, null, 2))
 
   return {
     byLang,

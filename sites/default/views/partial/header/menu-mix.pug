@@ -1,0 +1,20 @@
+- const getTitle = (item) => item.menuName ?? item.title
+- const getMenuName = (item) => item.title ?? item.menuName
+
+mixin nav-item(item, dir)
+  if (item.children.length)
+    li.nav-item.dropdown
+      a.nav-link.dropdown-toggle(href="#" role='button' data-bs-toggle='dropdown' aria-expanded='false')=getTitle(item)
+      ul.dropdown-menu
+        li
+          a.dropdown-item(href=item.dir class={disabled: item.dir === dir})=getMenuName(item)
+        each child in item.children
+          li
+            a.dropdown-item(href=child.dir class={disabled: child.dir === dir})=getMenuName(child)
+  else
+    li.nav-item
+      a.nav-link(href=item.dir class={disabled: item.dir === dir})=getTitle(item)
+
+
+
+

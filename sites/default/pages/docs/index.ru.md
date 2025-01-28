@@ -1,5 +1,5 @@
 layout: default
-menuName: Документация
+menuName: Доки
 title: Документация
 <!--config-->
 ## Пока нет русской версии

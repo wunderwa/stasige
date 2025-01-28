@@ -1,11 +1,31 @@
-import { existsSync, promises, readFileSync, rmSync } from 'node:fs'
+import {
+  existsSync,
+  lstatSync,
+  promises,
+  readFileSync,
+  rmSync,
+  unlinkSync,
+  readdirSync,
+} from 'node:fs'
 import { dirname, join } from 'node:path'
 
 import { BuildConfig } from './types.js'
 
-export const cleanDir = (path: string): void => {
+export const removeDir = (path: string): void => {
+  rmSync(path, { recursive: true })
+}
+
+export const cleanDir = async (path: string): Promise<void> => {
   if (existsSync(path)) {
-    rmSync(path, { recursive: true })
+    readdirSync(path).forEach((name) => {
+      const fPath = join(path, name)
+      const stat = lstatSync(fPath)
+      if (stat.isDirectory()) {
+        rmSync(fPath, { recursive: true })
+      } else {
+        unlinkSync(fPath)
+      }
+    })
   }
 }
 

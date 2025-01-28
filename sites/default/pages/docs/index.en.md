@@ -1,6 +1,6 @@
 layout: default
 menuName: Documentation
-title: Documentation
+title: Get started
 <!--config-->
 ## Start
 
