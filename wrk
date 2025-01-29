@@ -1,36 +1,19 @@
 #!/bin/bash
 
 function usage() {
-  echo "usage: wrk.sh -bd <site>"
-  echo " -h - help description"
-  echo " -b - build site with ./sites/<site> template in ./www/<site>"
-  echo " -d - deploy site from ./www/<site>/*"
-  echo " -c - copy default site template in new location ./sites/default =>  ./sites/<site>"
-  echo " -k - clear console with 'clear'"
-  echo " -----------------"
-  echo " -D - dev mode"
-  echo " -C - clear build dir: dev ? 'rm -r dirPath/*'  : 'rm -r dirPath'"
-  echo " -S - build styles (SCSS files)"
-  echo " -J - build js (TS files)"
-  echo " -H - build html (PUG files)"
-  echo " -----------------"
-  echo "'./wrk -b <site>' === './wrk -bCSJH <site>'"
-  echo "'./wrk -bd <site>' === './wrk -bdCSJH <site>'"
-  echo "'./wrk -bD <site>' === './wrk -bDCSJH <site>'"
-  echo "'./wrk -bdD <site>' === './wrk -bdDCSJH <site>'"
-  echo "'./wrk -bDS <site>' rebuild styles only"
-  echo "'./wrk -bDH <site>' rebuild html only"
-  echo "'./wrk -bDJ <site>' rebuild js only"
+  #https://habr.com/ru/articles/119436/
+  echo -e "$(<docs/console.txt)"
   exit 1
 }
 
 BUILD_OPTS=""
 
-while getopts "hbdcDCSJHk" flag; do
+while getopts "hbdcaDCSJHk" flag; do
   case "${flag}" in
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
     c) COPY=1 ;;
+    a) ADD=1 ;;
     h) HELP=1 ;;
     # build helpers
     D) BUILD_OPTS="${BUILD_OPTS}D" ;; # dev mode
@@ -54,7 +37,16 @@ fi
 # -h ----
 if [ "$HELP" = "1" ]; then
     usage
+    exit 1
 fi
+if [ "$TMP_NAME" = "" ]; then
+  echo -e "No <site> name. See usage \n"
+  usage
+  exit 1
+fi
+
+echo "copy: $COPY  add: $ADD  build: $BUILD  deploy: $DEPLOY site: $TMP_NAME"
+
 # -c ----
 if [ "$COPY" = "1" ]; then
   if [ -d "$TMP_DIR" ]; then
@@ -62,6 +54,11 @@ if [ "$COPY" = "1" ]; then
   else
     cp -R sites/default $TMP_DIR
   fi
+fi
+
+# -a ----
+if [ "$ADD" = "1" ]; then
+  node --import=tsx ./src/worker.ts $TMP_NAME $2 $3
 fi
 
 if [ -e $DEPLOY_CONFIG ]; then
@@ -72,16 +69,16 @@ else
     exit 1
 fi
 
-echo "copy: $COPY  build: $BUILD  deploy: $DEPLOY"
-echo "ssh: $SSH_SERVER path: $SSH_PATH "
-
 # -b ---- build
 if [ "$BUILD" = "1" ]; then
   node --import=tsx ./src/build.ts $TMP_NAME $BUILD_OPTS
 fi
 
+
 # -- deploy
 if [ "$DEPLOY" = "1" ]; then
+  echo "ssh: $SSH_SERVER path: $SSH_PATH "
+
   echo "rm -r ${SSH_PATH}*"
   ssh memd -t "rm -r ${SSH_PATH}*"
   scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH

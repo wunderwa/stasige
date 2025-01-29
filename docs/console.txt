@@ -1,0 +1,24 @@
+\033[7m # Markdown static site builder \033[0m
+
+usage: wrk.sh -bd <site>
+ -h  - help description
+ -b  - build site with ./sites/<site> template in ./www/<site>
+ -d  - deploy site from ./www/<site>/*
+ -c  - copy default site template in new location `./sites/default` =>  `./sites/<site>`
+ -a  - add md templates
+   `./wrk -a default about/me ru,en` - add `./sites/default/pages/about/me/index.en.md` and `./sites/default/pages/about/me/index.ru.md`
+ -k  - clear console with `clear`
+
+ -D  - dev mode
+ -C  - clear build dir: dev ? `rm -r dirPath/*`  : `rm -r dirPath`
+ -S  - build styles (SCSS files)
+ -J  - build js (TS files)
+ -H  - build html (PUG files)
+
+`./wrk -b <site>` === `./wrk -bCSJH <site>`
+`./wrk -bd <site>` === `./wrk -bdCSJH <site>`
+`./wrk -bD <site>` === `./wrk -bDCSJH <site>`
+`./wrk -bdD <site>` === `./wrk -bdDCSJH <site>`
+`./wrk -bDS <site>` rebuild styles only
+`./wrk -bDH <site>` rebuild html only
+`./wrk -bDJ <site>` rebuild js only

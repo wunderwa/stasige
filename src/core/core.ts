@@ -1,4 +1,4 @@
-import { getConfig, cleanDir, readConfig, removeDir } from './utils/_.js'
+import { getConfig, cleanDir, readConfig, removeDir } from './utils/index.js'
 import { CoreConfig } from './utils/types.js'
 import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'

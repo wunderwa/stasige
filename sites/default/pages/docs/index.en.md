@@ -17,6 +17,6 @@ Copy default site template and init git repo to save
 ```shell
 # cp -R ./sites/default ./sites/my-site
 ./wrk -c my-site
-git init 
+git init
 ```
 

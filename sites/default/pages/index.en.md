@@ -3,8 +3,5 @@ menuName: Home
 title: Home page
 <!--config-->
 
-Content of home page
-- list element
-- list element
-
-New paragraph [About](/en/about)
+## Stamdic Website Generator
+Generator of simple Sites on the basis of tree structure of markdown files

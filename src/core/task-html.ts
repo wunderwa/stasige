@@ -5,7 +5,7 @@ import {
   getPageConfig,
   genPage,
   getMenu,
-} from './utils/_.js'
+} from './utils/index.js'
 
 type TaskHtmlProps = {
   buildConfig: BuildConfig
