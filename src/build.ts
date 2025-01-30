@@ -1,30 +1,39 @@
+import minimist from "minimist"
 import { Core } from './core/core.js'
 
-const siteName = process.argv.slice(2)[0] ?? 'default'
-const props = process.argv.slice(2)[1] ?? 'CSJH'
-const fullDevBuild = props === 'D'
-
-const opt = {
-  dev: props.includes('D'),
-  clean: props.includes('C') || fullDevBuild,
-  style: props.includes('S') || fullDevBuild,
-  script: props.includes('J') || fullDevBuild,
-  html: props.includes('H') || fullDevBuild,
+type Argv ={
+  site: string
+  D: boolean
+  C: boolean
+  S: boolean
+  J: boolean
+  H: boolean
 }
+const argv: Argv = minimist<Argv>(process.argv.slice(2))
+const dev = argv.D
 
 const core = await Core({
-  siteName,
-  devMode: opt.dev,
+  siteName: argv.site,
+  devMode: dev,
 })
 
-if (opt.clean) {
-  if (opt.dev) {
-    core.cleanDist()
-  } else {
-    core.removeDist()
+if (dev) {
+  const fullDevBuild = !argv.C && !argv.S && !argv.J && !argv.H
+  const opt = {
+    clean: argv.C || fullDevBuild,
+    style: argv.S || fullDevBuild,
+    script: argv.J || fullDevBuild,
+    html: argv.H || fullDevBuild,
   }
-}
 
-if (opt.style) core.renderStyle()
-if (opt.script) await core.renderScript()
-if (opt.html) await core.renderHtml()
+  if (opt.clean) core.cleanDist()
+  if (opt.style) core.renderStyle()
+  if (opt.script) await core.renderScript()
+  if (opt.html) await core.renderHtml()
+} else {
+  // core.removeDist() // breaks server dir
+  core.cleanDist()
+  core.renderStyle()
+  await core.renderScript()
+  await core.renderHtml()
+}

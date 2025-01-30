@@ -83,5 +83,5 @@ Build & deploy `default` site
 ### Idea
 make deploy in node script 
 ```shell
-yarn add -D minimist @types/minimist node-ssh
+yarn add -D node-ssh
 ```

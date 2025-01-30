@@ -5,36 +5,45 @@ function usage() {
   exit 1
 }
 
-BUILD_OPTS=""
+BUILD_OPTS="-"
+ARGV="$@"
 
-while getopts "hbdcaDCSJHks" flag; do
+while getopts "hbdcaksDCSJH" flag; do
   case "${flag}" in
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
-    c) COPY=1 ;;
-    a) ADD=1 ;;
+    c) COPY_TMP=1 ;;
+    a) ADD_PAGE=1 ;;
     h) HELP=1 ;;
-    # build helpers
-    D) BUILD_OPTS="${BUILD_OPTS}D" ;; # dev mode
+    k) CLEAR_CONSOLE=1 ;;
+    s) SERVER=1 ;;
+    D) DEV=1 ;; # dev mode
+    # build  helpers for dev mode
     C) BUILD_OPTS="${BUILD_OPTS}C" ;; # clear build dir: dev ? 'rm -r dirPath/*'  : 'rm -r dirPath'
     S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS files)
     J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS files)
     H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG files)
-    k) CLEAR_CONSOLE=1 ;;
-    s) SERVER=1 ;;
   esac
 done
 shift $((OPTIND - 1))
 TMP_NAME=$1 # template name
+
+if [ "$DEV" = "1" ]; then
+  BUILD_OPTS="${BUILD_OPTS}D"
+  BUILD_DIR="http/$TMP_NAME"
+else
+  BUILD_OPTS=""
+  BUILD_DIR="dist/$TMP_NAME"
+fi
+
 TMP_DIR="sites/${TMP_NAME}"
 DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
-DIST_DIR="dist/$TMP_NAME"
-HTTP_DIR="http/$TMP_NAME"
-CERT_PATH="http/cert.pem"
 
 # -k ----
 if [ "$CLEAR_CONSOLE" = "1" ]; then
-    clear
+  clear
+  echo "./wrk $ARGV"
+  echo ""
 fi
 # -h ----
 if [ "$HELP" = "1" ]; then
@@ -47,10 +56,10 @@ if [ "$TMP_NAME" = "" ]; then
   exit 1
 fi
 
-echo "copy: $COPY  add: $ADD  build: $BUILD  deploy: $DEPLOY site: $TMP_NAME"
+echo "copy: $COPY_TMP  add: $ADD_PAGE  build: $BUILD  deploy: $DEPLOY site: $TMP_NAME"
 
 # -c ----
-if [ "$COPY" = "1" ]; then
+if [ "$COPY_TMP" = "1" ]; then
   if [ -d "$TMP_DIR" ]; then
     echo "Directory  '$TMP_NAME'   does exist."
   else
@@ -59,13 +68,13 @@ if [ "$COPY" = "1" ]; then
 fi
 
 # -a ----
-if [ "$ADD" = "1" ]; then
+if [ "$ADD_PAGE" = "1" ]; then
   node --import=tsx ./src/worker.ts $TMP_NAME $2 $3
 fi
 
 if [ -e $DEPLOY_CONFIG ]; then
-  SSH_SERVER=$(jq -r '.remote.ssh' $DEPLOY_CONFIG)
-  SSH_PATH=$(jq -r '.remote.path' $DEPLOY_CONFIG)
+  SSH_SERVER=$(jq -r '.prod.ssh' $DEPLOY_CONFIG)
+  SSH_PATH=$(jq -r '.prod.path' $DEPLOY_CONFIG)
 else
     echo "No template build config file"
     exit 1
@@ -73,22 +82,18 @@ fi
 
 # -b ---- build
 if [ "$BUILD" = "1" ]; then
-  node --import=tsx ./src/build.ts $TMP_NAME $BUILD_OPTS
+  node --import=tsx ./src/build.ts $BUILD_OPTS --site=$TMP_NAME
 fi
 
 # -- server
 if [ "$SERVER" = "1" ]; then
-  # openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out $CERT_PATH
-  # npx http-server -p 8000 -S -o / -C $CERT_PATH  $HTTP_DIR
-  npx http-server -p 8000 -o / $HTTP_DIR
+  npx http-server -p 8000 -o / $BUILD_DIR
 fi
 
 
 # -- deploy
 if [ "$DEPLOY" = "1" ]; then
   echo "ssh: $SSH_SERVER path: $SSH_PATH "
-
-  echo "rm -r ${SSH_PATH}*"
   ssh memd -t "rm -r ${SSH_PATH}*"
-  scp -rp $DIST_DIR/* $SSH_SERVER:$SSH_PATH
+  scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
 fi

@@ -1,5 +1,9 @@
 {
-  "remote" : {
+  "prod": {
+    "ssh": "stamdic",
+    "path": "/var/www/memd.space/stamdic/"
+  },
+  "dev": {
     "ssh": "stamdic",
     "path": "/var/www/memd.space/stamdic/"
   }

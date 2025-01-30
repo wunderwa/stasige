@@ -14,9 +14,10 @@ coverage
 sites/*
 !sites/default
 
-# compiled site files
-dist/* # for deploy
-http/*  # for local server
+# compiled site files: prod mode
+dist
+# compiled site files: dev mode (local server)
+http
 
 # VS Code
 .vscode
