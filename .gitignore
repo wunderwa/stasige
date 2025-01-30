@@ -13,9 +13,10 @@ coverage
 # source site files
 sites/*
 !sites/default
-# compiled site files
-www/*
 
+# compiled site files
+dist/* # for deploy
+http/*  # for local server
 
 # VS Code
 .vscode

@@ -23,7 +23,7 @@ export const genPage = async ({
   pageConfig,
   menu,
 }: GenPage) => {
-  const { timekey, layoutByName, pathInView, pathInDist } = coreConfig
+  const { timekey, layoutByName, pathInView, pathInBuild } = coreConfig
   const compileLayoutFunc = pug.compileFile(layoutByName(pageConfig.layout))
   const { lang, dir, dirBase } = pageConfig
   const { langs, meta, links } = buildConfig
@@ -46,6 +46,6 @@ export const genPage = async ({
   const compileViewFunc = pug.compileFile(pathInView('index.pug'))
   const pageContent = compileViewFunc(viewLocals)
 
-  const pagePath = pathInDist(joinPath([dir], 'index.html'))
+  const pagePath = pathInBuild(joinPath([dir], 'index.html'))
   await writeFile(pagePath, pageContent)
 }

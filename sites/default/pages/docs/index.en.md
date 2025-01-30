@@ -22,3 +22,10 @@ Copy default site template and init git repo to save
 git init
 ```
 
+Edit template and save changes
+
+```shell
+cd sites/my-site
+git init
+# add repository, add commit, push  
+```

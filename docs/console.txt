@@ -1,13 +1,15 @@
 \033[7m # Markdown static site builder \033[0m
 
-usage: wrk.sh -bd <site>
+Base usage: wrk.sh -bd <site>
  -h  - help description
- -b  - build site with ./sites/<site> template in ./www/<site>
- -d  - deploy site from ./www/<site>/*
+ -b  - build site with ./sites/<site> template in ./dist/<site>
+ -bD  - build site with ./sites/<site> template in ./http/<site>
+ -d  - deploy site from ./dist/<site>/*
  -c  - copy default site template in new location `./sites/default` =>  `./sites/<site>`
  -a  - add md templates
    `./wrk -a default about/me ru,en` - add `./sites/default/pages/about/me/index.en.md` and `./sites/default/pages/about/me/index.ru.md`
  -k  - clear console with `clear`
+ -s  - start server like
 
  -D  - dev mode
  -C  - clear build dir: dev ? `rm -r dirPath/*`  : `rm -r dirPath`

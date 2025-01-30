@@ -6,5 +6,5 @@ export const getDefaultContent = (path: string, lang: string) =>
     `title: ${path} ${lang} title`,
     '```',
     '<!--config-->',
-    `## ${path} ${lang}`
+    `## ${path} ${lang}`,
   ].join('\n')

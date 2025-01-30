@@ -12,7 +12,9 @@ import { dirname, join } from 'node:path'
 import { BuildConfig } from './types.js'
 
 export const removeDir = (path: string): void => {
-  rmSync(path, { recursive: true })
+  if (existsSync(path)) {
+    rmSync(path, { recursive: true })
+  }
 }
 
 export const cleanDir = async (path: string): Promise<void> => {

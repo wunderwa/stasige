@@ -1,6 +1,11 @@
 import { CoreConfig } from './core/utils/types.js'
 import { getConfig, readConfig, writeFile } from './core/utils/index.js'
-import { checkParents, genUpdateList, getDefaultContent, parseLangs } from './worker/index.js'
+import {
+  checkParents,
+  genUpdateList,
+  getDefaultContent,
+  parseLangs,
+} from './worker/index.js'
 
 const siteName = process.argv.slice(2)[0] ?? 'default'
 const path = process.argv.slice(2)[1]
@@ -20,13 +25,16 @@ const updateList = genUpdateList({
   langs: main.langs,
 })
 
-for (const {lang, dir, filePath} of updateList) {
+for (const { lang, dir, filePath } of updateList) {
   const content = getDefaultContent(dir, lang)
   await writeFile(filePath, content)
 }
 
 if (updateList.length) {
-  console.log('\nUpdate List:\n', updateList.map(({dir, lang}) => ` - ${lang} ${dir}`).join('\n'))
+  console.log(
+    '\nUpdate List:\n',
+    updateList.map(({ dir, lang }) => ` - ${lang} ${dir}`).join('\n'),
+  )
 }
 
 const parents = checkParents({

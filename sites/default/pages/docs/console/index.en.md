@@ -1,16 +1,48 @@
 ```yaml
 layout: default
-menuName: Icons
-title: How to add icons
+menuName: Console
+title: Console Combinations
 ```
 <!--config-->
-## How to add icons in project
+## Console option Combinations
 
-1. Go to https://icons.getbootstrap.com/
-2. Search desired icon. `github` for example
-3. Go to its page https://icons.getbootstrap.com/icons/github/
-4. Copy `svg`
-5. Convert svg to pug on https://html-to-pug.com/
-6. Sdd it in file in your site template `./views/icons/github.pug`
-7. Include in your pug template like `include ../icons/github.pug`
+Base usage. Build production (html, css and js) and deploy 
+```shell
+./wrk.sh -bd <site>
+# or equivalent
+wrk -bdCSJH
+```
 
+
+
+`-h`  - help description
+
+-b  - build site with ./sites/<site> template in ./www/<site>
+-d  - deploy site from ./www/<site>/*
+-c  - copy default site template in new location `./sites/default` =>  `./sites/<site>`
+-a  - add md templates
+`./wrk -a default about/me ru,en` - add `./sites/default/pages/about/me/index.en.md` and `./sites/default/pages/about/me/index.ru.md`
+-k  - clear console with `clear`
+
+-D  - dev mode
+-C  - clear build dir: dev ? `rm -r dirPath/*`  : `rm -r dirPath`
+-S  - build styles (SCSS files)
+-J  - build js (TS files)
+-H  - build html (PUG files)
+
+`./wrk -b <site>` === `./wrk -bCSJH <site>`
+`./wrk -bd <site>` === `./wrk -bdCSJH <site>`
+
+### Development
+Build all 
+```shell
+./wrk -bD <site>
+#or
+./wrk -bDCSJH <site>
+```
+
+`./wrk -bD <site>` === `./wrk -bDCSJH <site>`
+`./wrk -bdD <site>` === `./wrk -bdDCSJH <site>`
+`./wrk -bDS <site>` rebuild styles only
+`./wrk -bDH <site>` rebuild html only
+`./wrk -bDJ <site>` rebuild js only

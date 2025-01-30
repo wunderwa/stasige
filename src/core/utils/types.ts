@@ -8,7 +8,7 @@ export type CoreConfig = {
   pathInPages: (page?: string) => string
   pathInView: (page: string) => string
   layoutByName: (page: string) => string
-  pathInDist: (page?: string) => string
+  pathInBuild: (page?: string) => string
 }
 
 type Langs = 'ru' | 'en' | string

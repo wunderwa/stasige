@@ -1,23 +1,31 @@
 import { CoreConfig } from './types.js'
+import { join } from 'node:path'
 
 export const separator = '<!--config-->'
-
-export const defaults = {
-  dist: 'www',
-  siteName: 'default',
-  rootPath: process.cwd(),
+const SITES = 'sites'
+const DIST = 'dist'
+const HTTP = 'http'
+const SITE_NAME = 'default'
+const ROOT = process.cwd()
+const VIEWS = 'views'
+const LAYOUTS = join(VIEWS, 'layouts')
+const PAGES = 'pages'
+const FILE = {
+  style: join('styles', 'index.scss'),
+  script: join('scripts', 'index.ts'),
+  build: 'build.json',
 }
+
+export const def = {}
 
 export const pageRegExp = /index\.([a-z]{2})\.md/
 
 const PUG = 'pug'
 
-let siteDir = defaults.siteName
-let rootPath = defaults.rootPath
+let siteDir = SITE_NAME
+let rootPath = ROOT
 
-const currentSite = (): string => `${rootPath}/sites/${siteDir}`
-const pathInDist = (path = '') =>
-  `${rootPath}/${defaults.dist}/${siteDir}${path}`
+const currentSite = (): string => join(rootPath, SITES, siteDir)
 
 type Params = {
   root?: string
@@ -26,21 +34,25 @@ type Params = {
 }
 
 export const getConfig = ({ root, siteName, devMode }: Params): CoreConfig => {
-  siteDir = siteName ?? defaults.siteName
-  rootPath = root ?? defaults.rootPath
+  siteDir = siteName ?? SITE_NAME
+  rootPath = root ?? ROOT
 
   const siteRoot = currentSite()
+  const inRoot = (...list: string[]) => join(siteRoot, ...list)
+
+  const pathInBuild = (path = '') =>
+    join(rootPath, devMode ? HTTP : DIST, siteDir, path)
 
   return {
     timekey: devMode ? 'dev' : Date.now().toString(36),
-    buildConfigPath: `${siteRoot}/build.json`,
-    stylePath: `${siteRoot}/styles/index.scss`,
-    scriptPath: `${siteRoot}/scripts/index.ts`,
-    pagesPath: `${siteRoot}/pages`,
-    distDir: pathInDist(),
-    pathInPages: (page = '') => `${siteRoot}/pages/${page}`,
-    pathInView: (page) => `${siteRoot}/views/${page}`,
-    layoutByName: (name) => `${siteRoot}/views/layouts/${name}.${PUG}`,
-    pathInDist,
+    buildConfigPath: inRoot(FILE.build),
+    stylePath: inRoot(FILE.style),
+    scriptPath: inRoot(FILE.script),
+    pagesPath: inRoot(PAGES),
+    distDir: pathInBuild(),
+    pathInPages: (page = '') => inRoot(PAGES, page),
+    pathInView: (page) => inRoot(VIEWS, page),
+    layoutByName: (name) => inRoot(LAYOUTS, `${name}.${PUG}`),
+    pathInBuild,
   }
 }
