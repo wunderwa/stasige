@@ -1,6 +1,8 @@
+```yaml
 layout: default
 menuName: Home
 title: Home page
+```
 <!--config-->
 
 ## Stamdic Website Generator

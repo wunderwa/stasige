@@ -1,6 +1,8 @@
+```yaml
 layout: default
 menuName: Icons
 title: How to add icons
+```
 <!--config-->
 ## How to add icons in project
 

@@ -1,12 +1,10 @@
 import { CoreConfig } from './core/utils/types.js'
 import { getConfig, readConfig, writeFile } from './core/utils/index.js'
-import { checkParents, genUpdateList, parseLangs } from './worker/index.js'
+import { checkParents, genUpdateList, getDefaultContent, parseLangs } from './worker/index.js'
 
 const siteName = process.argv.slice(2)[0] ?? 'default'
 const path = process.argv.slice(2)[1]
 const langParam = process.argv.slice(2)[2]
-
-console.log({ siteName, path, langParam })
 
 const coreConfig: CoreConfig = getConfig({ siteName, devMode: true })
 const { buildConfigPath, pathInPages } = coreConfig
@@ -20,14 +18,16 @@ const updateList = genUpdateList({
   page: path,
   pathInPages,
   langs: main.langs,
-}) // .map(({ filePath }) => filePath)
+})
 
-for (const item of updateList) {
-  const content = ''
-  await writeFile(item.filePath, content)
+for (const {lang, dir, filePath} of updateList) {
+  const content = getDefaultContent(dir, lang)
+  await writeFile(filePath, content)
 }
 
-console.log('updateList', updateList)
+if (updateList.length) {
+  console.log('\nUpdate List:\n', updateList.map(({dir, lang}) => ` - ${lang} ${dir}`).join('\n'))
+}
 
 const parents = checkParents({
   page: path,
@@ -36,15 +36,19 @@ const parents = checkParents({
 }).reduce(
   (acc: string[], { dir, lang }) => [
     ...acc,
-    `  ./wrk -a ${dir} ${siteName} ${lang}`,
+    `  ./wrk -a ${siteName} ${dir} ${lang}`,
   ],
   [],
 )
 
 if (parents.length) {
   console.log(
-    'Missing some parents pages. New pages will not included in Main menu',
+    '\nMissing some parents pages. New pages will not included in Main menu.',
   )
-  console.log('Run commands to create parents pages\n')
-  console.log(parents.join('\n'))
+  console.log('Run command to create parent pages:\n')
+  console.log(parents.join(' && '))
+}
+
+if (updateList.length === 0 && parents.length === 0) {
+  console.log('All files already exist')
 }

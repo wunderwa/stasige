@@ -1,6 +1,8 @@
+```yaml
 layout: default
 menuName: Доки
 title: Документация
+```
 <!--config-->
 ## Пока нет полной русской версии
 

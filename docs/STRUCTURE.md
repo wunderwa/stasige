@@ -38,7 +38,7 @@ Current site structure for site.com, default lang is 'en'
 
 
 
-pages in `yamd` format contains yaml before markdovn separated by a separator
+pages in `yamd` format contains yaml before markdown separated by a separator
 ```markdown
 ke1: value1
 ke2: value2
@@ -46,3 +46,4 @@ ke2: value2
 Markdown here
 
 ```
+

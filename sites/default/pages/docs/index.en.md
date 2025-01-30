@@ -1,6 +1,8 @@
+```yaml
 layout: default
 menuName: Documentation
 title: Get started
+```
 <!--config-->
 ## Start
 

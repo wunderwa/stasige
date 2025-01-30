@@ -1,6 +1,8 @@
+```yaml
 layout: default
 menuName: О Stamdic
 title: О Stamdic
+```
 <!--config-->
 Stamdic - простой генератор сайтов MD -&gt; html
 

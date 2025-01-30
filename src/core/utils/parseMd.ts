@@ -20,7 +20,12 @@ export const parseMd: ParseMd = (path: string) => {
   const content = readFile(path)
   const parts = content.split(separator)
   return {
-    ...parse(parts[0]),
+    ...parse(
+      parts[0]
+        .trim()
+        .replace(/^```yaml/, '')
+        .replace(/```$/, ''),
+    ),
     body: md.render(parts[1]),
   }
 }
