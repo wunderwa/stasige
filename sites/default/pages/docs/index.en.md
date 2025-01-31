@@ -22,6 +22,12 @@ Copy default site template and init git repo to save
 git init
 ```
 
+Add new page
+
+```shell
+./wrk -a my-site new/page en,eu  
+```
+
 Edit template and save changes
 
 ```shell

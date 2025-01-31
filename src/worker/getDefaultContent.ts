@@ -1,10 +1,10 @@
-export const getDefaultContent = (path: string, lang: string) =>
+export const getDefaultContent = (filePath: string, _lang: string) =>
   [
     '```yaml',
     'layout: default',
-    `menuName: ${path} ${lang}`,
-    `title: ${path} ${lang} title`,
+    `menuName: ${filePath} ${_lang}`,
+    `title: ${filePath} ${_lang} title`,
     '```',
     '<!--config-->',
-    `## ${path} ${lang}`,
+    `## ${filePath} ${_lang}`,
   ].join('\n')

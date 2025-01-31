@@ -1,4 +1,5 @@
 export * from './config.js'
+export * from './info.js'
 export * from './filesys.js'
 export * from './genPage.js'
 export * from './getPageConfig.js'

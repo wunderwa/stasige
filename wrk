@@ -1,5 +1,12 @@
 #!/bin/bash
 
+start=`date +%s.%N`
+
+function endTime() {
+ end=`date +%s.%N`
+ runtime=$( echo "$end - $start" | bc -l )
+ echo "end:  $runtime"
+}
 function usage() {
   echo -e "$(<docs/console.txt)"
   exit 1
@@ -8,21 +15,22 @@ function usage() {
 BUILD_OPTS="-"
 ARGV="$@"
 
-while getopts "hbdcaksDCSJH" flag; do
+while getopts "hbdcaksDLCSJH" flag; do
   case "${flag}" in
+    h) HELP=1 ;;
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
     c) COPY_TMP=1 ;;
     a) ADD_PAGE=1 ;;
-    h) HELP=1 ;;
     k) CLEAR_CONSOLE=1 ;;
     s) SERVER=1 ;;
     D) DEV=1 ;; # dev mode
     # build  helpers for dev mode
-    C) BUILD_OPTS="${BUILD_OPTS}C" ;; # clear build dir: dev ? 'rm -r dirPath/*'  : 'rm -r dirPath'
-    S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS files)
-    J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS files)
-    H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG files)
+    C) BUILD_OPTS="${BUILD_OPTS}C" ;; # clear build dir
+    S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS  -> CSS)
+    J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS -> JS)
+    H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG -> HTML)
+    L) BUILD_OPTS="${BUILD_OPTS}L" ;; # Log js vars
   esac
 done
 shift $((OPTIND - 1))
@@ -47,8 +55,8 @@ if [ "$CLEAR_CONSOLE" = "1" ]; then
 fi
 # -h ----
 if [ "$HELP" = "1" ]; then
-    usage
-    exit 1
+  usage
+  exit 1
 fi
 if [ "$TMP_NAME" = "" ]; then
   echo -e "No <site> name. See usage \n"
@@ -82,7 +90,7 @@ fi
 
 # -b ---- build
 if [ "$BUILD" = "1" ]; then
-  node --import=tsx ./src/build.ts $BUILD_OPTS --site=$TMP_NAME
+  node --import=tsx ./src/build.ts $BUILD_OPTS $TMP_NAME
 fi
 
 # -- server
@@ -97,3 +105,5 @@ if [ "$DEPLOY" = "1" ]; then
   ssh memd -t "rm -r ${SSH_PATH}*"
   scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
 fi
+
+endTime

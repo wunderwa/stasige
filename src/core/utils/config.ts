@@ -30,21 +30,21 @@ const currentSite = (): string => join(rootPath, SITES, siteDir)
 type Params = {
   root?: string
   siteName: string
-  devMode: boolean
+  dev: boolean
 }
 
-export const getConfig = ({ root, siteName, devMode }: Params): CoreConfig => {
+export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
   siteDir = siteName ?? SITE_NAME
   rootPath = root ?? ROOT
 
   const siteRoot = currentSite()
   const inRoot = (...list: string[]) => join(siteRoot, ...list)
 
-  const pathInBuild = (path = '') =>
-    join(rootPath, devMode ? HTTP : DIST, siteDir, path)
+  const pathInBuild = (filePath = '') =>
+    join(rootPath, dev ? HTTP : DIST, siteDir, filePath)
 
   return {
-    timekey: devMode ? 'dev' : Date.now().toString(36),
+    timekey: dev ? 'dev' : Date.now().toString(36),
     buildConfigPath: inRoot(FILE.build),
     stylePath: inRoot(FILE.style),
     scriptPath: inRoot(FILE.script),

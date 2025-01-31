@@ -2,25 +2,26 @@
 
 Base usage: wrk.sh -bd <site>
  -h  - help description
- -b  - build site with ./sites/<site> template in ./dist/<site>
- -bD  - build site with ./sites/<site> template in ./http/<site>
- -d  - deploy site from ./dist/<site>/*
  -c  - copy default site template in new location `./sites/default` =>  `./sites/<site>`
+ -b  - build site with ./sites/<site> in ./dist/<site>
+ -bD  - build site with ./sites/<site> in ./http/<site>
+ -d  - deploy site from ./dist/<site>/*
+ -dD  - deploy site from ./http/<site>/*
  -a  - add md templates
-   `./wrk -a default about/me ru,en` - add `./sites/default/pages/about/me/index.en.md` and `./sites/default/pages/about/me/index.ru.md`
+   `./wrk -a <site> about/me ru,en` -> `./sites/<site>/pages/about/me/index.en.md` & `./sites/<site>/pages/about/me/index.ru.md`
  -k  - clear console with `clear`
- -s  - start server like
+ -s  - start local server
 
  -D  - dev mode
- -C  - clear build dir: dev ? `rm -r dirPath/*`  : `rm -r dirPath`
- -S  - build styles (SCSS files)
- -J  - build js (TS files)
- -H  - build html (PUG files)
+ -C  - clear build dir: like `rm -r dirPath/*`  (only with -D)
+ -S  - build styles (SCSS files) (only with -D)
+ -J  - build js (TS files) (only with -D)
+ -H  - build html (PUG files) (only with -D)
+ -L  - show logs with PUG variables (only with -DH)
 
-`./wrk -b <site>` === `./wrk -bCSJH <site>`
-`./wrk -bd <site>` === `./wrk -bdCSJH <site>`
 `./wrk -bD <site>` === `./wrk -bDCSJH <site>`
 `./wrk -bdD <site>` === `./wrk -bdDCSJH <site>`
-`./wrk -bDS <site>` rebuild styles only
-`./wrk -bDH <site>` rebuild html only
-`./wrk -bDJ <site>` rebuild js only
+`./wrk -bDS <site>` rebuild styles
+`./wrk -bDH <site>` rebuild html
+`./wrk -bDHL <site>` rebuild html and log PUG variables
+`./wrk -bDJ <site>` rebuild js

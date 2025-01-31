@@ -9,15 +9,15 @@ const md = markdownit({
   typographer: true,
 })
 
-type ParseMd = (path: string) => {
+type ParseMd = (filePath: string) => {
   title: string
   layout: string
   menuName: string
   body: string
 }
 
-export const parseMd: ParseMd = (path: string) => {
-  const content = readFile(path)
+export const parseMd: ParseMd = (filePath: string) => {
+  const content = readFile(filePath)
   const parts = content.split(separator)
   return {
     ...parse(

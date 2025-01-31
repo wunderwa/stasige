@@ -1,19 +1,19 @@
 - const getTitle = (item) => item.menuName ?? item.title
 - const getMenuName = (item) => item.title ?? item.menuName
 
-mixin nav-item(item, dir)
+mixin nav-item(item, path)
   if (item.children.length)
     li.nav-item.dropdown
       a.nav-link.dropdown-toggle(href="#" role='button' data-bs-toggle='dropdown' aria-expanded='false')=getTitle(item)
       ul.dropdown-menu
         li
-          a.dropdown-item(href=item.dir class={disabled: item.dir === dir})=getMenuName(item)
+          a.dropdown-item(href=item.path class={disabled: item.path === path})=getMenuName(item)
         each child in item.children
           li
-            a.dropdown-item(href=child.dir class={disabled: child.dir === dir})=getMenuName(child)
+            a.dropdown-item(href=child.path class={disabled: child.path === path})=getMenuName(child)
   else
     li.nav-item
-      a.nav-link(href=item.dir class={disabled: item.dir === dir})=getTitle(item)
+      a.nav-link(href=item.path class={disabled: item.path === path})=getTitle(item)
 
 
 

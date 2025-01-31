@@ -4155,6 +4155,11 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
+color-json@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/color-json/-/color-json-3.0.5.tgz#a413ff5f8d33c26c4cbb4dc3af3b2e258ec95c3b"
+  integrity sha512-DG4zae1GmHDBNsYTUe+GJiDnuKutxs2vVSkPRQqbeA6oEGBRQyRixV+HmIByasCfyf9L0CwHo8vOoiHqe7Lzng==
+
 color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"

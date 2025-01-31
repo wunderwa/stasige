@@ -48,26 +48,26 @@ export type PageConfig = {
   body: string
   lang: string
   src: string
-  dir: string
-  dirBase: string
+  path: string
+  pathBase: string
 }
 
 export type MenuItem = {
   lang: string
-  dir: string
-  dirBase: string
+  path: string
+  pathBase: string
   menuName: string
   title: string
 }
 
 export type MenuByLang = {
   [lang: string]: {
-    [dirBase: string]: MenuItem
+    [pathBase: string]: MenuItem
   }
 }
 
 export type MenuByDir = {
-  [dirBase: string]: {
+  [pathBase: string]: {
     [lang: string]: MenuItem
   }
 }

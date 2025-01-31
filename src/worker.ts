@@ -8,10 +8,10 @@ import {
 } from './worker/index.js'
 
 const siteName = process.argv.slice(2)[0] ?? 'default'
-const path = process.argv.slice(2)[1]
+const pageDir = process.argv.slice(2)[1]
 const langParam = process.argv.slice(2)[2]
 
-const coreConfig: CoreConfig = getConfig({ siteName, devMode: true })
+const coreConfig: CoreConfig = getConfig({ siteName, dev: true })
 const { buildConfigPath, pathInPages } = coreConfig
 const { langs } = readConfig(buildConfigPath)
 
@@ -20,7 +20,7 @@ const main = {
 }
 
 const updateList = genUpdateList({
-  page: path,
+  pageDir,
   pathInPages,
   langs: main.langs,
 })
@@ -38,7 +38,7 @@ if (updateList.length) {
 }
 
 const parents = checkParents({
-  page: path,
+  pageDir: pageDir,
   pathInPages,
   langs: main.langs,
 }).reduce(
@@ -50,13 +50,13 @@ const parents = checkParents({
 )
 
 if (parents.length) {
-  console.log(
+  console.info(
     '\nMissing some parents pages. New pages will not included in Main menu.',
   )
-  console.log('Run command to create parent pages:\n')
-  console.log(parents.join(' && '))
+  console.info('Run command to create parent pages:\n')
+  console.info(parents.join(' && '))
 }
 
 if (updateList.length === 0 && parents.length === 0) {
-  console.log('All files already exist')
+  console.info('All files already exist')
 }

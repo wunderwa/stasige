@@ -5,7 +5,7 @@ export const parseLangs = (langParam: string, langs: string[]) =>
         if (langs.includes(lang)) {
           return lang
         } else {
-          console.log(
+          console.info(
             `\nNo '${lang}' language found in project. Only '${langs.join("', '")}' \n`,
           )
           process.exit(1)

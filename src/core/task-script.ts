@@ -5,6 +5,7 @@ import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import { tsConfig } from './tsConfig.js'
+import { info } from './utils/index.js'
 
 type TaskScriptProps = {
   timekey: string
@@ -17,6 +18,8 @@ export const taskScript = async ({
   scriptPath,
   distDir,
 }: TaskScriptProps) => {
+  info('t', 'Task: SCRIPT')
+
   const bundle: RollupBuild = await rollup({
     input: scriptPath,
     output: {

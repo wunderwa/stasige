@@ -1,5 +1,5 @@
 import { pageRegExp } from './config.js'
-import path from 'node:path'
+import { dirname } from 'node:path'
 import { parseMd } from './parseMd.js'
 import { PageConfig } from './types.js'
 
@@ -16,13 +16,13 @@ export const getPageConfig = ({
 }: GetPageConfig): PageConfig => {
   const lang: string = page.match(pageRegExp)?.[1] as string
   const isMainLang = lang === mainLang
-  const dirBase: string = path.dirname(`/${page}`) as string
-  const dir = `${isMainLang ? '' : '/' + lang}${dirBase}`
+  const pathBase: string = dirname(`/${page}`) as string
+  const path = `${isMainLang ? '' : '/' + lang}${pathBase}`
   return {
     lang,
     src,
-    dir,
-    dirBase,
+    path,
+    pathBase,
     ...parseMd(src),
   }
 }

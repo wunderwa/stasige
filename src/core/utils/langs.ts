@@ -5,7 +5,7 @@ type Dirs = {
 }
 
 const getItem = (it: MenuItem, lang: string) => ({
-  url: it.dir,
+  url: it.path,
   title: it.lang,
   lang: it.lang,
   disabled: it.lang === lang,

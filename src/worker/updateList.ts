@@ -2,9 +2,9 @@ import { join, sep } from 'node:path'
 import { existsSync } from 'node:fs'
 
 type Params = {
-  page: string
+  pageDir: string
   langs: string[]
-  pathInPages: (path: string) => string
+  pathInPages: (filePath: string) => string
   onlyMissing?: boolean
 }
 
@@ -18,41 +18,50 @@ type PageInfo = {
 const fileName = (lang: string) => `index.${lang}.md`
 
 export const checkParents = ({
-  page,
+  pageDir,
   langs,
   pathInPages,
   onlyMissing = true,
 }: Params) => {
-  const parents: PageInfo[] = langs.reduce((acc, lang): PageInfo[] => {
-    const list = page
-      .split(sep)
-      .slice(0, -1)
-      .reduce((acc, dir) => [...acc, join(acc[acc.length - 1] ?? '', dir)], [])
-      .map((dir) => {
-        const filePath = pathInPages(join(dir, fileName(lang)))
-        return {
-          dir,
-          filePath,
-          lang,
-          exists: existsSync(filePath),
-        }
-      })
+  const parents: PageInfo[] = langs.reduce(
+    (acc: PageInfo[], lang): PageInfo[] => {
+      const list = pageDir
+        .split(sep)
+        .slice(0, -1)
+        .reduce(
+          (acc: string[], dirName) => [
+            ...acc,
+            join(acc[acc.length - 1] ?? '', dirName),
+          ],
+          [],
+        )
+        .map((dir: string): PageInfo => {
+          const filePath = pathInPages(join(dir, fileName(lang)))
+          return {
+            dir,
+            filePath,
+            lang,
+            exists: existsSync(filePath),
+          }
+        })
 
-    return [...acc, ...list]
-  }, [])
+      return [...acc, ...list]
+    },
+    [],
+  )
   return onlyMissing ? parents.filter(({ exists }) => !exists) : parents
 }
 
 export const genUpdateList = ({
-  page,
+  pageDir,
   langs,
   pathInPages,
   onlyMissing = true,
 }: Params) => {
   const list: PageInfo[] = langs.map((lang) => {
-    const filePath = pathInPages(join(page, fileName(lang)))
+    const filePath = pathInPages(join(pageDir, fileName(lang)))
     return {
-      dir: page,
+      dir: pageDir,
       filePath: filePath,
       lang,
       exists: existsSync(filePath),

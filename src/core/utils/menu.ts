@@ -10,13 +10,13 @@ import {
 
 const gropeByDir = (pages: PageConfig[], langs: string[]): MenuByDir =>
   pages.reduce(
-    (acc: MenuByDir, { lang, dir, dirBase, menuName, title }) =>
+    (acc: MenuByDir, { lang, path, pathBase, menuName, title }) =>
       langs.includes(lang)
         ? {
             ...acc,
-            [dirBase]: {
-              ...acc[dirBase],
-              [lang]: { lang, dir, dirBase, menuName, title },
+            [pathBase]: {
+              ...acc[pathBase],
+              [lang]: { lang, path, pathBase: pathBase, menuName, title },
             },
           }
         : acc,
@@ -25,13 +25,13 @@ const gropeByDir = (pages: PageConfig[], langs: string[]): MenuByDir =>
 
 const gropeByLang = (pages: PageConfig[], langs: string[]): MenuByLang =>
   pages.reduce(
-    (acc: MenuByLang, { lang, dir, dirBase, menuName, title }) =>
+    (acc: MenuByLang, { lang, path, pathBase, menuName, title }) =>
       langs.includes(lang)
         ? {
             ...acc,
             [lang]: {
               ...acc[lang],
-              [dirBase]: { lang, dir, dirBase, menuName, title },
+              [pathBase]: { lang, path, pathBase: pathBase, menuName, title },
             },
           }
         : acc,
@@ -39,16 +39,16 @@ const gropeByLang = (pages: PageConfig[], langs: string[]): MenuByLang =>
   )
 
 const groupChildren = (pages: MenuItem[]) => {
-  const mapped = pages.map(({ lang, dirBase, dir, title, menuName }) => {
-    const path = [lang, ...dirBase.split('/').filter((d) => d !== '')]
+  const mapped = pages.map(({ lang, pathBase, path, title, menuName }) => {
+    const dirList = [lang, ...pathBase.split('/').filter((d) => d !== '')]
     return {
       lang,
-      dirBase,
-      dir,
+      pathBase,
+      path,
       title,
       menuName,
-      id: path.join(':'),
-      pid: path.slice(0, -1).join(':'),
+      id: dirList.join(':'),
+      pid: dirList.slice(0, -1).join(':'),
     }
   })
 
@@ -82,8 +82,6 @@ export const getMenu = (pages: PageConfig[], langs: string[]): Menu => {
   const byLang: MenuByLang = gropeByLang(pages, langs)
   const byDir: MenuByDir = gropeByDir(pages, langs)
   const main = groupChildrenByLang(byLang)
-
-  console.log(JSON.stringify(main, null, 2))
 
   return {
     byLang,
