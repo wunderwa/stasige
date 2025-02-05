@@ -5,6 +5,6 @@
   },
   "dev": {
     "ssh": "stamdic",
-    "path": "/var/www/memd.space/stamdic/"
+    "path": "/var/www/memd.space/dl/"
   }
 }

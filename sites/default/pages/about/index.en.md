@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: About
+menuShort: About
+menuLong: About Stamdic
 title: About Stamdic
 ```
 <!--config-->

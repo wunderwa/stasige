@@ -9,31 +9,35 @@ import { info } from './utils/index.js'
 
 type TaskScriptProps = {
   timekey: string
-  scriptPath: string
+  scriptIndexPath: string
   distDir: string
 }
 
 export const taskScript = async ({
   timekey,
-  scriptPath,
+  scriptIndexPath,
   distDir,
 }: TaskScriptProps) => {
   info('t', 'Task: SCRIPT')
 
   const bundle: RollupBuild = await rollup({
-    input: scriptPath,
+    input: scriptIndexPath,
     output: {
       dir: distDir,
       format: 'cjs',
       // format: 'amd',
     },
     plugins: [
+      // @ ts-expect-error third party
       nodeResolve(),
-      typescript(tsConfig(distDir, dirname(scriptPath))),
+      // @ ts-expect-error third party
+      typescript(tsConfig(distDir, dirname(scriptIndexPath))),
+      // @ ts-expect-error see https://github.com/rollup/plugins/issues/1662
       commonjs({
         include: ['node_modules/**'],
         extensions: ['.js', '.ts'],
       }),
+      // @ ts-expect-error
       terser(),
     ],
   })

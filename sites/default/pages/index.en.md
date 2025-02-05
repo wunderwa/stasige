@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: Home
+menuShort: Home
+menuLong: Home page
 title: Home page
 ```
 <!--config-->

@@ -54,8 +54,12 @@
   "scripts": {
     "fmt": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --write",
     "fmt:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --check",
-    "-": "-",
-    "build": "node --import=tsx ./src/build.ts default",
+    "man:text": "pandoc docs/manual.md -t plain -o docs/manual.txt",
+    "man:page": "cat docs/manual-vars.md docs/manual.md > sites/default/pages/docs/manual/index.en.md",
+    "man": "yarn man:text && yarn man:page",
+    "wrk": "w() { './wrk' $@;}; w",
+    "-": "--- below: unused ",
+    "build": "w() { node --import=tsx ./src/build.ts $@;}; w",
     "prebuild": "npm run lint",
     "build:watch": "tsc -w -p tsconfig.json",
     "lint": "eslint .",
@@ -81,7 +85,6 @@
     "sass",
     "scss",
     "static",
-    "deploy",
-    ""
+    "deploy"
   ]
 }

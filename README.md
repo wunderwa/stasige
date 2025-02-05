@@ -4,14 +4,16 @@
 
 ### Install
 ```shell
-git clone 
+npm i -g yarn
+git clone git@github.com:wunderwa/stamdic.git stamdic
+cd stamdic
 yarn
 ```
 
 default
 ### Build
 ```shell
-./wr`k build <site-name>
+yarn wrk build <site-name>
 ```
 
 
@@ -34,7 +36,8 @@ md file has yaml section in top with separator `<!--config-->`
 File.md format
 ```
 layout: default
-menuName: Menu title
+menuShort: Menu title
+menuLong: Menu long title
 title: Head title or its part
 <!--config-->
 Content of page as markdown
@@ -43,7 +46,8 @@ Content of page as markdown
 ### Config
 ```
 layout: see /templates/layout/*.pug
-menuName: Menu title
+menuShort: Menu title
+menuLong: Menu long title
 title: Head title or its part
 ```
 
@@ -60,28 +64,28 @@ brew install jq openssh
 
 Copy default site template to new one
 ```shell
- ./wrk -c mysite
+ yarn wrk -c mysite
 ```
 
 Build `default` site
 ```shell
- ./wrk -b default
+ yarn wrk -b default
 ```
 Deploy `default` site
 ```shell
- ./wrk -b default
+ yarn wrk -b default
 ```
 
 Build & deploy `default` site
 ```shell
- ./wrk -bd default
+ yarn wrk -bd default
 ```
 
 
 - [Structure](docs/STRUCTURE.md)
 
 ### Idea
-make deploy in node script 
+make deploy in node script?
 ```shell
 yarn add -D node-ssh
 ```

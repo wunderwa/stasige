@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: Доки
+menuShort: Доки
+menuLong: Документация
 title: Документация
 ```
 <!--config-->

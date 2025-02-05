@@ -1,9 +1,9 @@
 export type CoreConfig = {
   timekey: string
   buildConfigPath: string
-  stylePath: string
-  scriptPath: string
-  pagesPath: string
+  styleIndexPath: string
+  scriptIndexPath: string
+  pagesFullPath: string
   distDir: string
   pathInPages: (page?: string) => string
   pathInView: (page: string) => string
@@ -44,7 +44,8 @@ export type PageLang = {
 export type PageConfig = {
   title: string
   layout: string
-  menuName: string
+  menuShort: string
+  menuLong: string
   body: string
   lang: string
   src: string
@@ -56,17 +57,18 @@ export type MenuItem = {
   lang: string
   path: string
   pathBase: string
-  menuName: string
+  menuShort: string
+  menuLong: string
   title: string
 }
 
-export type MenuByLang = {
+export type LinksByLang = {
   [lang: string]: {
     [pathBase: string]: MenuItem
   }
 }
 
-export type MenuByDir = {
+export type LinksByDir = {
   [pathBase: string]: {
     [lang: string]: MenuItem
   }
@@ -75,25 +77,23 @@ export type MenuByDir = {
 export type MenuMainItem = MenuItem & {
   children: MenuMainItem[]
 }
-export type MenuMain = {
+export type MainMenu = {
   [lang: string]: MenuMainItem[]
 }
 
-export type Menu = {
-  byLang: MenuByLang
-  byDir: MenuByDir
-  main: MenuMain
+export type Menus = {
+  linksByLang: LinksByLang
+  linksByDir: LinksByDir
+  mainMenu: MainMenu
 }
 
-export type PugLayoutLocals = PageConfig & {
-  langs: string[]
-  links: Links
-  meta: Meta
-  menu: Menu
-}
+export type PugLayoutLocals = PageConfig &
+  Menus &
+  BuildConfig & {
+    timekey: string
+  }
 
 export type PugViewLocals = PugLayoutLocals & {
-  timekey: string
   content: string
   pageLangs: PageLang[]
 }

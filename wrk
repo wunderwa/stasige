@@ -8,14 +8,16 @@ function endTime() {
  echo "end:  $runtime"
 }
 function usage() {
-  echo -e "$(<docs/console.txt)"
-  exit 1
+  echo -e "\x1b[7m # Stamdic: markdown static site builder \x1b[0m"
+  echo ""
+  echo -e "$(<docs/manual.txt)"
+  exit 0
 }
 
 BUILD_OPTS="-"
 ARGV="$@"
 
-while getopts "hbdcaksDLCSJH" flag; do
+while getopts "hbdcaksDCSJHVL:" flag; do
   case "${flag}" in
     h) HELP=1 ;;
     b) BUILD=1 ;;
@@ -30,7 +32,17 @@ while getopts "hbdcaksDLCSJH" flag; do
     S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS  -> CSS)
     J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS -> JS)
     H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG -> HTML)
-    L) BUILD_OPTS="${BUILD_OPTS}L" ;; # Log js vars
+    V)
+      BUILD_OPTS="${BUILD_OPTS}V"
+      VARS=1
+    ;; # -V show PUG vars
+    L)
+      BUILD_OPTS="${BUILD_OPTS}L"
+      VARS=1
+      if [ "$OPTARG" != "" ]; then
+        LOG_LIST="--var-list=$OPTARG"
+      fi
+    ;; # -L: show selected values of PUG vars
   esac
 done
 shift $((OPTIND - 1))
@@ -39,32 +51,17 @@ TMP_NAME=$1 # template name
 if [ "$DEV" = "1" ]; then
   BUILD_OPTS="${BUILD_OPTS}D"
   BUILD_DIR="http/$TMP_NAME"
+  PORT=8000
 else
   BUILD_OPTS=""
   BUILD_DIR="dist/$TMP_NAME"
+  PORT=7999
 fi
 
 TMP_DIR="sites/${TMP_NAME}"
 DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
 
-# -k ----
-if [ "$CLEAR_CONSOLE" = "1" ]; then
-  clear
-  echo "./wrk $ARGV"
-  echo ""
-fi
-# -h ----
-if [ "$HELP" = "1" ]; then
-  usage
-  exit 1
-fi
-if [ "$TMP_NAME" = "" ]; then
-  echo -e "No <site> name. See usage \n"
-  usage
-  exit 1
-fi
-
-echo "copy: $COPY_TMP  add: $ADD_PAGE  build: $BUILD  deploy: $DEPLOY site: $TMP_NAME"
+. build/actions
 
 # -c ----
 if [ "$COPY_TMP" = "1" ]; then
@@ -75,35 +72,24 @@ if [ "$COPY_TMP" = "1" ]; then
   fi
 fi
 
-# -a ----
+# -a ---- add page
 if [ "$ADD_PAGE" = "1" ]; then
   node --import=tsx ./src/worker.ts $TMP_NAME $2 $3
 fi
 
-if [ -e $DEPLOY_CONFIG ]; then
-  SSH_SERVER=$(jq -r '.prod.ssh' $DEPLOY_CONFIG)
-  SSH_PATH=$(jq -r '.prod.path' $DEPLOY_CONFIG)
-else
-    echo "No template build config file"
-    exit 1
-fi
-
 # -b ---- build
-if [ "$BUILD" = "1" ]; then
-  node --import=tsx ./src/build.ts $BUILD_OPTS $TMP_NAME
+if [ "$BUILD" = "1" ] || [ "$VARS" = "1" ]; then
+  node --import=tsx ./src/build.ts $BUILD_OPTS $LOG_LIST $TMP_NAME
 fi
 
 # -- server
 if [ "$SERVER" = "1" ]; then
-  npx http-server -p 8000 -o / $BUILD_DIR
+  npx http-server -p $PORT -o / $BUILD_DIR
 fi
-
 
 # -- deploy
 if [ "$DEPLOY" = "1" ]; then
-  echo "ssh: $SSH_SERVER path: $SSH_PATH "
-  ssh memd -t "rm -r ${SSH_PATH}*"
-  scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
+  build/deploy $DEPLOY_CONFIG $BUILD_DIR $DEV
 fi
 
 endTime

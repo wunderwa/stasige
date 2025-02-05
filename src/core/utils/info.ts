@@ -1,5 +1,5 @@
 import colorJson from 'color-json'
-export type InfoFormat = 't'| 'n' | 'j'
+export type InfoFormat = 't' | 'n' | 'j'
 
 export const info = (
   format: InfoFormat,
@@ -13,8 +13,12 @@ export const info = (
       // variable name
       console.info('\n', `\x1b[7m\x1b[32m ${item.toString()} \x1b[0m`, '\n')
     } else if (format === 'j') {
-      // colored json
-      console.info(colorJson(item))
+      if (typeof item === 'string') {
+        console.info(`\x1b[0m\x1b[32m"${item}"\x1b[0m`)
+      } else {
+        // colored json
+        console.info(colorJson(item))
+      }
     }
   })
 }

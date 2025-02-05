@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Arthur",
+    "age": 40,
+    "active": true,
+    "spaces": [
+      "home",
+      "work"
+    ]
+  }
+]

@@ -6,15 +6,19 @@ import { info } from './utils/index.js'
 
 type StylesProps = {
   timekey: string
-  stylePath: string
+  styleIndexPath: string
   distDir: string
 }
 
-export const taskStyle = ({ timekey, stylePath, distDir }: StylesProps) => {
+export const taskStyle = ({
+  timekey,
+  styleIndexPath,
+  distDir,
+}: StylesProps) => {
   info('t', 'Task: STYLES')
 
   gulp
-    .src(stylePath)
+    .src(styleIndexPath)
     .pipe(
       sass({
         includePaths: ['node_modules'],

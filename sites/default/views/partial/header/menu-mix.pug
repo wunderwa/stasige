@@ -1,19 +1,19 @@
-- const getTitle = (item) => item.menuName ?? item.title
-- const getMenuName = (item) => item.title ?? item.menuName
+- const getMenuShort = (item) => item.menuShort ?? item.menuLong ?? item.title
+- const getMenuLong = (item) => item.menuLong ?? item.menuShort ?? item.title
 
 mixin nav-item(item, path)
   if (item.children.length)
     li.nav-item.dropdown
-      a.nav-link.dropdown-toggle(href="#" role='button' data-bs-toggle='dropdown' aria-expanded='false')=getTitle(item)
+      a.nav-link.dropdown-toggle(href="#" role='button' data-bs-toggle='dropdown' aria-expanded='false')=getMenuShort(item)
       ul.dropdown-menu
         li
-          a.dropdown-item(href=item.path class={disabled: item.path === path})=getMenuName(item)
+          a.dropdown-item(href=item.path class={disabled: item.path === path})=getMenuLong(item)
         each child in item.children
           li
-            a.dropdown-item(href=child.path class={disabled: child.path === path})=getMenuName(child)
+            a.dropdown-item(href=child.path class={disabled: child.path === path})=getMenuLong(child)
   else
     li.nav-item
-      a.nav-link(href=item.path class={disabled: item.path === path})=getTitle(item)
+      a.nav-link(href=item.path class={disabled: item.path === path})=getMenuShort(item)
 
 
 

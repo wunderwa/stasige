@@ -12,7 +12,8 @@ const md = markdownit({
 type ParseMd = (filePath: string) => {
   title: string
   layout: string
-  menuName: string
+  menuShort: string
+  menuLong: string
   body: string
 }
 

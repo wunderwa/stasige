@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: Главная
+menuShort: Главная
+menuLong: Главная страница
 title: Главная страница
 ```
 <!--config-->

@@ -51,7 +51,7 @@ const parents = checkParents({
 
 if (parents.length) {
   console.info(
-    '\nMissing some parents pages. New pages will not included in Main menu.',
+    '\nMissing some parents pages. New pages will not included in mainMenu.',
   )
   console.info('Run command to create parent pages:\n')
   console.info(parents.join(' && '))

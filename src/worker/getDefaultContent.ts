@@ -2,7 +2,8 @@ export const getDefaultContent = (filePath: string, _lang: string) =>
   [
     '```yaml',
     'layout: default',
-    `menuName: ${filePath} ${_lang}`,
+    `menuShort: ${filePath} ${_lang}`,
+    `menuLong: ${filePath} ${_lang}`,
     `title: ${filePath} ${_lang} title`,
     '```',
     '<!--config-->',

@@ -1,0 +1,58 @@
+#!/bin/bash
+# -- actions
+
+
+# -k ----
+if [ "$CLEAR_CONSOLE" = "1" ]; then
+  clear
+  echo "./wrk $ARGV"
+  echo ""
+fi
+# -h ----
+if [ "$HELP" = "1" ]; then
+  usage
+  exit 1
+fi
+
+if [ "$TMP_NAME" = "" ]; then
+  echo -e "No <site> name. See usage \n"
+  usage
+  exit 1
+fi
+
+
+VR="ACTIONS: "
+
+if [[ "$TMP_NAME" ]]; then
+  VR="$VR <site>: $TMP_NAME"
+fi
+
+if [[ "$DEV" ]]; then
+  VR="$VR &dev'"
+fi
+
+if [[ "$BUILD" ]]; then
+  VR="$VR &build"
+fi
+
+if [[ "$DEPLOY" ]]; then
+  VR="$VR &deploy"
+fi
+
+if [[ "$SERVER" ]]; then
+  VR="$VR &server"
+fi
+
+if [[ "$COPY_TMP" ]]; then
+  VR="$VR &copy-tmp"
+fi
+if [[ "$ADD_PAGE" ]]; then
+  VR="$VR &add-page"
+fi
+if [[ "$VARS" ]]; then
+  VR="$VR &vars"
+fi
+
+echo $VR
+echo "--------"
+echo ""

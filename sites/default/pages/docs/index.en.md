@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: Documentation
+menuShort: Documentation
+menuLong: Get started
 title: Get started
 ```
 <!--config-->
@@ -10,22 +11,24 @@ title: Get started
 Clone repo to locally dev 
 
 ```shell
+npm i -g yarn
 git clone git@github.com:wunderwa/stamdic.git
 cd stamdic
+yarn
 ```
 
 Copy default site template and init git repo to save  
 
 ```shell
 # cp -R ./sites/default ./sites/my-site
-./wrk -c my-site
+yarn wrk -c my-site
 git init
 ```
 
 Add new page
 
 ```shell
-./wrk -a my-site new/page en,eu  
+yarn wrk -a my-site new/page en,eu  
 ```
 
 Edit template and save changes

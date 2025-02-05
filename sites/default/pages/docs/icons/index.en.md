@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: Icons
+menuShort: Icons
+menuLong: How to add icons
 title: How to add icons
 ```
 <!--config-->

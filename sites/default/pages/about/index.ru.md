@@ -1,6 +1,7 @@
 ```yaml
 layout: default
-menuName: О Stamdic
+menuShort: О Stamdic
+menuLong: О Stamdic
 title: О Stamdic
 ```
 <!--config-->

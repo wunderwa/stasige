@@ -1,0 +1,26 @@
+#!/bin/bash
+# -- deploy
+
+DEPLOY_CONFIG="$1"
+BUILD_DIR="$2"
+DEV="$3"
+
+if [ -e $DEPLOY_CONFIG ]; then
+  if [ "$DEV" = "1" ]; then
+    SSH_SERVER=$(jq -r '.dev.ssh' $DEPLOY_CONFIG)
+    SSH_PATH=$(jq -r '.dev.path' $DEPLOY_CONFIG)
+  else
+    SSH_SERVER=$(jq -r '.prod.ssh' $DEPLOY_CONFIG)
+    SSH_PATH=$(jq -r '.prod.path' $DEPLOY_CONFIG)
+  fi
+
+  echo -e "\x1b[7m Task: DEPLOY \x1b[0m"
+  echo "ssh: $SSH_SERVER path: $SSH_PATH "
+else
+  echo "No template build config file"
+  exit 1
+fi
+
+ssh memd -t "rm -r ${SSH_PATH}*"
+scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
+

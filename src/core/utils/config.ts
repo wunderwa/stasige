@@ -46,9 +46,9 @@ export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
   return {
     timekey: dev ? 'dev' : Date.now().toString(36),
     buildConfigPath: inRoot(FILE.build),
-    stylePath: inRoot(FILE.style),
-    scriptPath: inRoot(FILE.script),
-    pagesPath: inRoot(PAGES),
+    styleIndexPath: inRoot(FILE.style),
+    scriptIndexPath: inRoot(FILE.script),
+    pagesFullPath: inRoot(PAGES),
     distDir: pathInBuild(),
     pathInPages: (page = '') => inRoot(PAGES, page),
     pathInView: (page) => inRoot(VIEWS, page),
