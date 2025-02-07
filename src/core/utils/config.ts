@@ -13,7 +13,7 @@ const ASSETS = 'assets'
 const VIEWS = 'views'
 const LAYOUTS = join(VIEWS, 'layouts')
 const PAGES = 'pages'
-// const DATA = 'data'
+const DATA = 'data'
 const FILE = {
   style: join('styles', 'index.scss'),
   script: join('scripts', 'index.ts'),
@@ -55,6 +55,7 @@ export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
     pagesFullPath: inRoot(PAGES),
     distDir: pathInBuild(),
     pathInAssets: (file = '') => inRoot(ASSETS, file),
+    pathInData: (file = '') => inRoot(DATA, file),
     pathInPages: (page = '') => inRoot(PAGES, page),
     pathInView: (page) => inRoot(VIEWS, page),
     layoutByName: (name) => inRoot(LAYOUTS, `${name}.${PUG}`),

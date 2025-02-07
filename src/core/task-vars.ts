@@ -25,7 +25,7 @@ export const taskVars = async ({
   coreConfig,
   varList,
 }: TaskVarProps) => {
-  const { timekey } = coreConfig
+  const { timekey, pathInData } = coreConfig
 
   const pageConfigs: PageConfig[] = await getPageConfigList({
     coreConfig,
@@ -40,7 +40,7 @@ export const taskVars = async ({
     ...menus,
     ...buildConfig,
     timekey,
-    data: pugData(),
+    data: pugData(pathInData),
     func: pugFunc(),
   }
 

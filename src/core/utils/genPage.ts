@@ -24,7 +24,7 @@ export const genPage = async ({
   pageConfig,
   menu,
 }: GenPage) => {
-  const { timekey, layoutByName, pathInView, pathInBuild } = coreConfig
+  const { timekey, layoutByName, pathInView, pathInBuild, pathInData } = coreConfig
   const { lang, path, pathBase, layout } = pageConfig
   const { langs } = buildConfig
   const compileLayoutFunc = pug.compileFile(layoutByName(layout))
@@ -34,7 +34,7 @@ export const genPage = async ({
     ...menu,
     ...buildConfig,
     timekey,
-    data: pugData(),
+    data: pugData(pathInData),
     func: pugFunc(),
   }
 

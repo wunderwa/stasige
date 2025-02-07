@@ -6,6 +6,7 @@ export type CoreConfig = {
   pagesFullPath: string
   distDir: string
   pathInAssets: (file?: string) => string
+  pathInData: (file?: string) => string
   pathInPages: (page?: string) => string
   pathInView: (page: string) => string
   layoutByName: (page: string) => string

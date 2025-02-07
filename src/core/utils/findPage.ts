@@ -9,9 +9,14 @@ export const findPage = (
   pageConfigs: PageConfig[],
   logList: string[],
 ): PageConfig => {
+
+  if (logList.length === 0) {
+    return pageConfigs[0]
+  }
+
   const page = logList[0].split(':')
 
-  console.log(page)
+  console.log('pp',page)
   const withLang = pageConfigs.find(({ pathBase, lang }) => {
     console.log(pathBase, lang)
     return pathBase === page[0] && lang === page[1]

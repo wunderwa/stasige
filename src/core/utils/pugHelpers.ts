@@ -1,13 +1,20 @@
-import { join } from 'node:path'
+import { join, parse } from 'node:path'
+import { readdirSync } from 'node:fs'
 import { distAssetsDir } from './config.js'
+import { readFile } from './filesys.js'
 
 export const pugFunc = () => ({
   assets: (p: string) => join('/', distAssetsDir, p),
 })
 
-type PugData = () => {
+type PugData = (p: (file?: string) => string) => {
   [key: string]: unknown
 }
-export const pugData: PugData = () => {
-  return {}
+export const pugData: PugData = (pathInData) => {
+  const list = readdirSync(pathInData())
+  const data = {}
+  for (const fl of list) {
+    data[ parse(fl).name] = JSON.parse(readFile(pathInData(fl)))
+  }
+  return data
 }
