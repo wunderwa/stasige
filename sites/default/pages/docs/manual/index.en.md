@@ -1,7 +1,7 @@
 ```yaml
 layout: default
 menuShort: Manual
-menuLong: Dev manual
+menuLong: Manual
 title: Dev manual
 ```
 <!--config-->
@@ -27,7 +27,7 @@ yarn wrk -c <site>
 
 `-a`  - add md templates.
 ```shell
-yarn wrk -a <site> about/me ru,en
+yarn wrk -a <site> about/me:ru,en
 # -> `./sites/<site>/pages/about/me/index.en.md` & `./sites/<site>/pages/about/me/index.ru.md`
 ```
 
@@ -56,9 +56,11 @@ Options below with `-D` only
 
 `-H`  - build html (PUG files) (with `-D` only)
 
-`-V`  - show vars with PUG variables (with `-DH` only)
+`-I`  - build images (png, jpg, webp to webp, gif) (with `-D` only)
 
-`-L`  - show VARS and values of vars from list separated by ',' (only with `-DH`)
+`-V`  - show vars with PUG variables (with `-D`)
+
+`-L`  - show VARS and values of vars from list separated by ',' (with `-D` only)
 
 ### Development
 
@@ -85,6 +87,11 @@ Rebuild html  only
 yarn wrk -bDH <site> 
 ```
 
+Rebuild images  only
+```shell
+yarn wrk -bDI <site> 
+```
+
 ### VARS
 
 show list of vars in pug template
@@ -92,14 +99,14 @@ show list of vars in pug template
 yarn wrk -kDV default
 ```
 
-show list of vars in pug template; value of selected page (pathBase='/')
+show list of vars in pug template; value of selected page (pathBase='/') and random lang
 ```shell
 yarn wrk -bDVL /,title <site>
 ```
 
 value of selected page (by pathBase='/') and lang en
 ```shell
-yarn wrk -bDVL /,en,title <site>
+yarn wrk -bDVL /:en,title <site>
 # or pathBase='/docs' lang='ru'
- yarn wrk -kDVL /docs,ru,path,pathBase,title  default
+ yarn wrk -kDVL /docs:ru,path,pathBase,title  default
 ```

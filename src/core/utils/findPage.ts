@@ -9,17 +9,25 @@ export const findPage = (
   pageConfigs: PageConfig[],
   logList: string[],
 ): PageConfig => {
+  const page = logList[0].split(':')
+
+
+  console.log(page)
   const withLang = pageConfigs.find(
-    ({ pathBase, lang }) => pathBase === logList[0] && lang === logList[1],
+    ({ pathBase, lang }) => {
+      console.log(pathBase, lang)
+      return pathBase === page[0] && lang === page[1]
+    },
   )
 
   if (withLang) {
+    console.log('---sss---', withLang)
     infoPage(withLang)
     return withLang
   }
 
   const pg =
-    pageConfigs.find(({ pathBase }) => pathBase === logList[0]) ??
+    pageConfigs.find(({ pathBase }) => pathBase === page[0]) ??
     pageConfigs[0]
   infoPage(pg)
   return pg

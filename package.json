@@ -36,6 +36,7 @@
     "gulp-dart-sass": "^1.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-typescript": "5.0.1",
+    "gulp-webp": "^5.0.0",
     "markdown-it": "^14.1.0",
     "minimist": "^1.2.8",
     "parcel": "^2.13.3",
@@ -54,7 +55,7 @@
   "scripts": {
     "fmt": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --write",
     "fmt:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --check",
-    "man:text": "pandoc docs/manual.md -t plain -o docs/manual.txt",
+    "man:text": "pandoc docs/manual.md -t plain -o docs/manual-help.txt",
     "man:page": "cat docs/manual-vars.md docs/manual.md > sites/default/pages/docs/manual/index.en.md",
     "man": "yarn man:text && yarn man:page",
     "wrk": "w() { './wrk' $@;}; w",

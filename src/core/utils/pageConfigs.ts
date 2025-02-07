@@ -24,7 +24,7 @@ export const onePageConfig = ({
     src,
     path,
     pathBase,
-    ...parseMd(src),
+    ...parseMd(src, pathBase),
   }
 }
 

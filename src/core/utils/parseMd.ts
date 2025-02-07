@@ -2,6 +2,7 @@ import { parse } from 'yaml'
 import markdownit from 'markdown-it'
 import { separator } from './config.js'
 import { readFile } from './filesys.js'
+import { join } from 'node:path'
 
 const md = markdownit({
   html: true,
@@ -9,7 +10,7 @@ const md = markdownit({
   typographer: true,
 })
 
-type ParseMd = (filePath: string) => {
+type ParseMd = (filePath: string, pathBase: string) => {
   title: string
   layout: string
   menuShort: string
@@ -17,16 +18,21 @@ type ParseMd = (filePath: string) => {
   body: string
 }
 
-export const parseMd: ParseMd = (filePath: string) => {
+export const parseMd: ParseMd = (filePath: string, pathBase) => {
   const content = readFile(filePath)
   const parts = content.split(separator)
+  const imgPath = join('/i', pathBase, '/')
   return {
+    layout: 'default',
     ...parse(
       parts[0]
         .trim()
         .replace(/^```yaml/, '')
         .replace(/```$/, ''),
     ),
-    body: md.render(parts[1]),
+    body: md.render(parts[1])
+      .replace(/<img\s+src="-img\//g, '<img src="' + imgPath)
+      .replace(/<img\s+src="([^"]+\.(jpg|png))/g, '<img src="$1.webp')
+    ,
   }
 }

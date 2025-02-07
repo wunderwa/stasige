@@ -1,6 +1,7 @@
-export const parseLangs = (langParam: string, langs: string[]) =>
-  langParam
-    ? langParam.split(',').map((lng) => {
+export const parseLangs = (langs: string[], langParam?: string) =>
+  !langParam
+    ? langs
+    : langParam.split(',').map((lng) => {
         const lang = lng.toLowerCase()
         if (langs.includes(lang)) {
           return lang
@@ -11,4 +12,3 @@ export const parseLangs = (langParam: string, langs: string[]) =>
           process.exit(1)
         }
       })
-    : langs

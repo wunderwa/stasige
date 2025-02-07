@@ -10,14 +10,14 @@ function endTime() {
 function usage() {
   echo -e "\x1b[7m # Stamdic: markdown static site builder \x1b[0m"
   echo ""
-  echo -e "$(<docs/manual.txt)"
+  echo -e "$(<docs/manual-help.txt)"
   exit 0
 }
 
 BUILD_OPTS="-"
 ARGV="$@"
 
-while getopts "hbdcaksDCSJHVL:" flag; do
+while getopts "hbdcaksDCSJHIVL:" flag; do
   case "${flag}" in
     h) HELP=1 ;;
     b) BUILD=1 ;;
@@ -32,6 +32,7 @@ while getopts "hbdcaksDCSJHVL:" flag; do
     S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS  -> CSS)
     J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS -> JS)
     H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG -> HTML)
+    I) BUILD_OPTS="${BUILD_OPTS}I" ;; # copy images
     V)
       BUILD_OPTS="${BUILD_OPTS}V"
       VARS=1
@@ -74,7 +75,7 @@ fi
 
 # -a ---- add page
 if [ "$ADD_PAGE" = "1" ]; then
-  node --import=tsx ./src/worker.ts $TMP_NAME $2 $3
+  node --import=tsx ./src/worker.ts $TMP_NAME $2
 fi
 
 # -b ---- build

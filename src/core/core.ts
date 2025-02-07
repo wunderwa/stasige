@@ -4,6 +4,7 @@ import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
 import { taskHtml } from './task-html.js'
 import { taskVars } from './task-vars.js'
+import { taskImages } from './task-images.js'
 
 type CoreProps = {
   siteName: string
@@ -18,6 +19,7 @@ type CoreResp = {
   renderVars: () => Promise<void>
   renderScript: () => Promise<void>
   renderStyle: () => void
+  copyImages: () => void
 }
 
 export const Core = async ({
@@ -26,6 +28,7 @@ export const Core = async ({
   dev = false,
   varList = [],
 }: CoreProps): Promise<CoreResp> => {
+  console.log(varList)
   const coreConfig: CoreConfig = getConfig({ siteName, root, dev })
   const { timekey, buildConfigPath, styleIndexPath, scriptIndexPath, distDir } =
     coreConfig
@@ -41,5 +44,6 @@ export const Core = async ({
     renderVars: () => taskVars({ buildConfig, coreConfig, varList }),
     renderStyle: () => taskStyle({ timekey, styleIndexPath, distDir }),
     renderScript: () => taskScript({ timekey, scriptIndexPath, distDir }),
+    copyImages: () => taskImages(coreConfig),
   }
 }

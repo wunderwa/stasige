@@ -28,7 +28,7 @@ git init
 Add new page
 
 ```shell
-yarn wrk -a my-site new/page en,eu  
+yarn wrk -a my-site new/page:en,eu  
 ```
 
 Edit template and save changes
@@ -38,3 +38,6 @@ cd sites/my-site
 git init
 # add repository, add commit, push  
 ```
+
+
+![What is this](-img/preview1.webp)

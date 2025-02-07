@@ -8,43 +8,47 @@ import {
 } from './worker/index.js'
 
 const siteName = process.argv.slice(2)[0] ?? 'default'
-const pageDir = process.argv.slice(2)[1]
-const langParam = process.argv.slice(2)[2]
+
+const page = process.argv.slice(2)[1]?.split(':')
+if(! page?.[0]) {
+  console.error('No page params found')
+  console.info('yarn wrk -a <site> /page')
+  process.exit(1)
+}
 
 const coreConfig: CoreConfig = getConfig({ siteName, dev: true })
 const { buildConfigPath, pathInPages } = coreConfig
 const { langs } = readConfig(buildConfigPath)
 
 const main = {
-  langs: parseLangs(langParam, langs),
+  pathBase: page[0],
+  langs: parseLangs(langs, page[1]),
 }
 
 const updateList = genUpdateList({
-  pageDir,
+  ...main,
   pathInPages,
-  langs: main.langs,
 })
 
-for (const { lang, dir, filePath } of updateList) {
-  const content = getDefaultContent(dir, lang)
+for (const { lang, pathBase, filePath } of updateList) {
+  const content = getDefaultContent(pathBase, lang)
   await writeFile(filePath, content)
 }
 
 if (updateList.length) {
   console.log(
     '\nUpdate List:\n',
-    updateList.map(({ dir, lang }) => ` - ${lang} ${dir}`).join('\n'),
+    updateList.map(({ pathBase, lang }) => ` - ${lang} ${pathBase}`).join('\n'),
   )
 }
 
 const parents = checkParents({
-  pageDir: pageDir,
+  ...main,
   pathInPages,
-  langs: main.langs,
 }).reduce(
-  (acc: string[], { dir, lang }) => [
+  (acc: string[], { pathBase, lang }) => [
     ...acc,
-    `  ./wrk -a ${siteName} ${dir} ${lang}`,
+    `  ./wrk -a ${siteName} ${pathBase}:${lang}`,
   ],
   [],
 )

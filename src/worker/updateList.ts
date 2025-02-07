@@ -2,14 +2,14 @@ import { join, sep } from 'node:path'
 import { existsSync } from 'node:fs'
 
 type Params = {
-  pageDir: string
+  pathBase: string
   langs: string[]
   pathInPages: (filePath: string) => string
   onlyMissing?: boolean
 }
 
 type PageInfo = {
-  dir: string
+  pathBase: string
   filePath: string
   lang: string
   exists: boolean
@@ -18,14 +18,14 @@ type PageInfo = {
 const fileName = (lang: string) => `index.${lang}.md`
 
 export const checkParents = ({
-  pageDir,
+  pathBase,
   langs,
   pathInPages,
   onlyMissing = true,
 }: Params) => {
   const parents: PageInfo[] = langs.reduce(
     (acc: PageInfo[], lang): PageInfo[] => {
-      const list = pageDir
+      const list = pathBase
         .split(sep)
         .slice(0, -1)
         .reduce(
@@ -35,10 +35,10 @@ export const checkParents = ({
           ],
           [],
         )
-        .map((dir: string): PageInfo => {
-          const filePath = pathInPages(join(dir, fileName(lang)))
+        .map((pathBase: string): PageInfo => {
+          const filePath = pathInPages(join(pathBase, fileName(lang)))
           return {
-            dir,
+            pathBase,
             filePath,
             lang,
             exists: existsSync(filePath),
@@ -53,15 +53,15 @@ export const checkParents = ({
 }
 
 export const genUpdateList = ({
-  pageDir,
+  pathBase,
   langs,
   pathInPages,
   onlyMissing = true,
 }: Params) => {
   const list: PageInfo[] = langs.map((lang) => {
-    const filePath = pathInPages(join(pageDir, fileName(lang)))
+    const filePath = pathInPages(join(pathBase, fileName(lang)))
     return {
-      dir: pageDir,
+      pathBase,
       filePath: filePath,
       lang,
       exists: existsSync(filePath),

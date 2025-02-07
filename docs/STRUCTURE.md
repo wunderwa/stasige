@@ -21,9 +21,8 @@ sites:
     views:
       index.pug: 'Core file, has skeleton of html'
       layouts:  #main design of page, can set in top of pages/<page>/index.<lang>.md
-        main.pug: 'default layout if layout=main or not set or layout not found'
+        default.pug: 'default layout if layout=main or not set or layout not found'
         other.pug: 'other layout, layout=other in pages/**/*.md'
-        other-ru.pug: 'other layout, layout=other-ru you can set another layout for lang version of page'
       
         
       partial: # parts of page

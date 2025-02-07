@@ -2,7 +2,7 @@ import minimist from 'minimist'
 import { Core } from './core/core.js'
 
 const opts = {
-  boolean: ['D', 'C', 'S', 'J', 'H', 'V'],
+  boolean: ['D', 'C', 'S', 'J', 'H', 'V', 'I'],
   string: ['var-list'],
   alias: {
     D: 'dev',
@@ -10,6 +10,7 @@ const opts = {
     S: 'css',
     J: 'js',
     H: 'html',
+    I: 'img',
     V: 'vars',
     'var-list': 'varList',
   },
@@ -21,6 +22,7 @@ type Argv = {
   css: boolean
   js: boolean
   html: boolean
+  img: boolean
   vars: boolean
   varList: string
   _: string[]
@@ -37,13 +39,14 @@ const core = await Core({
 
 if (dev) {
   const fullDevBuild =
-    !argv.clear && !argv.css && !argv.js && !argv.html && !argv.vars
+    !argv.clear && !argv.css && !argv.js && !argv.html && !argv.img && !argv.vars
   const opt = {
     vars: argv.vars,
     clear: argv.clear || fullDevBuild,
     styles: argv.css || fullDevBuild,
     script: argv.js || fullDevBuild,
     html: argv.html || fullDevBuild,
+    img: argv.img || fullDevBuild,
   }
 
   if (opt.vars) await core.renderVars()
@@ -51,9 +54,11 @@ if (dev) {
   if (opt.styles) core.renderStyle()
   if (opt.script) await core.renderScript()
   if (opt.html) await core.renderHtml()
+  if (opt.img) await core.copyImages()
 } else {
   core.cleanDist()
   core.renderStyle()
   await core.renderScript()
   await core.renderHtml()
+  core.copyImages()
 }
