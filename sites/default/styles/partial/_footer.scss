@@ -1,3 +1,19 @@
-.stamdic-footer {
+/*.stamdic-footer {
   background: #c4c7b7;
+}*/
+
+$sz: 128px;
+
+.bottom-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
+.bottom-logo {
+  width: $sz;
+  height: $sz;
+  background: #0dcaf0 url('../../assets/stamdic.svg') no-repeat center center;
+  background-size: $sz*0.77 $sz*0.77;
+  border-radius: 50%;
+}
+

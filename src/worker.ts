@@ -10,7 +10,7 @@ import {
 const siteName = process.argv.slice(2)[0] ?? 'default'
 
 const page = process.argv.slice(2)[1]?.split(':')
-if(! page?.[0]) {
+if (!page?.[0]) {
   console.error('No page params found')
   console.info('yarn wrk -a <site> /page')
   process.exit(1)

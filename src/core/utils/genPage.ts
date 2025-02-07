@@ -9,6 +9,7 @@ import {
 } from './types.js'
 import { joinPath, writeFile } from './filesys.js'
 import { getPageLangs } from './langs.js'
+import { pugData, pugFunc } from './pugHelpers.js'
 
 type GenPage = {
   buildConfig: BuildConfig
@@ -33,6 +34,8 @@ export const genPage = async ({
     ...menu,
     ...buildConfig,
     timekey,
+    data: pugData(),
+    func: pugFunc(),
   }
 
   const viewLocals: PugViewLocals = {

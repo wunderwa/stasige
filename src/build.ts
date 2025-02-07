@@ -39,7 +39,12 @@ const core = await Core({
 
 if (dev) {
   const fullDevBuild =
-    !argv.clear && !argv.css && !argv.js && !argv.html && !argv.img && !argv.vars
+    !argv.clear &&
+    !argv.css &&
+    !argv.js &&
+    !argv.html &&
+    !argv.img &&
+    !argv.vars
   const opt = {
     vars: argv.vars,
     clear: argv.clear || fullDevBuild,

@@ -2,14 +2,18 @@ import { CoreConfig } from './types.js'
 import { join } from 'node:path'
 
 export const separator = '<!--config-->'
+export const distImgDir = 'i'
+export const distAssetsDir = 'a/'
 const SITES = 'sites'
 const DIST = 'dist'
 const HTTP = 'http'
 const SITE_NAME = 'default'
 const ROOT = process.cwd()
+const ASSETS = 'assets'
 const VIEWS = 'views'
 const LAYOUTS = join(VIEWS, 'layouts')
 const PAGES = 'pages'
+// const DATA = 'data'
 const FILE = {
   style: join('styles', 'index.scss'),
   script: join('scripts', 'index.ts'),
@@ -50,6 +54,7 @@ export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
     scriptIndexPath: inRoot(FILE.script),
     pagesFullPath: inRoot(PAGES),
     distDir: pathInBuild(),
+    pathInAssets: (file = '') => inRoot(ASSETS, file),
     pathInPages: (page = '') => inRoot(PAGES, page),
     pathInView: (page) => inRoot(VIEWS, page),
     layoutByName: (name) => inRoot(LAYOUTS, `${name}.${PUG}`),

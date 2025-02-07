@@ -5,6 +5,7 @@ export type CoreConfig = {
   scriptIndexPath: string
   pagesFullPath: string
   distDir: string
+  pathInAssets: (file?: string) => string
   pathInPages: (page?: string) => string
   pathInView: (page: string) => string
   layoutByName: (page: string) => string
@@ -91,6 +92,12 @@ export type PugLayoutLocals = PageConfig &
   Menus &
   BuildConfig & {
     timekey: string
+    data: {
+      [lang: string]: unknown
+    }
+    func: {
+      assets: (s: string) => string
+    }
   }
 
 export type PugViewLocals = PugLayoutLocals & {

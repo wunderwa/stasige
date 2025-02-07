@@ -85,7 +85,7 @@ fi
 
 # -- server
 if [ "$SERVER" = "1" ]; then
-  npx http-server -p $PORT -o / $BUILD_DIR
+  npx http-server -p $PORT -c-1 -o / $BUILD_DIR
 fi
 
 # -- deploy

@@ -1,8 +1,9 @@
 import gulp from 'gulp'
 import sass from 'gulp-dart-sass'
 import autoprefixer from 'gulp-autoprefixer'
+import replace from 'gulp-replace'
 import rename from 'gulp-rename'
-import { info } from './utils/index.js'
+import { distAssetsDir, info } from './utils/index.js'
 
 type StylesProps = {
   timekey: string
@@ -28,6 +29,9 @@ export const taskStyle = ({
       }).on('error', sass.logError),
     )
     .pipe(autoprefixer())
+    // url("../assets/
+    .pipe(replace(/url\("(\.\.\/)+assets\//g, `url("/${distAssetsDir}`))
+
     .pipe(rename(`index.${timekey}.css`))
     .pipe(gulp.dest(distDir))
 }

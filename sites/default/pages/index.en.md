@@ -9,6 +9,4 @@ title: Home page
 ## Stamdic Website Generator
 Generator of simple Sites on the basis of tree structure of markdown files
 
-![What is this](-img/preview9.png)
-
 ![What is this](-img/preview.webp)

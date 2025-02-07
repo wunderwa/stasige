@@ -5,7 +5,14 @@ import {
   PageConfig,
   PugLayoutLocals,
 } from './utils/types.js'
-import { findPage, getMenus, getPageConfigList, info } from './utils/index.js'
+import {
+  findPage,
+  getMenus,
+  getPageConfigList,
+  info,
+  pugData,
+  pugFunc,
+} from './utils/index.js'
 
 type TaskVarProps = {
   buildConfig: BuildConfig
@@ -33,6 +40,8 @@ export const taskVars = async ({
     ...menus,
     ...buildConfig,
     timekey,
+    data: pugData(),
+    func: pugFunc(),
   }
 
   info('n', '* VARS in PUG *')

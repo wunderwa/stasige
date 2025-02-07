@@ -19,3 +19,9 @@ pre > code {
   padding: 10px;
   font-weight: 600;
 }
+
+img {
+  max-width: calc(100vw - 40px);
+}
+
+@import "partial/footer";
