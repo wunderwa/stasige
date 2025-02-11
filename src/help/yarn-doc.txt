@@ -1,0 +1,15 @@
+yarn doc (stamdic ssg)
+
+Convert docs into manuals
+
+    yarn doc -ch [text | page]  
+
+-   -c - clear console
+
+-   -h - help description
+
+-   yarn doc text - convert md to .txt
+
+-   yarn doc page - convert *md to /docs/manual:en page
+
+-   yarn doc- convert text and page

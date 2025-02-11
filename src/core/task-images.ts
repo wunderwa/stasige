@@ -21,7 +21,6 @@ const convDirName = (dName: string, root: string, sli?: number) => {
 
 const renamePath =
   (root: string, sli?: number) => (file: rename.ParsedPath) => {
-    console.log(file)
     file.dirname = convDirName(file.dirname, root, sli)
   }
 

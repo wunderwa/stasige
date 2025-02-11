@@ -4,6 +4,7 @@ import {
   Menus,
   PageConfig,
   PugLayoutLocals,
+  PageProps,
 } from './utils/types.js'
 import {
   findPage,
@@ -17,6 +18,7 @@ import {
 type TaskVarProps = {
   buildConfig: BuildConfig
   coreConfig: CoreConfig
+  page: PageProps
   varList: string[]
 }
 

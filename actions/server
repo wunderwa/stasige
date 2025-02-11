@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ARGV=$@
+source ./actions/-head -N "srv"  -T "Start local server" $@
+echo "dev: $DEV  port: $PORT"
+echo "----------------"
+
+echo "pp $PORT"
+
+if [ "$PORT" = "" ]; then PORT=8000; fi
+
+
+TMP_NAME=$PRM1 # template name
+
+
+if [ "$DEV" = "1" ]; then
+  BUILD_DIR="http/$TMP_NAME"
+else
+  BUILD_DIR="dist/$TMP_NAME"
+fi
+
+npx http-server -p $PORT -c-1 -o / $BUILD_DIR
+

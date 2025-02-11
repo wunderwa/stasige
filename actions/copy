@@ -1,0 +1,23 @@
+#!/bin/bash
+
+source ./actions/-head -N copy -T "Copy template" $@
+
+TMP_NAME=$PRM1 # template name
+
+TMP_DIR="sites/${TMP_NAME}"
+
+if [ -d "$TMP_DIR" ]; then
+  echo "Directory  '$TMP_NAME'   does exist."
+else
+  echo "Print 'y' to create '$TMP_NAME' site template from default"
+  read ACCEPT
+  echo "$ACCEPT"
+  if [ "$ACCEPT" = "y" ] || [ "$ACCEPT" = "Y" ]; then
+    cp -R sites/default $TMP_DIR
+    cd $TMP_DIR
+    git init
+    cd ..
+    ls -lt
+  fi
+fi
+

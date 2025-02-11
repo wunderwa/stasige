@@ -1,5 +1,6 @@
 import { join, parse } from 'node:path'
 import { readdirSync } from 'node:fs'
+import set from 'lodash/set.js'
 import { distAssetsDir } from './config.js'
 import { readFile } from './filesys.js'
 
@@ -14,7 +15,7 @@ export const pugData: PugData = (pathInData) => {
   const list = readdirSync(pathInData())
   const data = {}
   for (const fl of list) {
-    data[ parse(fl).name] = JSON.parse(readFile(pathInData(fl)))
+    set(data, parse(fl).name, JSON.parse(readFile(pathInData(fl))))
   }
   return data
 }

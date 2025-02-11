@@ -1,0 +1,37 @@
+#!/bin/bash
+
+_ARGV="$@"
+
+while getopts "hcN:T:Dp:CSJHIbd" flag; do
+  case "${flag}" in
+    h) _HELP=1 ;;
+    c) _CLEAR=1 ;;
+    N) if [ "$OPTARG" != "" ]; then _NAME="$OPTARG"; fi ;;
+    T) if [ "$OPTARG" != "" ]; then _TITLE="$OPTARG"; fi ;;
+    D) DEV=1 ;;
+    p) if [ "$OPTARG" != "" ]; then PORT="$OPTARG"; fi ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+PRM1=$1 # for parent script
+PRM2=$2 # for parent script
+
+if [ "$_CLEAR" = "1" ];then
+  clear
+fi
+
+if [ "$_NAME" != "" ];then
+  echo -e "\x1b[7m > Stamdic: ssg \x1b[0m \x1b[1m yarn $_NAME \x1b[0m"
+fi
+
+if [ "$_TITLE" != "" ];then
+  echo -e "\x1b[4m $_TITLE \x1b[0m"
+
+fi
+
+if [ "$_HELP" = "1" ];then
+  echo -e "$(<src/help/yarn-$_NAME.txt)"
+  exit 0
+fi
+

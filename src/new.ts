@@ -1,5 +1,6 @@
+import minimist from 'minimist'
 import { CoreConfig } from './core/utils/types.js'
-import { getConfig, readConfig, writeFile } from './core/utils/index.js'
+import { cleanFormat, getConfig, readConfig, readHelpText, writeFile } from './core/utils/index.js'
 import {
   checkParents,
   genUpdateList,
@@ -7,13 +8,33 @@ import {
   parseLangs,
 } from './worker/index.js'
 
-const siteName = process.argv.slice(2)[0] ?? 'default'
+const opts = {
+  boolean: ['c', 'h'],
+  alias: { c: 'clear', h: 'help' },
+}
 
-const page = process.argv.slice(2)[1]?.split(':')
+type Argv = {
+  clear: boolean
+  help: boolean
+  _: string[]
+}
+
+const argv: Argv = minimist<Argv>(process.argv.slice(2), opts)
+
+const siteName = argv._[0] ?? 'default'
+
+const page = argv._[1]?.split(':')
+
+if(argv.clear) {
+  cleanFormat()
+}
+
 if (!page?.[0]) {
+
   console.error('No page params found')
-  console.info('yarn wrk -a <site> /page')
-  process.exit(1)
+
+  console.info(readHelpText('new'))
+  process.exit(0)
 }
 
 const coreConfig: CoreConfig = getConfig({ siteName, dev: true })

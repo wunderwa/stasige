@@ -1,7 +1,7 @@
 {
   "name": "@wunderwa/stamdic",
   "version": "0.1.0",
-  "description": "Stamdic - static site from markdown files",
+  "description": "Stamdic - static site generator with pug, bootstrap, sass, markdown",
   "type": "module",
   "engines": {
     "node": ">= 22.12 < 23"
@@ -19,6 +19,7 @@
     "@types/gulp-babel": "^6.1.33",
     "@types/gulp-dart-sass": "^1.0.5",
     "@types/gulp-rename": "^2.0.6",
+    "@types/lodash": "^4.17.15",
     "@types/markdown-it": "^14.1.2",
     "@types/minimist": "^1.2.5",
     "@types/node": "^22.10.2",
@@ -38,6 +39,7 @@
     "gulp-replace": "^1.1.4",
     "gulp-typescript": "5.0.1",
     "gulp-webp": "^5.0.0",
+    "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "minimist": "^1.2.8",
     "parcel": "^2.13.3",
@@ -54,16 +56,19 @@
     "yaml": "^2.6.1"
   },
   "scripts": {
+    "man": " ./actions/man",
     "fmt": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --write",
     "fmt:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts,json}\" --config .prettierrc --check",
-    "man:text": "pandoc docs/manual.md -t plain -o docs/manual-help.txt",
-    "man:page": "cat docs/manual-vars.md docs/manual.md > sites/default/pages/docs/manual/index.en.md",
-    "man": "yarn man:text && yarn man:page",
-    "wrk": "w() { './wrk' $@;}; w",
+    "doc": " actions/doc $@",
+    "copy": "./actions/copy $@",
+    "srv": "./actions/server $@",
+    "logo": "actions/logo",
+    "new": "node --import=tsx src/new.ts $@",
+    "vars": "node --import=tsx ./src/vars.ts $@",
+    "wrk": "./wrk $@",
+    "prod": "./wrk -bd $1",
     "-": "--- below: unused ",
-    "build": "w() { node --import=tsx ./src/build.ts $@;}; w",
     "prebuild": "npm run lint",
-    "build:watch": "tsc -w -p tsconfig.json",
     "lint": "eslint .",
     "test": "vitest run unit",
     "test:coverage": "vitest run unit --coverage.enabled --coverage.all",
@@ -78,6 +83,7 @@
     "node": "22.12.0"
   },
   "keywords": [
+    "ssg",
     "node",
     "tsx",
     "typescript",
@@ -87,6 +93,8 @@
     "sass",
     "scss",
     "static",
+    "site",
+    "generator",
     "deploy"
   ]
 }

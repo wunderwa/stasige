@@ -105,3 +105,8 @@ export type PugViewLocals = PugLayoutLocals & {
   content: string
   pageLangs: PageLang[]
 }
+
+export type PageProps = {
+  pathBase: string
+  langs: string[]
+} | null

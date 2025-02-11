@@ -1,49 +1,21 @@
 #!/bin/bash
 
-start=`date +%s.%N`
-
-function endTime() {
- end=`date +%s.%N`
- runtime=$( echo "$end - $start" | bc -l )
- echo "end:  $runtime"
-}
-function usage() {
-  echo -e "\x1b[7m # Stamdic: markdown static site builder \x1b[0m"
-  echo ""
-  echo -e "$(<docs/manual-help.txt)"
-  exit 0
-}
-
-BUILD_OPTS="-"
 ARGV="$@"
 
-while getopts "hbdcaksDCSJHIVL:" flag; do
+source ./actions/-head -N "wrk"  -T "Build and deploy" $@
+
+
+
+unset OPTIND
+
+while getopts "hcbdDCSJHI" flag; do
+
   case "${flag}" in
     h) HELP=1 ;;
+    c) CLEAR_CONSOLE=1 ;;
     b) BUILD=1 ;;
     d) DEPLOY=1 ;;
-    c) COPY_TMP=1 ;;
-    a) ADD_PAGE=1 ;;
-    k) CLEAR_CONSOLE=1 ;;
-    s) SERVER=1 ;;
     D) DEV=1 ;; # dev mode
-    # build  helpers for dev mode
-    C) BUILD_OPTS="${BUILD_OPTS}C" ;; # clear build dir
-    S) BUILD_OPTS="${BUILD_OPTS}S" ;; # build styles (SCSS  -> CSS)
-    J) BUILD_OPTS="${BUILD_OPTS}J" ;; # build js (TS -> JS)
-    H) BUILD_OPTS="${BUILD_OPTS}H" ;; # build html (PUG -> HTML)
-    I) BUILD_OPTS="${BUILD_OPTS}I" ;; # copy images
-    V)
-      BUILD_OPTS="${BUILD_OPTS}V"
-      VARS=1
-    ;; # -V show PUG vars
-    L)
-      BUILD_OPTS="${BUILD_OPTS}L"
-      VARS=1
-      if [ "$OPTARG" != "" ]; then
-        LOG_LIST="--var-list=$OPTARG"
-      fi
-    ;; # -L: show selected values of PUG vars
   esac
 done
 shift $((OPTIND - 1))
@@ -52,45 +24,22 @@ TMP_NAME=$1 # template name
 if [ "$DEV" = "1" ]; then
   BUILD_OPTS="${BUILD_OPTS}D"
   BUILD_DIR="http/$TMP_NAME"
-  PORT=8000
 else
   BUILD_OPTS=""
   BUILD_DIR="dist/$TMP_NAME"
-  PORT=7999
 fi
 
 TMP_DIR="sites/${TMP_NAME}"
 DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
 
-. build/actions
+source actions/wrk-actions
 
-# -c ----
-if [ "$COPY_TMP" = "1" ]; then
-  if [ -d "$TMP_DIR" ]; then
-    echo "Directory  '$TMP_NAME'   does exist."
-  else
-    cp -R sites/default $TMP_DIR
-  fi
+# -b (build)
+if [ "$BUILD" = "1" ]; then
+  node --import=tsx ./src/build.ts $ARGV
 fi
 
-# -a ---- add page
-if [ "$ADD_PAGE" = "1" ]; then
-  node --import=tsx ./src/worker.ts $TMP_NAME $2
-fi
-
-# -b ---- build
-if [ "$BUILD" = "1" ] || [ "$VARS" = "1" ]; then
-  node --import=tsx ./src/build.ts $BUILD_OPTS $LOG_LIST $TMP_NAME
-fi
-
-# -- server
-if [ "$SERVER" = "1" ]; then
-  npx http-server -p $PORT -c-1 -o / $BUILD_DIR
-fi
-
-# -- deploy
+# -d (deploy)
 if [ "$DEPLOY" = "1" ]; then
-  build/deploy $DEPLOY_CONFIG $BUILD_DIR $DEV
+  actions/wrk-deploy $DEPLOY_CONFIG $BUILD_DIR $DEV
 fi
-
-endTime

@@ -3,7 +3,6 @@ import { CoreConfig } from './utils/types.js'
 import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
 import { taskHtml } from './task-html.js'
-import { taskVars } from './task-vars.js'
 import { taskImages } from './task-images.js'
 
 type CoreProps = {
@@ -16,7 +15,6 @@ type CoreProps = {
 type CoreResp = {
   cleanDist: () => void
   renderHtml: () => Promise<void>
-  renderVars: () => Promise<void>
   renderScript: () => Promise<void>
   renderStyle: () => void
   copyImages: () => void
@@ -41,7 +39,6 @@ export const Core = async ({
       cleanDir(distDir)
     },
     renderHtml: () => taskHtml({ buildConfig, coreConfig }),
-    renderVars: () => taskVars({ buildConfig, coreConfig, varList }),
     renderStyle: () => taskStyle({ timekey, styleIndexPath, distDir }),
     renderScript: () => taskScript({ timekey, scriptIndexPath, distDir }),
     copyImages: () => taskImages(coreConfig),

@@ -5,4 +5,4 @@ menuLong: Manual
 title: Dev manual
 ```
 <!--config-->
-## Stamdic: markdown static site builder
+## Stamdic: Static Site Generator with markdown data
