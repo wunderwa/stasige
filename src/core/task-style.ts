@@ -16,7 +16,7 @@ export const taskStyle = ({
   styleIndexPath,
   distDir,
 }: StylesProps) => {
-  info('t', 'Task: STYLES')
+  info('title', 'Task: STYLES')
 
   gulp
     .src(styleIndexPath)

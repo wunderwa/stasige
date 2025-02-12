@@ -5,6 +5,6 @@ yarn srv -hcDp <port> <site>
 ```
 * `-c` - clear console
 * `-h` - help description
-* `<site>` - site template
+* `<site>` - site template name (required for start)
 * `-D` - dev mode
 * `-p <port>` - port number. Default 8000

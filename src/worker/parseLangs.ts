@@ -1,3 +1,5 @@
+import { criticalError } from '../core/utils/index.js'
+
 export const parseLangs = (langs: string[], langParam?: string) =>
   !langParam
     ? langs
@@ -6,9 +8,9 @@ export const parseLangs = (langs: string[], langParam?: string) =>
         if (langs.includes(lang)) {
           return lang
         } else {
-          console.info(
+          criticalError(
             `\nNo '${lang}' language found in project. Only '${langs.join("', '")}' \n`,
           )
-          process.exit(1)
+          return ''
         }
       })

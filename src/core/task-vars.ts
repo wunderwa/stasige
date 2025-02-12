@@ -18,6 +18,7 @@ import {
 type TaskVarProps = {
   buildConfig: BuildConfig
   coreConfig: CoreConfig
+  siteName: string
   page: PageProps
   varList: string[]
 }
@@ -25,6 +26,8 @@ type TaskVarProps = {
 export const taskVars = async ({
   buildConfig,
   coreConfig,
+  siteName,
+  page,
   varList,
 }: TaskVarProps) => {
   const { timekey, pathInData } = coreConfig
@@ -35,7 +38,7 @@ export const taskVars = async ({
   })
   const menus: Menus = getMenus(pageConfigs, buildConfig.langs)
 
-  const pageConfig = findPage(pageConfigs, varList)
+  const pageConfig = findPage(pageConfigs, page)
 
   const layoutLocals: PugLayoutLocals = {
     ...pageConfig,
@@ -46,21 +49,24 @@ export const taskVars = async ({
     func: pugFunc(),
   }
 
-  info('n', '* VARS in PUG *')
+  info('name', '* VARS in PUG *')
+  console.info(
+    'page params will be shown for  [0] (first) page',
+    'if path and lang are incorrect ',
+  )
   if (varList.length === 0) {
-    console.info(
-      'add -L param to command like -L langs | -L langs,meta before <site> name to show values',
-      '\n',
-      'yarn wrk -DVL langs,meta',
-    )
-    console.info('page params will show for  [0] (first) page')
-    console.info('Add pathBase = `/` to command like `- /,title,menuShort`')
+    console.info('add key list for show global variables values\n')
+    info('title', `yarn vars ${siteName} langs,meta`)
+  }
+  if (!page) {
+    console.info('add key path:lang to show variables values of actual page ')
+    info('title', `yarn vars ${siteName} /docs:en title,menuShort\n`)
   }
 
   Object.keys(layoutLocals).forEach((key) => {
-    info('n', `${key}=`)
+    info('name', `${key}=`)
     if (varList.includes(key)) {
-      info('j', layoutLocals[key as keyof PugLayoutLocals])
+      info('json', layoutLocals[key as keyof PugLayoutLocals])
     }
   })
 }

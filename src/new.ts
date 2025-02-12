@@ -1,6 +1,12 @@
 import minimist from 'minimist'
-import { CoreConfig } from './core/utils/types.js'
-import { cleanFormat, getConfig, readConfig, readHelpText, writeFile } from './core/utils/index.js'
+import { BuildConfig, CoreConfig } from './core/utils/types.js'
+import {
+  clean,
+  getConfig,
+  printHelp,
+  readConfig,
+  writeFile,
+} from './core/utils/index.js'
 import {
   checkParents,
   genUpdateList,
@@ -8,6 +14,7 @@ import {
   parseLangs,
 } from './worker/index.js'
 
+const CMD = 'new'
 const opts = {
   boolean: ['c', 'h'],
   alias: { c: 'clear', h: 'help' },
@@ -25,21 +32,27 @@ const siteName = argv._[0] ?? 'default'
 
 const page = argv._[1]?.split(':')
 
-if(argv.clear) {
-  cleanFormat()
+if (argv.clear) {
+  clean()
+}
+
+if (argv.help) {
+  printHelp(CMD, { exit: true })
 }
 
 if (!page?.[0]) {
-
-  console.error('No page params found')
-
-  console.info(readHelpText('new'))
-  process.exit(0)
+  printHelp(CMD, {
+    error: 'No page params found. See help below',
+    exit: true,
+  })
 }
 
 const coreConfig: CoreConfig = getConfig({ siteName, dev: true })
 const { buildConfigPath, pathInPages } = coreConfig
-const { langs } = readConfig(buildConfigPath)
+
+const buildConfig = readConfig(buildConfigPath) as BuildConfig
+
+const { langs } = buildConfig
 
 const main = {
   pathBase: page[0],
@@ -57,7 +70,7 @@ for (const { lang, pathBase, filePath } of updateList) {
 }
 
 if (updateList.length) {
-  console.log(
+  console.info(
     '\nUpdate List:\n',
     updateList.map(({ pathBase, lang }) => ` - ${lang} ${pathBase}`).join('\n'),
   )

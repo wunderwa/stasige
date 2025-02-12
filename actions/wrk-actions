@@ -1,16 +1,28 @@
 #!/bin/bash
 # -- actions
 
-if [ "$TMP_NAME" = "" ]; then
-  echo -e "No <site> name. See usage \n yarn wrk -h"
+if [ "$TMPL_NAME" = "" ]; then
+  ./actions/-error "No <site> name."
+  ./actions/-see-help wrk
   exit 0
 fi
 
+if [ ! -d "$TMPL_DIR" ]; then
+  ./actions/-error "Directory  '$TMPL_NAME'   does not exist. Check ./sites/"
+  ./actions/-see-help wrk
+  exit 0
+fi
+
+if [ "$BUILD" != "1" ] && [ "$DEPLOY" != "1" ]; then
+  ./actions/-error "Select one of working options '-b' or '-d' or both"
+  ./actions/-see-help wrk
+    exit 0
+fi
 
 VR="ACTIONS: "
 
-if [[ "$TMP_NAME" ]]; then
-  VR="$VR <site>: $TMP_NAME"
+if [[ "$TMPL_NAME" ]]; then
+  VR="$VR <site>: $TMPL_NAME"
 fi
 
 if [[ "$DEV" ]]; then

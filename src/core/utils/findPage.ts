@@ -1,35 +1,33 @@
-import { PageConfig } from './types.js'
+import { PageConfig, PageProps } from './types.js'
 import { info } from './index.js'
 
 const infoPage = (pg: PageConfig) => {
-  info('n', `${pg.pathBase} : ${pg.lang}`)
+  info('name', `${pg.pathBase} : ${pg.lang}`)
 }
 
 export const findPage = (
   pageConfigs: PageConfig[],
-  logList: string[],
+  pageProps: PageProps,
 ): PageConfig => {
-
-  if (logList.length === 0) {
+  if (!pageProps) {
     return pageConfigs[0]
   }
+  const { pathBase: _path, langs } = pageProps
+  const _lang = langs[0] ?? null
 
-  const page = logList[0].split(':')
-
-  console.log('pp',page)
-  const withLang = pageConfigs.find(({ pathBase, lang }) => {
-    console.log(pathBase, lang)
-    return pathBase === page[0] && lang === page[1]
-  })
-
-  if (withLang) {
-    console.log('---sss---', withLang)
-    infoPage(withLang)
-    return withLang
+  let pc: PageConfig | null
+  if (_path && _lang) {
+    pc =
+      pageConfigs.find(({ pathBase, lang }) => {
+        return pathBase === _path && lang === _lang
+      }) ?? null
+    if (pc) {
+      infoPage(pc)
+      return pc
+    }
   }
 
-  const pg =
-    pageConfigs.find(({ pathBase }) => pathBase === page[0]) ?? pageConfigs[0]
-  infoPage(pg)
-  return pg
+  pc = pageConfigs.find(({ pathBase }) => pathBase === _path) ?? pageConfigs[0]
+  infoPage(pc)
+  return pc as PageConfig
 }

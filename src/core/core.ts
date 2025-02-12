@@ -1,5 +1,5 @@
 import { getConfig, cleanDir, readConfig, info } from './utils/index.js'
-import { CoreConfig } from './utils/types.js'
+import { BuildConfig, CoreConfig } from './utils/types.js'
 import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
 import { taskHtml } from './task-html.js'
@@ -9,7 +9,6 @@ type CoreProps = {
   siteName: string
   dev?: boolean
   log?: boolean
-  varList: string[]
   root?: string
 }
 type CoreResp = {
@@ -24,18 +23,16 @@ export const Core = async ({
   siteName,
   root,
   dev = false,
-  varList = [],
 }: CoreProps): Promise<CoreResp> => {
-  console.log(varList)
   const coreConfig: CoreConfig = getConfig({ siteName, root, dev })
   const { timekey, buildConfigPath, styleIndexPath, scriptIndexPath, distDir } =
     coreConfig
 
-  const buildConfig = readConfig(buildConfigPath)
+  const buildConfig = readConfig(buildConfigPath) as BuildConfig
 
   return {
     cleanDist: () => {
-      info('t', 'Task: CLEAN')
+      info('title', 'Task: CLEAN')
       cleanDir(distDir)
     },
     renderHtml: () => taskHtml({ buildConfig, coreConfig }),

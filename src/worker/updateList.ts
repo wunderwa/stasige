@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs'
 type Params = {
   pathBase: string
   langs: string[]
-  pathInPages: (filePath: string) => string
+  pathInPages: (filePath?: string) => string
   onlyMissing?: boolean
 }
 

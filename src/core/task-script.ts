@@ -18,7 +18,7 @@ export const taskScript = async ({
   scriptIndexPath,
   distDir,
 }: TaskScriptProps) => {
-  info('t', 'Task: SCRIPT')
+  info('title', 'Task: SCRIPT')
 
   const bundle: RollupBuild = await rollup({
     input: scriptIndexPath,

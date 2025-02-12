@@ -31,7 +31,7 @@ const updateBaseName = (file: rename.ParsedPath) => {
 }
 
 export const taskImages = ({ pathInAssets, pathInPages, distDir }: Props) => {
-  info('t', 'Task: IMAGES')
+  info('title', 'Task: IMAGES')
 
   // pages: gif, svg
   gulpList(pathInPages('**/*.{svg,gif}'))

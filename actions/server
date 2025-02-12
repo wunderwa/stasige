@@ -1,23 +1,31 @@
 #!/bin/bash
 
-ARGV=$@
-source ./actions/-head -N "srv"  -T "Start local server" $@
+source ./actions/-head -N "srv" $@
 echo "dev: $DEV  port: $PORT"
 echo "----------------"
 
-echo "pp $PORT"
-
 if [ "$PORT" = "" ]; then PORT=8000; fi
 
+if [ "$PRM1" = "" ]; then
+    ./actions/-error "Unknown site template name <site>"
+    ./actions/-see-help srv
+    exit 0
+fi
 
-TMP_NAME=$PRM1 # template name
+TMPL_NAME=$PRM1 # template name
 
 
 if [ "$DEV" = "1" ]; then
-  BUILD_DIR="http/$TMP_NAME"
+  BUILD_DIR="http/$TMPL_NAME"
 else
-  BUILD_DIR="dist/$TMP_NAME"
+  BUILD_DIR="dist/$TMPL_NAME"
 fi
 
-npx http-server -p $PORT -c-1 -o / $BUILD_DIR
+if [ -d "$BUILD_DIR" ]; then
+  npx http-server -p $PORT -c-1 -o / $BUILD_DIR
+else
+  ./actions/-error "Directory  '$BUILD_DIR'   does not exist."
+  ./actions/-see-help srv
+fi
+
 

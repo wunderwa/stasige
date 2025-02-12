@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "See help:"
+echo "yarn $1 -hc"

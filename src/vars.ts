@@ -1,32 +1,16 @@
 import minimist from 'minimist'
 import { taskVars } from './core/task-vars.js'
-import { CoreConfig, PageProps } from './core/utils/types.js'
-import { cleanFormat, getConfig, readConfig } from './core/utils/index.js'
+import { BuildConfig, CoreConfig, PageProps } from './core/utils/types.js'
+import {
+  clean,
+  getConfig,
+  parsePageProps,
+  printHelp,
+  readConfig,
+} from './core/utils/index.js'
 
+const CMD = 'vars'
 
-
-const parsePage = (p: string): PageProps => {
-  if (!p) return null
-  const param = p.split(':')
-
-  if (!param[0] || !param[0].match('/,/')) {
-    return null
-  }
-
-  return {
-    pathBase: param[0],
-    langs: param[1] ? param[1].split(',') : [],
-  }
-}
-
-
-// yarn vars -h
-// yarn vars -c  <site>
-// yarn vars -c default
-// yarn vars -c  <site> <list>
-// yarn vars -c default title,body,lang
-// yarn vars -c  <site> <pathBase:lang,lang> <list>
-// yarn vars -c default /docs/icon:ru title,body,lang
 const opts = {
   boolean: ['c', 'h'],
   alias: { c: 'clear', h: 'help' },
@@ -40,20 +24,47 @@ type Argv = {
 const argv: Argv = minimist<Argv>(process.argv.slice(2), opts)
 
 if (argv.clear) {
-  cleanFormat()
+  clean()
 }
 if (argv.help) {
-  // print help
-  process.exit(0)
+  printHelp(CMD, { exit: true })
 }
 
-const site = argv._[0]
-const page = parsePage(argv._[1])
-const varList = argv._[2] ? argv._[2].split(',') : []
+const siteName = argv._[0]
 
+if (!siteName) {
+  printHelp(CMD, {
+    exit: true,
+    error: 'No site template name argument found. See help below',
+  })
+}
 
-const coreConfig: CoreConfig = getConfig({ siteName: site, dev: false })
-const { buildConfigPath} = coreConfig
-const buildConfig = readConfig(buildConfigPath)
+const coreConfig: CoreConfig = getConfig({ siteName, dev: false })
+const { buildConfigPath } = coreConfig
 
-await taskVars({ buildConfig, coreConfig, page, varList })
+let buildConfig: BuildConfig
+
+buildConfig = readConfig(buildConfigPath) as BuildConfig
+
+const params: {
+  siteName: string
+  page: PageProps
+  varList: string[]
+} = {
+  siteName,
+  page: null,
+  varList: [],
+}
+
+if (argv._.length === 2) {
+  params.varList = argv._[1].split(',') as string[]
+} else if (argv._.length > 2) {
+  params.page = parsePageProps(argv._[1])
+  params.varList = argv._[2].split(',')
+}
+
+if (params.page?.langs?.length ?? 0 > 1) {
+  console.info('The first language will be used: ', params.page?.langs[0])
+}
+
+await taskVars({ buildConfig, coreConfig, ...params })

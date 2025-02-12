@@ -10,7 +10,7 @@ export const taskHtml = async ({
   buildConfig,
   coreConfig,
 }: TaskHtmlProps): Promise<void> => {
-  info('t', 'Task: HTML')
+  info('title', 'Task: HTML')
 
   const pageConfigs: PageConfig[] = await getPageConfigList({
     coreConfig,

@@ -1,20 +1,21 @@
 #!/bin/bash
 
-source ./actions/-head -N copy -T "Copy template" $@
+source ./actions/-head -N copy $@
 
-TMP_NAME=$PRM1 # template name
+TMPL_NAME=$PRM1 # template name
 
-TMP_DIR="sites/${TMP_NAME}"
+TMPL_DIR="sites/${TMPL_NAME}"
 
-if [ -d "$TMP_DIR" ]; then
-  echo "Directory  '$TMP_NAME'   does exist."
+if [ -d "$TMPL_DIR" ]; then
+  ./actions/-error "Directory  '$TMPL_NAME'   does exist. Enter other site template name"
+  ./actions/-see-help copy
 else
-  echo "Print 'y' to create '$TMP_NAME' site template from default"
+  echo "Print 'y' to create '$TMPL_NAME' site template from default"
   read ACCEPT
   echo "$ACCEPT"
   if [ "$ACCEPT" = "y" ] || [ "$ACCEPT" = "Y" ]; then
-    cp -R sites/default $TMP_DIR
-    cd $TMP_DIR
+    cp -R sites/default $TMPL_DIR
+    cd $TMPL_DIR
     git init
     cd ..
     ls -lt

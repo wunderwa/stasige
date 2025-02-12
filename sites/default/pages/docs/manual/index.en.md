@@ -90,7 +90,7 @@ yarn copy -ch <site>
 
 * `-c` - clear console
 * `-h` - help description
-* `<site>` - new site template
+* `<site>` - new site template name
 
 Copy default site template in new location `./sites/default` =>  `./sites/<site>`
 ```shell
@@ -103,7 +103,7 @@ yarn srv -hcDp <port> <site>
 ```
 * `-c` - clear console
 * `-h` - help description
-* `<site>` - site template
+* `<site>` - site template name (required for start)
 * `-D` - dev mode
 * `-p <port>` - port number. Default 8000
 ### yarn new (stamdic ssg)
@@ -114,7 +114,7 @@ yarn new -ch <site> <path:lang,lang>
 
 * `-c` - clear console
 * `-h` - help description
-* `<site>` - new site template
+* `<site>` - site template name
 * `path` - page base path (ex. `/docs/icons`)
 * `lang` - page lang 
 

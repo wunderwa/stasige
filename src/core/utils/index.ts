@@ -1,6 +1,5 @@
 export * from './config.js'
 export * from './console.js'
-export * from './info.js'
 export * from './filesys.js'
 export * from './genPage.js'
 export * from './findPage.js'
@@ -10,5 +9,4 @@ export * from './langs.js'
 export * from './menus.js'
 export * from './parseMd.js'
 export * from './parsePageProps.js'
-export * from './readHelpText.js'
-
+export * from './helpTextLines.js'

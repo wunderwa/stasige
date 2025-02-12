@@ -25,20 +25,14 @@ type Argv = {
 const argv: Argv = minimist<Argv>(process.argv.slice(2), opts)
 const { dev } = argv
 const site = argv._[0]
-
 const core = await Core({
   siteName: site,
   dev,
-  varList: [],
 })
 
 if (dev) {
   const fullDevBuild =
-    !argv.clear &&
-    !argv.css &&
-    !argv.js &&
-    !argv.html &&
-    !argv.img
+    !argv.clear && !argv.css && !argv.js && !argv.html && !argv.img
   const opt = {
     clear: argv.clear || fullDevBuild,
     styles: argv.css || fullDevBuild,

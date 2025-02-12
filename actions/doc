@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./actions/-head -N "doc"  -T "Convert manuals" $@
+source ./actions/-head -N "doc" $@
 
 ACTION=$PRM1
 
@@ -29,6 +29,6 @@ elif [ "$ACTION" = "" ]; then
   doText
   doPage
 else
-  echo "unknown parameter: $1"
-  echo "yarn doc -h"
+  ./actions/-error "unknown parameter: $1"
+  ./actions/-see-help doc
 fi

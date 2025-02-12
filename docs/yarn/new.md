@@ -6,7 +6,7 @@ yarn new -ch <site> <path:lang,lang>
 
 * `-c` - clear console
 * `-h` - help description
-* `<site>` - new site template
+* `<site>` - site template name
 * `path` - page base path (ex. `/docs/icons`)
 * `lang` - page lang 
 

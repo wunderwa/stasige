@@ -10,6 +10,7 @@ import {
 import { dirname, join } from 'node:path'
 
 import { BuildConfig } from './types.js'
+import { criticalError } from './console.js'
 
 export const cleanDir = async (filePath: string): Promise<void> => {
   if (existsSync(filePath)) {
@@ -32,8 +33,14 @@ export const readDir = async (dirPath: string): Promise<string[]> => {
 export const readFile = (filePath: string): string =>
   readFileSync(filePath, 'utf8')
 
-export const readConfig = (filePath: string): BuildConfig =>
-  JSON.parse(readFile(filePath)) as BuildConfig
+export const readConfig = (filePath: string): BuildConfig | null => {
+  try {
+    return JSON.parse(readFile(filePath)) as BuildConfig
+  } catch (e) {
+    criticalError(`Could not read config file.\n ${filePath}`)
+    return null
+  }
+}
 
 export const joinPath = (dirs: string[], file: string): string =>
   join(...dirs, file)

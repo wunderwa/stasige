@@ -2,7 +2,7 @@
 
 ARGV="$@"
 
-source ./actions/-head -N "wrk"  -T "Build and deploy" $@
+source ./actions/-head -N "wrk" $@
 
 
 
@@ -19,18 +19,18 @@ while getopts "hcbdDCSJHI" flag; do
   esac
 done
 shift $((OPTIND - 1))
-TMP_NAME=$1 # template name
+TMPL_NAME=$1 # template name
 
 if [ "$DEV" = "1" ]; then
   BUILD_OPTS="${BUILD_OPTS}D"
-  BUILD_DIR="http/$TMP_NAME"
+  BUILD_DIR="http/$TMPL_NAME"
 else
   BUILD_OPTS=""
-  BUILD_DIR="dist/$TMP_NAME"
+  BUILD_DIR="dist/$TMPL_NAME"
 fi
 
-TMP_DIR="sites/${TMP_NAME}"
-DEPLOY_CONFIG="${TMP_DIR}/deploy.json"
+TMPL_DIR="sites/${TMPL_NAME}"
+DEPLOY_CONFIG="${TMPL_DIR}/deploy.json"
 
 source actions/wrk-actions
 
