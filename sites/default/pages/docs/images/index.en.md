@@ -7,7 +7,12 @@ title: docs/images en title
 <!--config-->
 ## Adding images to a page
 
-Add directory `-img` in root of directory containing current file
+- Add directory `-img` in root of directory containing current *.lang.md file.
+- `jpg`, `png`, `webp` and `gif` images are supported.  
+- `jpg` and `png` imagess will be converted in `webp` one.
+- `webp` will be compressed.
+- `gif` will be copied as is.
+
 ```markdown
 ![alt text](-img/stamdic.gif)
 ![Jpg image](-img/stamdic.jpg)
@@ -16,9 +21,8 @@ Add directory `-img` in root of directory containing current file
 
 ![Gif image](-img/stamdic.gif)
 
-d ![Jpg image](-img/stamdic.jpg) {.img}
+![Jpg image](-img/stamdic.jpg) {.img}
 
-d ![jpgPng image](-img/stamdic.png) {.img}
+![jpgPng image](-img/stamdic.png) {.img}
 
-Para {.par}
 

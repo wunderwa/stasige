@@ -2,13 +2,18 @@
   background: #c4c7b7;
 }*/
 
+
+.st-footer-link {
+  height: 40px;
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
 $sz: 128px;
 
-.bottom-box {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 .bottom-logo {
   width: $sz;
   height: $sz;

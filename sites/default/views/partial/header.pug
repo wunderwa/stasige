@@ -1,6 +1,8 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container-xl
-    a.navbar-brand(href=linksByLang[lang]['/'].path)= meta.title[lang]
+    a.navbar-brand.st-brand(href=linksByLang[lang]['/'].path)
+      include ../icons/stamdic-full
+      =meta.title[lang]
     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse

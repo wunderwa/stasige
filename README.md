@@ -13,7 +13,7 @@ yarn
 default
 ### Build
 ```shell
-yarn wrk build <site-name>
+yarn wrk -b <site-name>
 ```
 
 
@@ -31,14 +31,15 @@ Pages in /sites/<site-name>/pages/ for each language
 /pages/about/ru.md # -> '/about/ru/' as other lang
 ```
 
-
 md file has yaml section in top with separator `<!--config-->` 
 File.md format
-```
+```markdown
+```yaml
 layout: default
 menuShort: Menu title
 menuLong: Menu long title
 title: Head title or its part
+```.
 <!--config-->
 Content of page as markdown
 ```
@@ -64,7 +65,7 @@ brew install jq openssh
 
 Copy default site template to new one
 ```shell
- yarn wrk -c mysite
+ yarn copy mysite
 ```
 
 Build `default` site
@@ -81,11 +82,17 @@ Build & deploy `default` site
  yarn wrk -bd default
 ```
 
-
 - [Structure](docs/STRUCTURE.md)
 
-### Idea
-make deploy in node script?
+### Ideas
+TODO Console menu order editor
+
+TODO Console site link tester a.href] img.src
 ```shell
-yarn add -D node-ssh
+yarn linktest -Dp <port> <site>
+``` 
+
+TODO make deploy in node script?
+```shell
+yarn add -D node-ssh @types/node-ssh
 ```
