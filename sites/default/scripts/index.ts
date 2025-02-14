@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = initModal('#main-modal-center')
 
   clicker('open-in-modal', function (this: HTMLElement) {
-    const body: Element = modal.node.querySelector('.modal-body')
+    const body: Element | null = modal?.node.querySelector('.modal-body') ?? null
     if (!body) {
       return
     }
@@ -20,6 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       body.innerHTML = elem.innerHTML
     }
-    modal.modal.show()
+    modal?.modal.show()
   })
 })

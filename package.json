@@ -1,6 +1,6 @@
 {
   "name": "@wunderwa/stamdic",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Stamdic - static site generator with pug, bootstrap, sass, markdown",
   "type": "module",
   "engines": {
