@@ -2,6 +2,16 @@ import { CoreConfig } from './types.js'
 import { join } from 'node:path'
 
 export const separator = '<!--config-->'
+
+// empty array = all attributes are allowed
+export const markdownAllowedAttributes = [
+  'id',
+  'class',
+  'title',
+  'data-clicker',
+  'target',
+]
+
 export const distImgDir = 'i'
 export const distAssetsDir = 'a/'
 const SITES = 'sites'

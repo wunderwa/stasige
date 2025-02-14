@@ -2,14 +2,14 @@
 layout: default
 menuShort: Images
 menuLong: Adding images
-title: docs/images en title
+title: Adding images
 ```
 <!--config-->
 ## Adding images to a page
 
 - Add directory `-img` in root of directory containing current *.lang.md file.
 - `jpg`, `png`, `webp` and `gif` images are supported.  
-- `jpg` and `png` imagess will be converted in `webp` one.
+- `jpg` and `png` images will be converted in `webp` one.
 - `webp` will be compressed.
 - `gif` will be copied as is.
 
@@ -19,10 +19,8 @@ title: docs/images en title
 ![jpgPng image](-img/stamdic.png)
 ```
 
-![Gif image](-img/stamdic.gif)
+![Gif image](-img/stamdic.gif){.rounded .mx-auto .d-block .img-class-gif #img-id-gif data-clicker=open-in-modal}
 
-![Jpg image](-img/stamdic.jpg) {.img}
+![Jpg image](-img/stamdic.jpg){.rounded .mx-auto .d-block .img-class-jpg #img-id-jpg data-clicker=open-in-modal}
 
-![jpgPng image](-img/stamdic.png) {.img}
-
-
+![jpgPng image](-img/stamdic.png){.rounded .mx-auto .d-block .img-class-png #img-id-png data-clicker=open-in-modal}

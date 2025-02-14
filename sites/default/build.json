@@ -1,6 +1,6 @@
 {
-  "langs": ["en","ru"],
-  "meta" : {
+  "langs": ["en", "ru"],
+  "meta": {
     "title": {
       "ru": "Стамдик",
       "en": "Stamdic"
@@ -26,6 +26,5 @@
       "ru": "Проблемы проекта",
       "en": "Project issues"
     }
-
   }
 }

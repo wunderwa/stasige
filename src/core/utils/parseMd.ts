@@ -1,6 +1,7 @@
 import { parse } from 'yaml'
 import markdownit from 'markdown-it'
-import { distImgDir, separator } from './config.js'
+import markdownItAttrs from 'markdown-it-attrs'
+import { distImgDir, markdownAllowedAttributes, separator } from './config.js'
 import { readFile } from './filesys.js'
 import { join } from 'node:path'
 
@@ -8,6 +9,13 @@ const md = markdownit({
   html: true,
   linkify: true,
   typographer: true,
+})
+
+md.use(markdownItAttrs, {
+  // optional, these are default options
+  leftDelimiter: '{',
+  rightDelimiter: '}',
+  allowedAttributes: markdownAllowedAttributes,
 })
 
 type ParseMd = (
@@ -23,18 +31,19 @@ type ParseMd = (
 
 export const parseMd: ParseMd = (filePath: string, pathBase) => {
   const content = readFile(filePath)
-  const parts = content.split(separator)
+  const [yamlConf, ...mdList] = content.split(separator)
+
   const imgPath = join('/', distImgDir, pathBase, '/')
   return {
     layout: 'default',
     ...parse(
-      parts[0]
+      yamlConf
         .trim()
         .replace(/^```yaml/, '')
         .replace(/```$/, ''),
     ),
     body: md
-      .render(parts[1])
+      .render(mdList.join(separator))
       .replace(/<img\s+src="-img\//g, '<img src="' + imgPath)
       .replace(/<img\s+src="([^"]+\.(jpg|png))/g, '<img src="$1.webp'),
   }

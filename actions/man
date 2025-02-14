@@ -7,6 +7,7 @@ CMD=$PRM1
 if [ "$CMD" = "" ]; then
 echo ""
 echo "- yarn fmt"
+echo "- yarn fmt:site <site>"
 echo "- yarn fmt:check"
 echo "- yarn man <cmd>"
 echo "- yarn copy <new-site-name>"

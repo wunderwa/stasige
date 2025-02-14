@@ -96,3 +96,7 @@ TODO make deploy in node script?
 ```shell
 yarn add -D node-ssh @types/node-ssh
 ```
+TODO code Highlight
+```shell
+yarn add -D markdown-it-highlightjs @types/markdown-it-highlightjs
+```
