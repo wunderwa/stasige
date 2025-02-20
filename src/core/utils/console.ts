@@ -59,3 +59,8 @@ export const printHelp = (
 export const clean = (isSoft = false) => {
   process.stdout.write(isSoft ? '\x1B[H\x1B[2J' : '\x1B[2J\x1B[3J\x1B[H\x1Bc')
 }
+
+export const clearLastLine = () => {
+  process.stdout.moveCursor(0, -1) // up one line
+  process.stdout.clearLine(1) // from cursor to end
+}

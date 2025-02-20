@@ -1,14 +1,10 @@
-yarn copy (stamdic ssg)
-
+yarn copy (stasige ssg)
 Copy site template (in new)
+yarn copy -ch 〈site〉
 
-    yarn copy -ch <site>
+-c - clear console
+-h - help description
+〈site〉 - new site template name
 
--   -c - clear console
--   -h - help description
--   <site> - new site template name
-
-Copy default site template in new location ./sites/default =>
-./sites/<site>
-
-    yarn copy <site>
+Copy default site template in new location ./sites/default =〉  ./sites/〈site〉
+yarn copy 〈site〉

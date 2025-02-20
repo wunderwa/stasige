@@ -1,6 +1,5 @@
 import pug from 'pug'
 import {
-  BuildConfig,
   CoreConfig,
   Menus,
   PageConfig,
@@ -12,28 +11,25 @@ import { getPageLangs } from './langs.js'
 import { pugData, pugFunc } from './pugHelpers.js'
 
 type GenPage = {
-  buildConfig: BuildConfig
   coreConfig: CoreConfig
   pageConfig: PageConfig
   menu: Menus
 }
 
-export const genPage = async ({
-  buildConfig,
-  coreConfig,
-  pageConfig,
-  menu,
-}: GenPage) => {
-  const { timekey, layoutByName, pathInView, pathInBuild, pathInData } =
+export const genPage = async ({ coreConfig, pageConfig, menu }: GenPage) => {
+  const { timekey, layoutByName, pathInView, pathInBuild, pathInData, build } =
     coreConfig
+  if (!build) {
+    return
+  }
   const { lang, path, pathBase, layout } = pageConfig
-  const { langs } = buildConfig
+  const { langs } = build
   const compileLayoutFunc = pug.compileFile(layoutByName(layout))
 
   const layoutLocals: PugLayoutLocals = {
     ...pageConfig,
     ...menu,
-    ...buildConfig,
+    ...build,
     timekey,
     data: pugData(pathInData),
     func: pugFunc(),

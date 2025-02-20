@@ -1,5 +1,4 @@
 import {
-  BuildConfig,
   CoreConfig,
   Menus,
   PageConfig,
@@ -16,7 +15,6 @@ import {
 } from './utils/index.js'
 
 type TaskVarProps = {
-  buildConfig: BuildConfig
   coreConfig: CoreConfig
   siteName: string
   page: PageProps
@@ -24,26 +22,25 @@ type TaskVarProps = {
 }
 
 export const taskVars = async ({
-  buildConfig,
   coreConfig,
   siteName,
   page,
   varList,
 }: TaskVarProps) => {
-  const { timekey, pathInData } = coreConfig
+  const { timekey, pathInData, build } = coreConfig
+  if (!build) {
+    process.exit(0)
+  }
 
-  const pageConfigs: PageConfig[] = await getPageConfigList({
-    coreConfig,
-    buildConfig,
-  })
-  const menus: Menus = getMenus(pageConfigs, buildConfig.langs)
+  const pageConfigs: PageConfig[] = await getPageConfigList(coreConfig)
+  const menus: Menus = getMenus(pageConfigs, build?.langs ?? [])
 
   const pageConfig = findPage(pageConfigs, page)
 
   const layoutLocals: PugLayoutLocals = {
     ...pageConfig,
     ...menus,
-    ...buildConfig,
+    ...build,
     timekey,
     data: pugData(pathInData),
     func: pugFunc(),

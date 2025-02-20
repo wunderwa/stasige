@@ -1,18 +1,3 @@
-export type CoreConfig = {
-  timekey: string
-  buildConfigPath: string
-  styleIndexPath: string
-  scriptIndexPath: string
-  pagesFullPath: string
-  distDir: string
-  pathInAssets: (file?: string) => string
-  pathInData: (file?: string) => string
-  pathInPages: (page?: string) => string
-  pathInView: (page: string) => string
-  layoutByName: (page: string) => string
-  pathInBuild: (page?: string) => string
-}
-
 type Langs = 'ru' | 'en' | string
 type LinkKey = Langs | 'url'
 type MetaType = 'title' | 'description' | string
@@ -34,6 +19,22 @@ export type BuildConfig = {
   langs: Langs[]
   meta: Meta
   links: Links
+}
+
+export type CoreConfig = {
+  build: BuildConfig | null
+  timekey: string
+  buildConfigPath: string
+  styleIndexPath: string
+  scriptIndexPath: string
+  pagesFullPath: string
+  distDir: string
+  pathInAssets: (file?: string) => string
+  pathInData: (file?: string) => string
+  pathInPages: (page?: string) => string
+  pathInView: (page: string) => string
+  layoutByName: (page: string) => string
+  pathInBuild: (page?: string) => string
 }
 
 export type PageLang = {

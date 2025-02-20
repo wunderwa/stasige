@@ -14,13 +14,13 @@ title: Adding images
 - `gif` will be copied as is.
 
 ```markdown
-![alt text](-img/stamdic.gif)
-![Jpg image](-img/stamdic.jpg)
-![jpgPng image](-img/stamdic.png)
+![alt text](-img/stasige.gif)
+![Jpg image](-img/stasige.jpg)
+![jpgPng image](-img/stasige.png)
 ```
 
-![Gif image](-img/stamdic.gif){.rounded .mx-auto .d-block .img-class-gif #img-id-gif data-clicker=open-in-modal}
+![Gif image](-img/stasige.gif){.rounded .mx-auto .d-block .img-class-gif #img-id-gif data-clicker=open-in-modal}
 
-![Jpg image](-img/stamdic.jpg){.rounded .mx-auto .d-block .img-class-jpg #img-id-jpg data-clicker=open-in-modal}
+![Jpg image](-img/stasige.jpg){.rounded .mx-auto .d-block .img-class-jpg #img-id-jpg data-clicker=open-in-modal}
 
-![jpgPng image](-img/stamdic.png){.rounded .mx-auto .d-block .img-class-png #img-id-png data-clicker=open-in-modal}
+![jpgPng image](-img/stasige.png){.rounded .mx-auto .d-block .img-class-png #img-id-png data-clicker=open-in-modal}

@@ -1,7 +1,7 @@
 import { pageRegExp } from './config.js'
 import { dirname } from 'node:path'
 import { parseMd } from './parseMd.js'
-import { BuildConfig, CoreConfig, PageConfig } from './types.js'
+import { CoreConfig, PageConfig } from './types.js'
 import { readDir } from './filesys.js'
 
 type GetPageConfig = {
@@ -28,23 +28,17 @@ export const onePageConfig = ({
   }
 }
 
-type GetPageConfigList = {
-  coreConfig: CoreConfig
-  buildConfig: BuildConfig
-}
-
-export const getPageConfigList = async ({
-  coreConfig,
-  buildConfig,
-}: GetPageConfigList): Promise<PageConfig[]> => {
-  const { pagesFullPath, pathInPages } = coreConfig
+export const getPageConfigList = async (
+  coreConfig: CoreConfig,
+): Promise<PageConfig[]> => {
+  const { pagesFullPath, pathInPages, build } = coreConfig
   return (await readDir(pagesFullPath))
     .filter((page) => page.match(pageRegExp))
     .map((page) =>
       onePageConfig({
         page,
         src: pathInPages(page),
-        mainLang: buildConfig.langs[0],
+        mainLang: build?.langs[0] ?? '',
       }),
     )
 }

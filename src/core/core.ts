@@ -1,5 +1,5 @@
-import { getConfig, cleanDir, readConfig, info } from './utils/index.js'
-import { BuildConfig, CoreConfig } from './utils/types.js'
+import { getConfig, cleanDir, info } from './utils/index.js'
+import { CoreConfig } from './utils/types.js'
 import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
 import { taskHtml } from './task-html.js'
@@ -25,17 +25,14 @@ export const Core = async ({
   dev = false,
 }: CoreProps): Promise<CoreResp> => {
   const coreConfig: CoreConfig = getConfig({ siteName, root, dev })
-  const { timekey, buildConfigPath, styleIndexPath, scriptIndexPath, distDir } =
-    coreConfig
-
-  const buildConfig = readConfig(buildConfigPath) as BuildConfig
+  const { timekey, styleIndexPath, scriptIndexPath, distDir } = coreConfig
 
   return {
     cleanDist: () => {
       info('title', 'Task: CLEAN')
       cleanDir(distDir)
     },
-    renderHtml: () => taskHtml({ buildConfig, coreConfig }),
+    renderHtml: () => taskHtml(coreConfig),
     renderStyle: () => taskStyle({ timekey, styleIndexPath, distDir }),
     renderScript: () => taskScript({ timekey, scriptIndexPath, distDir }),
     copyImages: () => taskImages(coreConfig),

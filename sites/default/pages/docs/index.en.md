@@ -14,8 +14,8 @@ title: Get started
 
 ```shell
 npm i -g yarn
-git clone git@github.com:wunderwa/stamdic.git
-cd stamdic
+git clone git@github.com:wunderwa/stasige.git
+cd stasige
 yarn
 ```
 

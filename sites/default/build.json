@@ -3,26 +3,26 @@
   "meta": {
     "title": {
       "ru": "Стамдик",
-      "en": "Stamdic"
+      "en": "Stasige"
     },
     "description": {
-      "ru": "Stamdic - Static site generator from markdown files by node & typescript",
-      "en": "Stamdic - Генератор статического сайта из файлов markdown с помощью node и typescript"
+      "ru": "Stasige - Static site generator from markdown files by node & typescript",
+      "en": "Stasige - Генератор статического сайта из файлов markdown с помощью node и typescript"
     }
   },
   "links": {
     "git": {
-      "url": "git@github.com:wunderwa/stamdic.git",
-      "ru": "Репозиторий Stamdic",
-      "en": "Stamdic repo"
+      "url": "git@github.com:wunderwa/stasige.git",
+      "ru": "Репозиторий Stasige",
+      "en": "Stasige repo"
     },
     "github": {
-      "url": "https://github.com/wunderwa/stamdic",
+      "url": "https://github.com/wunderwa/stasige",
       "ru": "Репозиторий проекта",
       "en": "Project repository"
     },
     "issues": {
-      "url": "https://github.com/wunderwa/stamdic/issues",
+      "url": "https://github.com/wunderwa/stasige/issues",
       "ru": "Проблемы проекта",
       "en": "Project issues"
     }

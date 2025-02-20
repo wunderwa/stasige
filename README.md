@@ -1,12 +1,12 @@
-## stamdic
+## stasige
 
-[stamdic.memd.space](https://stamdic.memd.space/)
+[stasige.memd.space](https://stasige.memd.space/)
 
 ### Install
 ```shell
 npm i -g yarn
-git clone git@github.com:wunderwa/stamdic.git stamdic
-cd stamdic
+git clone git@github.com:wunderwa/stasige.git stasige
+cd stasige
 yarn
 ```
 

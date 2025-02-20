@@ -1,10 +1,10 @@
 {
   "prod": {
-    "ssh": "stamdic",
-    "path": "/var/www/memd.space/stamdic/"
+    "ssh": "stasige",
+    "path": "/var/www/memd.space/stasige/"
   },
   "dev": {
-    "ssh": "stamdic",
+    "ssh": "stasige",
     "path": "/var/www/memd.space/dl/"
   }
 }

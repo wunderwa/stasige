@@ -1,4 +1,4 @@
-# Stamdic
+# Stasige
 
 Static site generator with typescript and node using md data 
 

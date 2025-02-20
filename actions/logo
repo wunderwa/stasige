@@ -1,4 +1,0 @@
-#!/bin/bash
-
-clear
-echo -e "$(<docs/img/stamdic-art.txt)"

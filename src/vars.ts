@@ -1,34 +1,18 @@
-import minimist from 'minimist'
 import { taskVars } from './core/task-vars.js'
-import { BuildConfig, CoreConfig, PageProps } from './core/utils/types.js'
+import { CoreConfig, PageProps } from './core/utils/types.js'
 import {
-  clean,
+  getArgv,
   getConfig,
+  minActions,
+  MinArgv,
   parsePageProps,
   printHelp,
-  readConfig,
 } from './core/utils/index.js'
 
 const CMD = 'vars'
 
-const opts = {
-  boolean: ['c', 'h'],
-  alias: { c: 'clear', h: 'help' },
-}
-
-type Argv = {
-  clear: boolean
-  help: boolean
-  _: string[]
-}
-const argv: Argv = minimist<Argv>(process.argv.slice(2), opts)
-
-if (argv.clear) {
-  clean()
-}
-if (argv.help) {
-  printHelp(CMD, { exit: true })
-}
+const argv: MinArgv = getArgv()
+minActions(CMD, argv)
 
 const siteName = argv._[0]
 
@@ -40,11 +24,6 @@ if (!siteName) {
 }
 
 const coreConfig: CoreConfig = getConfig({ siteName, dev: false })
-const { buildConfigPath } = coreConfig
-
-let buildConfig: BuildConfig
-
-buildConfig = readConfig(buildConfigPath) as BuildConfig
 
 const params: {
   siteName: string
@@ -67,4 +46,4 @@ if (params.page?.langs?.length ?? 0 > 1) {
   console.info('The first language will be used: ', params.page?.langs[0])
 }
 
-await taskVars({ buildConfig, coreConfig, ...params })
+await taskVars({ coreConfig, ...params })

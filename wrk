@@ -2,7 +2,7 @@
 
 ARGV="$@"
 
-source ./actions/-head -N "wrk" $@
+source ./scripts/-head -N "wrk" $@
 
 
 
@@ -32,14 +32,14 @@ fi
 TMPL_DIR="sites/${TMPL_NAME}"
 DEPLOY_CONFIG="${TMPL_DIR}/deploy.json"
 
-source actions/wrk-actions
+source scripts/wrk-actions
 
 # -b (build)
 if [ "$BUILD" = "1" ]; then
-  node --import=tsx ./src/build.ts $ARGV
+  npx tsx ./src/build.ts $ARGV
 fi
 
 # -d (deploy)
 if [ "$DEPLOY" = "1" ]; then
-  actions/wrk-deploy $DEPLOY_CONFIG $BUILD_DIR $DEV
+  scripts/wrk-deploy $DEPLOY_CONFIG $BUILD_DIR $DEV
 fi

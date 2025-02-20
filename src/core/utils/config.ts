@@ -1,5 +1,6 @@
-import { CoreConfig } from './types.js'
+import { BuildConfig, CoreConfig } from './types.js'
 import { join } from 'node:path'
+import { readConfig } from './filesys.js'
 
 export const separator = '<!--config-->'
 
@@ -15,8 +16,8 @@ export const markdownAllowedAttributes = [
 export const distImgDir = 'i'
 export const distAssetsDir = 'a/'
 const SITES = 'sites'
-const DIST = 'dist'
-const HTTP = 'http'
+export const BUILD_PROD = 'dist'
+export const BUILD_DEV = 'http'
 const SITE_NAME = 'default'
 const ROOT = process.cwd()
 const ASSETS = 'assets'
@@ -55,11 +56,15 @@ export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
   const inRoot = (...list: string[]) => join(siteRoot, ...list)
 
   const pathInBuild = (filePath = '') =>
-    join(rootPath, dev ? HTTP : DIST, siteDir, filePath)
+    join(rootPath, dev ? BUILD_DEV : BUILD_PROD, siteDir, filePath)
+
+  const buildConfigPath = inRoot(FILE.build)
+  const build = readConfig(buildConfigPath) as BuildConfig
 
   return {
+    build,
     timekey: dev ? 'dev' : Date.now().toString(36),
-    buildConfigPath: inRoot(FILE.build),
+    buildConfigPath,
     styleIndexPath: inRoot(FILE.style),
     scriptIndexPath: inRoot(FILE.script),
     pagesFullPath: inRoot(PAGES),

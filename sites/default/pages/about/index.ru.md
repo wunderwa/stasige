@@ -1,13 +1,13 @@
 ```yaml
 layout: default
-menuShort: О Stamdic
-menuLong: О Stamdic
-title: О Stamdic
+menuShort: О Stasige
+menuLong: О Stasige
+title: О Stasige
 ```
 <!--config-->
-## О Stamdic SSG
+## О Stasige SSG
 
-Stamdic — статический генератор сайтов для разработчиков фронтенда на Node.js
+Stasige — статический генератор сайтов для разработчиков фронтенда на Node.js
 
 Создайте свой красивый дизайн и обновляйте сайт в автоматическом режиме
 

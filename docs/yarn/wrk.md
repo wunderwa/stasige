@@ -1,13 +1,13 @@
-### yarn wrk (stamdic ssg)
+### yarn wrk (stasige ssg)
 Build and deploy
 
 Base usage (Build production (html, css and js) and deploy):
 ```shell
-yarn wrk -bd <site>
+yarn wrk -bd 〈site〉
 ```
 
 ```shell
-yarn wrk -hcbdDCSJHI <site>
+yarn wrk -hcbdDCSJHI 〈site〉
 ```
 
 `-h` - help description
@@ -15,13 +15,13 @@ yarn wrk -hcbdDCSJHI <site>
 `-c`  - clear console with `clear`
 
 
-`-b`  - build prod site `./sites/<site>` -> `./dist/<site>`
+`-b`  - build prod site `./sites/〈site〉` -〉 `./dist/〈site〉`
 
-`-bD`  - build dev site `./sites/<site>` in `./http/<site>`
+`-bD`  - build dev site `./sites/〈site〉` in `./http/〈site〉`
 
-`-d`  - deploy prod site from `./dist/<site>/*`
+`-d`  - deploy prod site from `./dist/〈site〉/*`
 
-`-dD`  - deploy dev site from `./http/<site>/*`
+`-dD`  - deploy dev site from `./http/〈site〉/*`
 
 ### Helpers for `dev` mode
 
@@ -43,16 +43,16 @@ Options below with `-D` only
 
 Build all
 ```shell
-yarn wrk -bD <site>
+yarn wrk -bD 〈site〉
 ```
 Build all and deploy
 ```shell
-yarn wrk -bdD <site>
+yarn wrk -bdD 〈site〉
 ```
 Rebuild styles, js, html or images only 
 ```shell
-yarn wrk -bDS <site> 
-yarn wrk -bDJ <site> 
-yarn wrk -bDH <site> 
-yarn wrk -bDI <site> 
+yarn wrk -bDS 〈site〉 
+yarn wrk -bDJ 〈site〉 
+yarn wrk -bDH 〈site〉 
+yarn wrk -bDI 〈site〉 
 ```

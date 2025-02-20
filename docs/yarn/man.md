@@ -1,12 +1,12 @@
-### yarn man (stamdic ssg)
+### yarn man (stasige ssg)
 Show all comands and its help
 ```shell
-yarn man -ch <cmd>
+yarn man -ch 〈cmd〉
 ```
 
 * `-c` - clear console
 * `-h` - help description
-*  `<cmd>` - <empty> | man | copy | new | vars | srv | wrk | doc 
+*  `〈cmd〉` - 〈empty〉 | man | copy | new | vars | srv | wrk | doc 
 
 * `yarn man`
 * `yarn man man`

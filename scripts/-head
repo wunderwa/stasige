@@ -21,12 +21,12 @@ if [ "$_CLEAR" = "1" ];then
 fi
 
 if [ "$_NAME" != "" ];then
-  echo -e "\x1b[7m > Stamdic: ssg \x1b[0m \x1b[1m yarn $_NAME \x1b[0m"
+  echo -e "\x1b[7m > Stasige: ssg \x1b[0m \x1b[1m yarn $_NAME \x1b[0m"
 fi
 
 
 if [ "$_HELP" = "1" ];then
-  ./actions/-help "$_NAME"
+  ./scripts/-help "$_NAME"
   exit 0
 fi
 

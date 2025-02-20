@@ -1,40 +1,42 @@
 import minimist from 'minimist'
 import { Core } from './core/core.js'
 
-const opts = {
-  boolean: ['D', 'C', 'S', 'J', 'H', 'I'],
-  alias: {
-    D: 'dev',
-    C: 'clear',
-    S: 'css',
-    J: 'js',
-    H: 'html',
-    I: 'img',
-  },
-}
-
 type Argv = {
   dev: boolean
-  clear: boolean
+  clearDir: boolean
   css: boolean
   js: boolean
   html: boolean
   img: boolean
   _: string[]
 }
+const alias: { [k: string]: keyof Argv } = {
+  D: 'dev',
+  C: 'clearDir',
+  S: 'css',
+  J: 'js',
+  H: 'html',
+  I: 'img',
+}
+
+const opts = {
+  boolean: ['D', 'C', 'S', 'J', 'H', 'I'],
+  alias,
+}
+
 const argv: Argv = minimist<Argv>(process.argv.slice(2), opts)
 const { dev } = argv
-const site = argv._[0]
+const siteName = argv._[0]
 const core = await Core({
-  siteName: site,
+  siteName,
   dev,
 })
 
 if (dev) {
   const fullDevBuild =
-    !argv.clear && !argv.css && !argv.js && !argv.html && !argv.img
+    !argv.clearDir && !argv.css && !argv.js && !argv.html && !argv.img
   const opt = {
-    clear: argv.clear || fullDevBuild,
+    clear: argv.clearDir || fullDevBuild,
     styles: argv.css || fullDevBuild,
     script: argv.js || fullDevBuild,
     html: argv.html || fullDevBuild,

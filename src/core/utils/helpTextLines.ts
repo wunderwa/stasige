@@ -11,7 +11,7 @@ export const helpTextLines = (name: string): HelpLine[] => {
   if (existsSync(fPath)) {
     const text = readFile(`src/help/yarn-${name}.txt`)
     const list = text.split('\n')
-    list[0] = `\x1b[7m > Stamdic: ssg \x1b[0m \x1b[1m yarn ${name} \x1b[0m`
+    list[0] = `\x1b[7m > Stasige: ssg \x1b[0m \x1b[1m yarn ${name} \x1b[0m`
     return list
   } else {
     return [['error', `Wrong help file path: ${fPath} `]]

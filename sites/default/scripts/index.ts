@@ -1,7 +1,7 @@
 import { clicker, initMenu, initModal } from './utils/index.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.info('Start stamdic!')
+  console.info('Start stasige!')
   initMenu('.dropdown')
   const modal = initModal('#main-modal-center')
 

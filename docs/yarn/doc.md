@@ -1,4 +1,4 @@
-### yarn doc (stamdic ssg)
+### yarn doc (stasige ssg)
 Convert docs into manuals
 ```shell
 yarn doc -ch [text | page]  
