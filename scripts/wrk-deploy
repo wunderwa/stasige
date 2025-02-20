@@ -21,6 +21,6 @@ else
   exit 1
 fi
 
-ssh memd -t "rm -r ${SSH_PATH}*"
+ssh $SSH_SERVER -t "rm -r ${SSH_PATH}*"
 scp -rp $BUILD_DIR/* $SSH_SERVER:$SSH_PATH
 
