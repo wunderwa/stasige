@@ -3,6 +3,7 @@ import http from 'node:http'
 import finalhandler from 'finalhandler'
 import serveStatic from 'serve-static'
 import open from 'open'
+import { green, red, yellow } from './colored.js'
 
 type Params = {
   host?: string
@@ -14,11 +15,11 @@ type Params = {
 
 const status = (code: number) => {
   if (code >= 200 && code < 300) {
-    return `\x1b[0m \x1b[32m${code}\x1b[0m`
+    return green(code)
   } else if (code >= 300 && code < 400) {
-    return `\x1b[0m \x1b[33m${code}\x1b[0m`
+    return yellow(code)
   } else if (code >= 400) {
-    return `\x1b[0m \x1b[31m${code}\x1b[0m`
+    return red(code)
   }
   return `${code}`
 }

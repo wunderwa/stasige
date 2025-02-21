@@ -1,7 +1,0 @@
-#!/bin/bash
-
-  BODY="$(<src/help/yarn-${1}.txt)"
-  # remove first line separated by '\n'
-  BODY=${BODY#*$'\n'}
-  echo -e "$BODY"
-

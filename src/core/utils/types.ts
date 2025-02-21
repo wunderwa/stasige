@@ -1,3 +1,5 @@
+import { Config as ConnectConfig } from 'node-ssh'
+
 type Langs = 'ru' | 'en' | string
 type LinkKey = Langs | 'url'
 type MetaType = 'title' | 'description' | string
@@ -21,12 +23,26 @@ export type BuildConfig = {
   links: Links
 }
 
+export type DeployConfigMono = {
+  ssh: ConnectConfig
+  path: string
+  concurrency: number
+}
+
+export type DeployConfig = {
+  prod: DeployConfigMono
+  dev: DeployConfigMono
+}
+
 export type CoreConfig = {
   build: BuildConfig | null
+  dev: boolean
   timekey: string
   buildConfigPath: string
+  deployConfigPath: string
   styleIndexPath: string
   scriptIndexPath: string
+  viewIndexPath: string
   pagesFullPath: string
   distDir: string
   pathInAssets: (file?: string) => string

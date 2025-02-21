@@ -41,8 +41,8 @@ Build all
 yarn wrk -bD 〈site〉
 Build all and deploy
 yarn wrk -bdD 〈site〉
-Rebuild styles, js, html or images only
-yarn wrk -bDS 〈site〉
-yarn wrk -bDJ 〈site〉
-yarn wrk -bDH 〈site〉
-yarn wrk -bDI 〈site〉
+Rebuild styles, js, html or images only 
+yarn wrk -bDS 〈site〉 
+yarn wrk -bDJ 〈site〉 
+yarn wrk -bDH 〈site〉 
+yarn wrk -bDI 〈site〉 

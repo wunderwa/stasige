@@ -1,4 +1,5 @@
 export * from './argv.js'
+export * from './colored.js'
 export * from './config.js'
 export * from './console.js'
 export * from './filesys.js'

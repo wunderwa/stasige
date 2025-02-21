@@ -14,7 +14,7 @@ list - variable name list separated by ',' to show values. Only global vars avai
 Show template variables names only or some global variables value:
 yarn vars -c  〈site〉
 example
-yarn vars default
+yarn vars default  
 
 Show template some global variables value:
 yarn vars -c  〈site〉 〈list〉

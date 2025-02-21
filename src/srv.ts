@@ -1,6 +1,6 @@
 import {
-  BUILD_DEV,
-  BUILD_PROD,
+  DIST_DEV,
+  DIST_PROD,
   checkSiteName,
   getArgv,
   minActions,
@@ -32,9 +32,7 @@ const siteName = argv._[0]
 
 checkSiteName(CMD, siteName)
 
-const buildDir = argv.dev
-  ? join(BUILD_DEV, siteName)
-  : join(BUILD_PROD, siteName)
+const buildDir = argv.dev ? join(DIST_DEV, siteName) : join(DIST_PROD, siteName)
 
 if (!existsSync(buildDir)) {
   printHelp(CMD, {

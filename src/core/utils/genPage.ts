@@ -17,8 +17,14 @@ type GenPage = {
 }
 
 export const genPage = async ({ coreConfig, pageConfig, menu }: GenPage) => {
-  const { timekey, layoutByName, pathInView, pathInBuild, pathInData, build } =
-    coreConfig
+  const {
+    timekey,
+    layoutByName,
+    viewIndexPath,
+    pathInBuild,
+    pathInData,
+    build,
+  } = coreConfig
   if (!build) {
     return
   }
@@ -41,7 +47,7 @@ export const genPage = async ({ coreConfig, pageConfig, menu }: GenPage) => {
     pageLangs: getPageLangs(langs, lang, menu.linksByDir[pathBase]),
   }
 
-  const compileViewFunc = pug.compileFile(pathInView('index.pug'))
+  const compileViewFunc = pug.compileFile(viewIndexPath)
   const pageContent = compileViewFunc(viewLocals)
 
   const pagePath = pathInBuild(joinPath([path], 'index.html'))

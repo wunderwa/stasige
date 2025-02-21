@@ -16,8 +16,8 @@ export const markdownAllowedAttributes = [
 export const distImgDir = 'i'
 export const distAssetsDir = 'a/'
 const SITES = 'sites'
-export const BUILD_PROD = 'dist'
-export const BUILD_DEV = 'http'
+export const DIST_PROD = 'dist'
+export const DIST_DEV = 'http'
 const SITE_NAME = 'default'
 const ROOT = process.cwd()
 const ASSETS = 'assets'
@@ -28,7 +28,9 @@ const DATA = 'data'
 const FILE = {
   style: join('styles', 'index.scss'),
   script: join('scripts', 'index.ts'),
+  view: join(VIEWS, 'index.pug'),
   build: 'build.json',
+  deploy: 'deploy.json',
 }
 
 export const def = {}
@@ -56,17 +58,20 @@ export const getConfig = ({ root, siteName, dev }: Params): CoreConfig => {
   const inRoot = (...list: string[]) => join(siteRoot, ...list)
 
   const pathInBuild = (filePath = '') =>
-    join(rootPath, dev ? BUILD_DEV : BUILD_PROD, siteDir, filePath)
+    join(rootPath, dev ? DIST_DEV : DIST_PROD, siteDir, filePath)
 
   const buildConfigPath = inRoot(FILE.build)
-  const build = readConfig(buildConfigPath) as BuildConfig
+  const build = readConfig<BuildConfig>(buildConfigPath) as BuildConfig
 
   return {
     build,
+    dev,
     timekey: dev ? 'dev' : Date.now().toString(36),
     buildConfigPath,
+    deployConfigPath: inRoot(FILE.deploy),
     styleIndexPath: inRoot(FILE.style),
     scriptIndexPath: inRoot(FILE.script),
+    viewIndexPath: inRoot(FILE.view),
     pagesFullPath: inRoot(PAGES),
     distDir: pathInBuild(),
     pathInAssets: (file = '') => inRoot(ASSETS, file),

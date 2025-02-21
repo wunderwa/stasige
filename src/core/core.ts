@@ -4,6 +4,7 @@ import { taskScript } from './task-script.js'
 import { taskStyle } from './task-style.js'
 import { taskHtml } from './task-html.js'
 import { taskImages } from './task-images.js'
+import { taskDeploy } from './task-deploy.js'
 
 type CoreProps = {
   siteName: string
@@ -17,6 +18,7 @@ type CoreResp = {
   renderScript: () => Promise<void>
   renderStyle: () => void
   copyImages: () => void
+  deploy: () => void
 }
 
 export const Core = async ({
@@ -36,5 +38,6 @@ export const Core = async ({
     renderStyle: () => taskStyle({ timekey, styleIndexPath, distDir }),
     renderScript: () => taskScript({ timekey, scriptIndexPath, distDir }),
     copyImages: () => taskImages(coreConfig),
+    deploy: () => taskDeploy(coreConfig),
   }
 }

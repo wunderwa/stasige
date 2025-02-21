@@ -6,7 +6,7 @@ yarn new -ch 〈site〉 〈path:lang,lang〉
 -h - help description
 〈site〉 - site template name
 path - page base path (ex. /docs/icons)
-lang - page lang
+lang - page lang 
 
 Create pages for all project languages (see ./build.json langs key)
 yarn new -c 〈site〉 〈path〉
@@ -20,5 +20,5 @@ yarn new -c default /docs/new:en
 Create pages for selected languages (ru,en)
 yarn new -c 〈site〉 〈path:lang,lang〉
 yarn new -c default /docs/new:ru,en
-./sites/〈site〉/pages/docs/new/index.en.md
+./sites/〈site〉/pages/docs/new/index.en.md 
 ./sites/〈site〉/pages/docs/new/index.ru.md

@@ -4,7 +4,7 @@ yarn man -ch 〈cmd〉
 
 -c - clear console
 -h - help description
-〈cmd〉 - 〈empty〉 | man | copy | new | vars | srv | wrk | doc
+〈cmd〉 - 〈empty〉 | man | copy | new | vars | srv | wrk | doc 
 
 yarn man
 yarn man man
