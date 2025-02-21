@@ -25,7 +25,7 @@ const doTexts = async () => {
 
 const doPage = async () => {
   const list = parts.map((name) => readFile(`docs/yarn/${name}.md`))
-  const body = [readFile('docs/docs-manual-vars.md'), list].join('\n')
+  const body = [readFile('docs/docs-manual-vars.md'), ...list].join('\n')
   await writeFile('sites/default/pages/docs/manual/index.en.md', body)
 }
 

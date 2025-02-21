@@ -1,7 +1,7 @@
 {
-  "name": "@wunderwa/stasige",
-  "version": "0.2.1",
-  "description": "Stasige - static site generator with pug, bootstrap, sass, markdown",
+  "name": "stasige",
+  "version": "0.3.0",
+  "description": "Stasige - static site generator with pug, sass, typescript, markdown",
   "type": "module",
   "engines": {
     "node": ">= 22.12 < 23"
@@ -28,6 +28,7 @@
     "markdown-it": "^14.1.0",
     "markdown-it-attrs": "^4.3.1",
     "minimist": "^1.2.8",
+    "node-ssh": "^13.2.0",
     "open": "^10.1.0",
     "prettier": "~3.3",
     "pug": "^3.0.3",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@eslint/js": "~9.10",
     "@types/bootstrap": "^5.2.10",
+    "@types/eslint__js": "~8.42",
     "@types/finalhandler": "^1.2.3",
     "@types/gulp": "^4.0.17",
     "@types/gulp-autoprefixer": "^0.0.37",
@@ -51,10 +53,10 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^22.10.2",
     "@types/pug": "^2.0.10",
-    "@types/serve-static": "^1.15.7",
-    "@typescript-eslint/parser": "~8.5",
-    "@types/eslint__js": "~8.42",
     "@types/remove-markdown": "^0.3.4",
+    "@types/serve-static": "^1.15.7",
+    "@types/ssh2": "^1.15.4",
+    "@typescript-eslint/parser": "~8.5",
     "@vitest/coverage-v8": "~2.1",
     "@vitest/eslint-plugin": "~1.1",
     "bootstrap": "^5.3.3",

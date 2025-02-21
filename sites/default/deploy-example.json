@@ -1,0 +1,18 @@
+{
+  "prod": {
+    "ssh": {
+      "host": "0.0.0.0",
+      "username": "root",
+      "privateKeyPath": "~/.ssh/id_rsa"
+    },
+    "path": "/var/www/prod/"
+  },
+  "dev": {
+    "ssh": {
+      "host": "0.0.0.0",
+      "username": "root",
+      "privateKeyPath": "~/.ssh/id_rsa"
+    },
+    "path": "/var/www/dev/"
+  }
+}

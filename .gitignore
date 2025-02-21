@@ -13,6 +13,7 @@ coverage
 # source site files
 sites/*
 !sites/default
+sites/default/deploy.json
 
 # compiled site files: prod mode
 dist
