@@ -1,4 +1,4 @@
-import { DIST_DEV, DIST_PROD, checkSiteName, getArgv, minActions, printHelp, startServer, } from './core/utils/index.js';
+import { DIST_DEV, DIST_PROD, checkSiteName, getArgv, minActions, printHelp, startServer, readMono, } from './core/utils/index.js';
 import { join } from 'node:path';
 import { existsSync } from 'node:fs';
 const CMD = 'srv';
@@ -9,11 +9,12 @@ const extend = {
 };
 const argv = getArgv(extend);
 minActions(CMD, argv);
-const siteName = argv._[0];
-checkSiteName(CMD, siteName);
-const buildDir = argv.dev
-    ? join(DIST_DEV, siteName)
-    : join(DIST_PROD, siteName);
+const mono = readMono();
+const siteName = mono ? '' : argv._[0];
+if (!mono) {
+    checkSiteName(CMD, siteName);
+}
+const buildDir = argv.dev ? join(DIST_DEV, siteName) : join(DIST_PROD, siteName);
 if (!existsSync(buildDir)) {
     printHelp(CMD, {
         error: `Directory '${buildDir}' does not exist.`,

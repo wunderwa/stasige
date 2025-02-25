@@ -7,6 +7,7 @@ import {
   MinArgv,
   parsePageProps,
   printHelp,
+  readMono,
 } from './core/utils/index.js'
 
 const CMD = 'vars'
@@ -14,16 +15,19 @@ const CMD = 'vars'
 const argv: MinArgv = getArgv()
 minActions(CMD, argv)
 
-const siteName = argv._[0]
+const mono = readMono()
 
-if (!siteName) {
+const siteName = mono ? '' : argv._[0]
+const argList = mono ? argv._ : argv._.slice(1)
+
+if (!siteName && !mono) {
   printHelp(CMD, {
     exit: true,
     error: 'No site template name argument found. See help below',
   })
 }
 
-const coreConfig: CoreConfig = getConfig({ siteName, dev: false })
+const coreConfig: CoreConfig = getConfig({ siteName, mono, dev: false })
 
 const params: {
   siteName: string
@@ -35,11 +39,11 @@ const params: {
   varList: [],
 }
 
-if (argv._.length === 2) {
-  params.varList = argv._[1].split(',') as string[]
-} else if (argv._.length > 2) {
-  params.page = parsePageProps(argv._[1])
-  params.varList = argv._[2].split(',')
+if (argList.length === 1) {
+  params.varList = argList[0].split(',') as string[]
+} else if (argList.length > 1) {
+  params.page = parsePageProps(argList[0])
+  params.varList = argList[1].split(',')
 }
 
 if (params.page?.langs?.length ?? 0 > 1) {

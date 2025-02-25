@@ -1,0 +1,20 @@
+#!/bin/bash
+# for lib development only
+MULTI=("man" "wrk" "copy" "srv" "new" "vars")
+MONO=("man" "wrk" "srv" "new" "vars")
+
+echo "Create all manuals and 'manual' pages"
+
+LIST=""
+for NM in "${MULTI[@]}"; do
+  pandoc docs/help-md/$NM.md -t plain -o docs/help-txt/$NM.txt
+  LIST="$LIST docs/help-md/$NM.md"
+done
+cat docs/docs-manual-vars.md $LIST  > sites/default/pages/docs/manual/index.en.md
+
+LIST=""
+for NM in "${MONO[@]}"; do
+  pandoc docs/help-md/$NM-mono.md -t plain -o docs/help-txt/$NM-mono.txt
+  LIST="$LIST docs/help-md/$NM.md"
+done
+cat docs/docs-manual-vars.md $LIST  > sites/default/pages/docs/manual/index.en.md

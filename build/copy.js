@@ -19,7 +19,7 @@ if (answer.toLowerCase() === 'y') {
     cpSync('sites/default', path, { recursive: true });
     const { stdout, stderr } = await exec(`cd ${path} && git init`);
     if (stdout) {
-        console.log(stdout);
+        console.info(stdout);
     }
     else if (stderr) {
         printHelp(CMD, {

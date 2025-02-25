@@ -3,7 +3,7 @@ import { joinPath, writeFile } from './filesys.js';
 import { getPageLangs } from './langs.js';
 import { pugData, pugFunc } from './pugHelpers.js';
 export const genPage = async ({ coreConfig, pageConfig, menu }) => {
-    const { timekey, layoutByName, viewIndexPath, pathInBuild, pathInData, build } = coreConfig;
+    const { timekey, layoutByName, viewIndexPath, pathInBuild, pathInData, build, } = coreConfig;
     if (!build) {
         return;
     }

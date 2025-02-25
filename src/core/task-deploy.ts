@@ -55,7 +55,7 @@ export const taskDeploy = async (config: CoreConfig) => {
         baseName !== 'node_modules'
       )
     },
-    tick: function (localPath, remotePath, error) {
+    tick: function (localPath, _, error) {
       if (error) {
         redLog(localPath.split(distDir)?.[1] ?? localPath)
       } else {
@@ -68,5 +68,5 @@ export const taskDeploy = async (config: CoreConfig) => {
   }
   ssh.connection?.end()
 
-  console.log('the directory transfer was', status ? 'successful' : 'failed')
+  console.info('the directory transfer was', status ? 'successful' : 'failed')
 }

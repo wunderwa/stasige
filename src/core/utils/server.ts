@@ -15,11 +15,11 @@ type Params = {
 
 const status = (code: number) => {
   if (code >= 200 && code < 300) {
-    return green(code)
+    return green(`${code}`)
   } else if (code >= 300 && code < 400) {
-    return yellow(code)
+    return yellow(`${code}`)
   } else if (code >= 400) {
-    return red(code)
+    return red(`${code}`)
   }
   return `${code}`
 }
@@ -39,21 +39,21 @@ export const startServer = ({
   const server = http.createServer(function (req, res) {
     const done = finalhandler(req, res, {
       onerror: (_, { method, url }, { statusCode }) => {
-        console.log(`[${status(statusCode)}] ${method}  ${url}`)
+        console.info(`[${status(statusCode)}] ${method}  ${url}`)
       },
     })
     serveStat(req, res, done)
   })
 
   server.on('listening', async () => {
-    console.log(`http server ${url}`)
+    console.info(`http server ${url}`)
     if (openBrowser) {
       await open(url)
     }
   })
 
   server.on('request', ({ method, url }, { statusCode }) => {
-    if (!onlyError) console.log(`[${status(statusCode)}] ${method}  ${url}`)
+    if (!onlyError) console.info(`[${status(statusCode)}] ${method}  ${url}`)
   })
 
   server.listen(port, host)

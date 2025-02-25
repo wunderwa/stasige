@@ -41,6 +41,9 @@ export const readConfig = <T>(filePath: string): T | null => {
   }
 }
 
+export const readMono = (): boolean =>
+  readConfig<{ mono?: boolean }>('package.json')?.mono ?? false
+
 export const joinPath = (dirs: string[], file: string): string =>
   join(...dirs, file)
 

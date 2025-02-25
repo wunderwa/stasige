@@ -7,6 +7,7 @@ import {
   MinArgv,
   printHelp,
   startServer,
+  readMono,
 } from './core/utils/index.js'
 import { join } from 'node:path'
 import { existsSync } from 'node:fs'
@@ -28,9 +29,12 @@ const argv: MinArgv<Extend> = getArgv<Extend>(extend)
 
 minActions(CMD, argv)
 
-const siteName = argv._[0]
+const mono = readMono()
+const siteName = mono ? '' : argv._[0]
 
-checkSiteName(CMD, siteName)
+if (!mono) {
+  checkSiteName(CMD, siteName)
+}
 
 const buildDir = argv.dev ? join(DIST_DEV, siteName) : join(DIST_PROD, siteName)
 

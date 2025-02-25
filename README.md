@@ -1,6 +1,8 @@
-## stasige
+## stasige 
 
 [stasige.memd.space](https://stasige.memd.space/)
+
+![Stasige](stasige.svg)
 
 ### Install
 ```shell
@@ -85,18 +87,15 @@ Build & deploy `default` site
 - [Structure](docs/STRUCTURE.md)
 
 ### Ideas
-TODO Console menu order editor
 
-TODO Console site link tester a.href] img.src
+### TODO: Console menu order editor
+
+### TODO: Console site link tester a.href] img.src
 ```shell
 yarn linktest -Dp <port> <site>
 ``` 
 
-TODO make deploy in node script?
-```shell
-yarn add -D node-ssh @types/node-ssh
-```
-TODO code Highlight
+### TODO: code Highlight
 ```shell
 yarn add -D markdown-it-highlightjs @types/markdown-it-highlightjs
 ```

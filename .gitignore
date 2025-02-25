@@ -1,30 +1,23 @@
-# Logs
+node_modules/
 logs
 *.log
 npm-debug.log*
-
-# Dependencies
-node_modules/
-
-# Coverage
-coverage
-
 
 # source site files
 sites/*
 !sites/default
 sites/default/deploy.json
+#mono
+deploy.json
 
-# compiled site files: prod mode
+# compiled files: prod andev mode
 dist
-# compiled site files: dev mode (local server)
-http
+dist-dev
 
-# VS Code
+
+# editors
 .vscode
 !.vscode/tasks.js
-
-# JetBrains IDEs
 .idea/
 
 # Optional npm cache directory

@@ -3,6 +3,7 @@
     {
       "files": ["*.mts", "*.cts", "*.ts"],
       "options": {
+
         "parser": "typescript",
         "semi": false,
         "singleQuote": true,

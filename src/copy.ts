@@ -38,7 +38,7 @@ if (answer.toLowerCase() === 'y') {
 
   const { stdout, stderr } = await exec(`cd ${path} && git init`)
   if (stdout) {
-    console.log(stdout)
+    console.info(stdout)
   } else if (stderr) {
     printHelp(CMD, {
       error: stderr,

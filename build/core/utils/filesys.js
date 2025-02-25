@@ -28,6 +28,7 @@ export const readConfig = (filePath) => {
         return null;
     }
 };
+export const readMono = () => readConfig('package.json')?.mono ?? false;
 export const joinPath = (dirs, file) => join(...dirs, file);
 export const writeFile = async (filePath, content) => {
     const dirPath = dirname(filePath);

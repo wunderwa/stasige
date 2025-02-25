@@ -1,4 +1,4 @@
-### yarn wrk (stasige ssg)
+### yarn wrk (stasige ssg) 
 Build and deploy
 
 Base usage (Build production (html, css and js) and deploy):

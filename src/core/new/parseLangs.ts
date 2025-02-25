@@ -1,4 +1,4 @@
-import { criticalError } from '../core/utils/index.js'
+import { criticalError } from '../utils/index.js'
 
 export const parseLangs = (langs: string[], langParam?: string) =>
   !langParam

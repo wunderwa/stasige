@@ -12,8 +12,10 @@ export const markdownAllowedAttributes = [
 export const distImgDir = 'i';
 export const distAssetsDir = 'a/';
 const SITES = 'sites';
+// const SITES_MONO = 'site'
+const SITES_MONO = '';
 export const DIST_PROD = 'dist';
-export const DIST_DEV = 'http';
+export const DIST_DEV = 'dev';
 const SITE_NAME = 'default';
 const ROOT = process.cwd();
 const ASSETS = 'assets';
@@ -31,15 +33,11 @@ const FILE = {
 export const def = {};
 export const pageRegExp = /index\.([a-z]{2})\.md/;
 const PUG = 'pug';
-let siteDir = SITE_NAME;
-let rootPath = ROOT;
-const currentSite = () => join(rootPath, SITES, siteDir);
-export const getConfig = ({ root, siteName, dev }) => {
-    siteDir = siteName ?? SITE_NAME;
-    rootPath = root ?? ROOT;
-    const siteRoot = currentSite();
+export const getConfig = ({ mono, dev, siteName }) => {
+    const siteDir = mono ? '' : (siteName ?? SITE_NAME);
+    const siteRoot = join(ROOT, mono ? SITES_MONO : SITES, siteDir);
     const inRoot = (...list) => join(siteRoot, ...list);
-    const pathInBuild = (filePath = '') => join(rootPath, dev ? DIST_DEV : DIST_PROD, siteDir, filePath);
+    const pathInBuild = (filePath = '') => join(ROOT, dev ? DIST_DEV : DIST_PROD, siteDir, filePath);
     const buildConfigPath = inRoot(FILE.build);
     const build = readConfig(buildConfigPath);
     return {

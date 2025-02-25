@@ -8,9 +8,9 @@ import { taskDeploy } from './task-deploy.js'
 
 type CoreProps = {
   siteName: string
+  mono: boolean
   dev?: boolean
   log?: boolean
-  root?: string
 }
 type CoreResp = {
   cleanDist: () => void
@@ -23,10 +23,10 @@ type CoreResp = {
 
 export const Core = async ({
   siteName,
-  root,
+  mono,
   dev = false,
 }: CoreProps): Promise<CoreResp> => {
-  const coreConfig: CoreConfig = getConfig({ siteName, root, dev })
+  const coreConfig: CoreConfig = getConfig({ mono, dev, siteName })
   const { timekey, styleIndexPath, scriptIndexPath, distDir } = coreConfig
 
   return {

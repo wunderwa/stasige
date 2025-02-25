@@ -6,6 +6,7 @@ import {
   getArgv,
   MinArgv,
   minActions,
+  readMono,
 } from './core/utils/index.js'
 
 import {
@@ -13,16 +14,16 @@ import {
   genUpdateList,
   getDefaultContent,
   parseLangs,
-} from './new/index.js'
+} from './core/new/index.js'
 
 const CMD = 'new'
 
 const argv: MinArgv = getArgv()
 minActions(CMD, argv)
 
-const siteName = argv._[0] ?? 'default'
-
-const page = argv._[1]?.split(':')
+const mono = readMono()
+const siteName = mono ? '' : argv._[0]
+const page = mono ? argv._[0]?.split(':') : argv._[1]?.split(':')
 
 if (!page?.[0]) {
   printHelp(CMD, {
@@ -31,7 +32,7 @@ if (!page?.[0]) {
   })
 }
 
-const coreConfig: CoreConfig = getConfig({ siteName, dev: true })
+const coreConfig: CoreConfig = getConfig({ mono, dev: true, siteName })
 const { pathInPages, build } = coreConfig
 
 if (!build) {

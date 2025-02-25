@@ -1,11 +1,18 @@
 
+## Structure of project
+
 Default lang set as first element of array in `build.json` in "langs" key
 
 ```yaml
 sites:
-  default: # default site 
+  default: # default site
     build.json: 'config file for building of site'
     deploy.json: 'config file for building of site'
+    assets: # common images for design
+      icon.svg
+      logo.svg
+    data: # custom json files to access data in all pug templates
+      custom.json # like data.custom.param...
     pages: # site content directory; page structure of site  
       index.en.md: 'Root page content and page options in yaml on top of file'
       index.ru.md: 'Root page on other lang'
@@ -39,10 +46,11 @@ Current site structure for site.com, default lang is 'en'
 
 pages in `yamd` format contains yaml before markdown separated by a separator
 ```markdown
+```yaml
 ke1: value1
 ke2: value2
-<!--config-->
+```
+&lt;!--config-->
 Markdown here
 
 ```
-

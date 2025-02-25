@@ -1,3 +1,5 @@
+import { separator } from '../utils/index.js'
+
 export const getDefaultContent = (filePath: string, _lang: string) =>
   [
     '```yaml',
@@ -6,6 +8,6 @@ export const getDefaultContent = (filePath: string, _lang: string) =>
     `menuLong: ${filePath} ${_lang}`,
     `title: ${filePath} ${_lang} title`,
     '```',
-    '<!--config-->',
+    separator,
     `## ${filePath} ${_lang}`,
   ].join('\n')

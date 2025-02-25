@@ -1,5 +1,5 @@
 ### yarn man (stasige ssg)
-Show all comands and its help
+Show all commands and its help
 ```shell
 yarn man -ch 〈cmd〉
 ```
@@ -15,4 +15,3 @@ yarn man -ch 〈cmd〉
 * `yarn man vars`
 * `yarn man srv`
 * `yarn man wrk`
-* `yarn man doc`

@@ -2,7 +2,7 @@ import removeMarkdown from 'remove-markdown';
 import { getArgv, minActions, readFile, writeFile, } from './core/utils/index.js';
 const argv = getArgv();
 minActions('doc', argv);
-const acrion = argv._[0];
+const action = argv._[0];
 const texts = ['man', 'wrk', 'copy', 'srv', 'new', 'vars', 'doc'];
 const parts = ['man', 'wrk', 'copy', 'srv', 'new', 'vars'];
 const doTexts = async () => {
@@ -17,7 +17,7 @@ const doPage = async () => {
     const body = [readFile('docs/docs-manual-vars.md'), ...list].join('\n');
     await writeFile('sites/default/pages/docs/manual/index.en.md', body);
 };
-switch (acrion) {
+switch (action) {
     case 'text':
         await doTexts();
         break;

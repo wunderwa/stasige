@@ -1,5 +1,5 @@
 import { Core } from './core/core.js'
-import { getArgv, minActions, MinArgv } from './core/utils/index.js'
+import { getArgv, minActions, MinArgv, readMono } from './core/utils/index.js'
 
 type Extend = {
   build: boolean
@@ -33,9 +33,13 @@ const argv: MinArgv<Extend> = getArgv<Extend>(extend)
 
 minActions(CMD, argv)
 
+const mono = readMono()
+
 const { dev, deploy, build } = argv
-const siteName = argv._[0]
+const siteName = mono ? '' : argv._[0]
+
 const core = await Core({
+  mono,
   siteName,
   dev,
 })

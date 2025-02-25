@@ -38,7 +38,7 @@ export const taskDeploy = async (config) => {
                 // do not allow node_modules
                 baseName !== 'node_modules');
         },
-        tick: function (localPath, remotePath, error) {
+        tick: function (localPath, _, error) {
             if (error) {
                 redLog(localPath.split(distDir)?.[1] ?? localPath);
             }
@@ -51,5 +51,5 @@ export const taskDeploy = async (config) => {
         return;
     }
     ssh.connection?.end();
-    console.log('the directory transfer was', status ? 'successful' : 'failed');
+    console.info('the directory transfer was', status ? 'successful' : 'failed');
 };

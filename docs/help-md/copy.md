@@ -1,5 +1,7 @@
 ## yarn copy (stasige ssg)
-Copy site template (in new)
+Copy site template (in new).
+Not used in `mono` mode 
+
 ```shell
 yarn copy -ch 〈site〉
 ```

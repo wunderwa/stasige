@@ -1,5 +1,5 @@
 import { Core } from './core/core.js';
-import { getArgv, minActions } from './core/utils/index.js';
+import { getArgv, minActions, readMono } from './core/utils/index.js';
 const alias = {
     b: 'build',
     d: 'deploy',
@@ -17,9 +17,11 @@ const extend = {
 const CMD = 'wrk';
 const argv = getArgv(extend);
 minActions(CMD, argv);
+const mono = readMono();
 const { dev, deploy, build } = argv;
-const siteName = argv._[0];
+const siteName = mono ? '' : argv._[0];
 const core = await Core({
+    mono,
     siteName,
     dev,
 });

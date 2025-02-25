@@ -6,9 +6,8 @@ title: Dev manual
 ```
 <!--config-->
 ## Stasige: Static Site Generator with markdown data
-
 ### yarn man (stasige ssg)
-Show all comands and its help
+Show all commands and its help
 ```shell
 yarn man -ch 〈cmd〉
 ```
@@ -24,9 +23,7 @@ yarn man -ch 〈cmd〉
 * `yarn man vars`
 * `yarn man srv`
 * `yarn man wrk`
-* `yarn man doc`
-
-### yarn wrk (stasige ssg)
+### yarn wrk (stasige ssg) 
 Build and deploy
 
 Base usage (Build production (html, css and js) and deploy):
@@ -84,22 +81,6 @@ yarn wrk -bDJ 〈site〉
 yarn wrk -bDH 〈site〉 
 yarn wrk -bDI 〈site〉 
 ```
-
-## yarn copy (stasige ssg)
-Copy site template (in new)
-```shell
-yarn copy -ch 〈site〉
-```
-
-* `-c` - clear console
-* `-h` - help description
-* `〈site〉` - new site template name
-
-Copy default site template in new location `./sites/default` =〉  `./sites/〈site〉`
-```shell
-yarn copy 〈site〉
-```
-
 ### yarn srv (stasige ssg)
 Start local server
 ```shell
@@ -107,10 +88,9 @@ yarn srv -hcDp 〈port〉 〈site〉
 ```
 * `-c` - clear console
 * `-h` - help description
-* `〈site〉` - site template name (required for start)
 * `-D` - dev mode
 * `-p 〈port〉` - port number. Default 8000
-
+* `〈site〉` - site template name (required for start)
 ### yarn new (stasige ssg)
 Create new page(s)
 ```shell
@@ -143,7 +123,6 @@ yarn new -c default /docs/new:ru,en
 # ./sites/〈site〉/pages/docs/new/index.en.md 
 # ./sites/〈site〉/pages/docs/new/index.ru.md
 ```
-
 ### yarn vars (stasige ssg)
 Show template variables for selected template
 
