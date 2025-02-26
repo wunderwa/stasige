@@ -11,7 +11,7 @@ sites/default/deploy.json
 deploy.json
 
 # built files
-# builds/
+build/
 # compiled files: prod andev mode
 dist
 dist-dev
