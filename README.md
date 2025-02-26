@@ -2,35 +2,70 @@
 
 [stasige.memd.space](https://stasige.memd.space/)
 
-![Stasige](stasige.svg)
-
 ### Install
+
 ```shell
 npm i -g yarn
-git clone git@github.com:wunderwa/stasige.git stasige
-cd stasige
-yarn
+# or
+npm i -g bun
+
+npx stasige-init # the script will ask for all missing parameters
+npx stasige-init --bun # for bun PM using. default PM - yarn
+cd new-project
+#or
+npx stasige-init new-project
+#or
+npx stasige-init [--mono | --multi] [--framework [bootstrap | bootstrap.native]] new-project
 ```
 
-default
+```shell
+npx stasige-init --mono --framework bootstrap new-project
+```
+
+```shell
+npx stasige-init --mono --framework bootstrap.native new-project
+```
+
+```shell
+npx stasige-init --multi --framework bootstrap new-project
+```
+
+```shell
+npx stasige-init --multi --framework bootstrap.native new-project
+```
+
+
+For multi mode
+- `new-project/sites/default` - default bootstrap template 
+- `yarn copy new-tmp` - create copy in `sites/new-tmp`
+For mono mode
+- One template in `new-project/`  
+
 ### Build
 ```shell
-yarn wrk -b <site-name>
+#mono
+yarn wrk -cb
+#multi
+yarn wrk -cb <site-name>
 ```
 
+### Show available commands
+```shell
+yarn man
+```
 
 ### Pages
 
-Pages in /sites/<site-name>/pages/ for each language
+Pages in `/sites/<site-name>/pages/` for each language. Or in  `/pages/` for mono mode
 
 ```shell
 # for home page 
-/pages/en.md #compile  to '/' as main lang
-/pages/ru.md # -> '/ru/' as other lang
+/pages/index.en.md #compile  to '/' as main lang
+/pages/index.ru.md # -> '/ru/' as russian lang etc
 
 # for about page 
 /pages/about/en.md #compile  to '/about/' as main lang
-/pages/about/ru.md # -> '/about/ru/' as other lang
+/pages/about/ru.md # -> '/about/ru/' as russian lang etc
 ```
 
 md file has yaml section in top with separator `<!--config-->` 
@@ -48,19 +83,10 @@ Content of page as markdown
 
 ### Config
 ```
-layout: see /templates/layout/*.pug
+layout: see /views/layout/*.pug
 menuShort: Menu title
 menuLong: Menu long title
 title: Head title or its part
-```
-
-## For deploying
-Install shell dependencies `jq` and `ssh` 
-```shell
-# deb
-sudo apt install jq ssh
-# mac 
-brew install jq openssh
 ```
 
 ## Usage
@@ -84,18 +110,14 @@ Build & deploy `default` site
  yarn wrk -bd default
 ```
 
+## To ssg development
+
+```shell
+git clone git@github.com:wunderwa/stasige.git stasige
+cd stasige
+yarn
+```
+
+
 - [Structure](docs/STRUCTURE.md)
 
-### Ideas
-
-### TODO: Console menu order editor
-
-### TODO: Console site link tester a.href] img.src
-```shell
-yarn linktest -Dp <port> <site>
-``` 
-
-### TODO: code Highlight
-```shell
-yarn add -D markdown-it-highlightjs @types/markdown-it-highlightjs
-```

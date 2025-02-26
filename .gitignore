@@ -10,6 +10,8 @@ sites/default/deploy.json
 #mono
 deploy.json
 
+# built files
+# builds/
 # compiled files: prod andev mode
 dist
 dist-dev

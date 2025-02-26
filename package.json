@@ -1,19 +1,18 @@
 {
   "name": "stasige",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Stasige - static site generator with pug, sass, typescript, markdown",
   "type": "module",
   "engines": {
     "node": ">= 22.12 < 23"
   },
-  "main": "./lib/index.js",
   "files": [
     "build/**/*",
     "docs/**/*",
     "sites/default/**/*",
+    "!sites/default/deploy.json",
     ".editorconfig",
     ".prettierrc",
-    "stasige.svg",
     "tsconfig.browser.json"
   ],
   "dependencies": {
