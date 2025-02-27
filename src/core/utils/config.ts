@@ -16,7 +16,6 @@ export const markdownAllowedAttributes = [
 export const distImgDir = 'i'
 export const distAssetsDir = 'a/'
 const SITES = 'sites'
-// const SITES_MONO = 'site'
 const SITES_MONO = ''
 export const DIST_PROD = 'dist'
 export const DIST_DEV = 'dev'

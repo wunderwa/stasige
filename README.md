@@ -64,8 +64,8 @@ Pages in `/sites/<site-name>/pages/` for each language. Or in  `/pages/` for mon
 /pages/index.ru.md # -> '/ru/' as russian lang etc
 
 # for about page 
-/pages/about/en.md #compile  to '/about/' as main lang
-/pages/about/ru.md # -> '/about/ru/' as russian lang etc
+/pages/about/index.en.md #compile  to '/about/' as main lang
+/pages/about/index.ru.md # -> '/about/ru/' as russian lang etc
 ```
 
 md file has yaml section in top with separator `<!--config-->` 
@@ -93,21 +93,32 @@ title: Head title or its part
 
 Copy default site template to new one
 ```shell
- yarn copy mysite
+#for multi mode only
+yarn copy mysite
 ```
 
 Build `default` site
 ```shell
- yarn wrk -b default
+# multi mode
+yarn wrk -b default
+# mono mode
+yarn wrk -b
 ```
+
 Deploy `default` site
 ```shell
- yarn wrk -b default
+# multi mode
+ yarn wrk -d default
+# mono mode
+yarn wrk -d
 ```
 
 Build & deploy `default` site
 ```shell
+# multi mode
  yarn wrk -bd default
+# mono mode
+yarn wrk -bd
 ```
 
 ## To ssg development
@@ -118,6 +129,6 @@ cd stasige
 yarn
 ```
 
-
-- [Structure](docs/STRUCTURE.md)
+- [Structure](https://github.com/wunderwa/stasige/blob/main/docs/STRUCTURE.md)
+- [Structure local](docs/STRUCTURE.md)
 
