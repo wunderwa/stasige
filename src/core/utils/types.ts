@@ -5,6 +5,12 @@ type LinkKey = Langs | 'url'
 type MetaType = 'title' | 'description' | string
 type LinkType = 'app' | 'download' | string
 
+export type PlainObject = { [key: string]: string }
+export type DeepObject = {
+  [key: string]: DeepObject | string
+}
+export type DeepValue = DeepObject | string
+
 type Meta = {
   [key: string]: {
     [key: MetaType]: string

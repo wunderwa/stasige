@@ -95,7 +95,7 @@
     "logo": "node ./build/logo.js",
     "new": "node ./build/new.js $@",
     "vars": "node ./build/vars.js $@",
-    "wrk": "node --import=tsx src/wrk.ts $@",
+    "wrk": "node  ./build/wrk.js $@",
     "-": "#--- below: unused",
     "build": "tsc -p tsconfig.json",
     "prebuild": "#npm run lint",

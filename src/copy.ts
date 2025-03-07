@@ -6,7 +6,7 @@ import {
   MinArgv,
   checkSiteName,
   printHelp,
-  getReadLine,
+  initReadLine,
 } from './core/utils/index.js'
 import { join } from 'node:path'
 const CMD = 'copy'
@@ -25,8 +25,7 @@ if (existsSync(join('sites', siteName))) {
   })
 }
 
-const read = getReadLine()
-
+const read = initReadLine()
 const answer = await read.question(
   `Print 'y' to create '${siteName}' site template from default: `,
 )

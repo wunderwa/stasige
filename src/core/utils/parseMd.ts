@@ -4,6 +4,8 @@ import markdownItAttrs from 'markdown-it-attrs'
 import { distImgDir, markdownAllowedAttributes, separator } from './config.js'
 import { readFile } from './filesys.js'
 import { join } from 'node:path'
+import { DeepObject } from './types.js'
+import { buildVarsMap } from './buildVarsMap.js'
 
 const md = markdownit({
   html: true,
@@ -21,6 +23,7 @@ md.use(markdownItAttrs, {
 type ParseMd = (
   filePath: string,
   pathBase: string,
+  build: DeepObject,
 ) => {
   title: string
   layout: string
@@ -29,11 +32,18 @@ type ParseMd = (
   body: string
 }
 
-export const parseMd: ParseMd = (filePath: string, pathBase) => {
+export const parseMd: ParseMd = (filePath: string, pathBase: string, build) => {
   const content = readFile(filePath)
   const [yamlConf, ...mdList] = content.split(separator)
 
   const imgPath = join('/', distImgDir, pathBase, '/')
+
+  const po = buildVarsMap(build)
+  const srcMd = Object.keys(po).reduce(
+    (acc: string, key: string) => acc.replaceAll(key, po[key]),
+    mdList.join(separator),
+  )
+
   return {
     layout: 'default',
     ...parse(
@@ -43,7 +53,7 @@ export const parseMd: ParseMd = (filePath: string, pathBase) => {
         .replace(/```$/, ''),
     ),
     body: md
-      .render(mdList.join(separator))
+      .render(srcMd)
       .replace(/<img\s+src="-img\//g, '<img src="' + imgPath)
       .replace(/<img\s+src="([^"]+\.(jpg|png))/g, '<img src="$1.webp'),
   }

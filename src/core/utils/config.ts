@@ -3,6 +3,8 @@ import { BuildConfig, CoreConfig } from './types.js'
 import { readConfig } from './filesys.js'
 
 export const separator = '<!--config-->'
+export const buildVarStart = '${'
+export const buildVarEnd = '}'
 
 // empty array = all attributes are allowed
 export const markdownAllowedAttributes = [
