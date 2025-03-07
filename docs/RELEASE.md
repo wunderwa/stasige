@@ -2,8 +2,8 @@
 
 ## Releases (add tag)
 ```shell
-git tag -a v0.1.0 2004632 -m 'v0.3.0'
-git push origin v0.3.0
+git tag -a v0.3.3 e1ceaba -m 'v0.3.3'
+git push origin v0.3.3
 ```
 ## Releases (npm)
 ```shell

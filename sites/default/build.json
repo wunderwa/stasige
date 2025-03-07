@@ -25,6 +25,11 @@
       "url": "https://github.com/wunderwa/stasige/issues",
       "ru": "Проблемы проекта",
       "en": "Project issues"
+    },
+    "bootstrap": {
+      "url": "https://getbootstrap.com/docs/5.3",
+      "ru": "Документация Bootstrap",
+      "en": "Bootstrap documentation"
     }
   }
 }

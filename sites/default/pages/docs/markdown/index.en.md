@@ -32,6 +32,6 @@ Supported 'id', 'class', 'title', 'data-clicker'
 - title - standard html attribute { title=Title for it }
 - data-clicker - attribute for clicker('action-name', callback) js function like { data-clicker='action-name' } 
 
-See [bootstrap button manual new page](https://getbootstrap.com/docs/5.0/components/buttons/){.btn .btn-primary target=_blank}
+See [bootstrap button manual new page](${links.bootstrap.url}/components/buttons/){.btn .btn-primary target=_blank}
 
 You can [Open modal](#){.btn .btn-success title=My_title data-clicker=open-in-modal}
